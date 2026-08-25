@@ -1,0 +1,1074 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#1558D6">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Payless">
+<title>Payless — Econet Mix Bundles</title>
+<link rel="icon" href="assets/ecocash.png">
+<link rel="apple-touch-icon" href="assets/ecocash.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,500&family=DM+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── RESET ── */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{width:100%;height:100%;overflow:hidden;overscroll-behavior:none;position:fixed;inset:0}
+body{font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;color:#0A0F1E;background:#eef2ff}
+button{font-family:inherit;cursor:pointer;touch-action:manipulation;border:none;background:none;outline:none}
+input{font-family:inherit;border:none;outline:none;background:none;-webkit-user-select:text!important;user-select:text!important}
+img,svg{display:block}
+*{-webkit-user-select:none;user-select:none}
+
+/* ── TOKENS ── */
+:root{
+  --blue:#1558D6;--blue-dk:#0E42B0;--blue-a:rgba(21,88,214,.10);--blue-b:rgba(21,88,214,.06);
+  --grn:#0A8A45;--grn-a:rgba(10,138,69,.10);
+  --err:#C8192B;--err-a:rgba(200,25,43,.10);
+  --gold:#C97000;
+  --white:#fff;--bg:#eef2ff;--s2:#e8eeff;--s3:#d8e0f7;
+  --ink1:#0A0F1E;--ink2:#3B4A72;--ink3:#7B8CB0;
+  --line:#D4DCEF;--line2:#EAEEFC;
+  --sh0:0 1px 3px rgba(10,30,80,.08),0 1px 2px rgba(10,30,80,.05);
+  --sh-blue:0 4px 20px rgba(21,88,214,.28),0 1px 6px rgba(21,88,214,.14);
+  --r12:12px;--r16:16px;--r20:20px;--r24:24px;--rpill:999px;
+  --ease:cubic-bezier(.22,1,.36,1);--spring:cubic-bezier(.34,1.56,.64,1);
+}
+
+/* ── KEYFRAMES ── */
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pgIn{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes ripple{to{transform:scale(4);opacity:0}}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:none}}
+@keyframes curtainPulse{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
+@keyframes blobFloat{0%,100%{transform:translate(0,0) rotate(0deg)}33%{transform:translate(6px,-8px) rotate(4deg)}66%{transform:translate(-4px,6px) rotate(-3deg)}}
+
+/* ── CURTAIN ── */
+.curtain{position:fixed;inset:0;z-index:9999;background:#fff;opacity:0;pointer-events:none;transition:opacity .22s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px}
+.curtain.show{opacity:1;pointer-events:auto}
+.curtain-logo{height:64px;width:auto;object-fit:contain;filter:drop-shadow(0 4px 16px rgba(21,88,214,.2));animation:curtainPulse .6s var(--ease) both}
+.curtain-spin{width:22px;height:22px;border:2.5px solid var(--line);border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite}
+
+/* ── APP ── */
+#app{display:flex;flex-direction:column;width:100%;height:100dvh;overflow:hidden;background:var(--bg);animation:pgIn .28s var(--ease) both}
+
+/* ────────────────────────────────────────
+   TOPBAR — glass
+   Econet logo · Payless / by EcoCash · total
+   ──────────────────────────────────────── */
+.topbar{
+  flex:0 0 auto;
+  min-height:calc(52px + env(safe-area-inset-top));
+  padding:calc(env(safe-area-inset-top) + 8px) 18px 8px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(255,255,255,.75);
+  backdrop-filter:blur(24px) saturate(200%);
+  -webkit-backdrop-filter:blur(24px) saturate(200%);
+  border-bottom:1px solid rgba(255,255,255,.5);
+  box-shadow:0 1px 0 rgba(10,20,60,.06);
+  z-index:10;position:relative;
+}
+.tb-left{display:flex;align-items:center;gap:9px}
+.tb-econet{height:52px;width:auto;object-fit:contain;flex-shrink:0}
+.tb-brand{display:flex;flex-direction:column;gap:0}
+.tb-payless{font-size:18px;font-weight:800;color:#0A0F1E;letter-spacing:-.5px;line-height:1}
+.tb-byeco-row{display:flex;align-items:center;gap:3px;margin-top:1px}
+.tb-by{font-size:9px;font-weight:400;color:var(--ink3)}
+.tb-ecocash-logo{height:14px;width:auto;object-fit:contain;flex-shrink:0}
+.tb-total{display:none;flex-direction:column;align-items:flex-end}
+.tb-total.show{display:flex}
+.tb-total-lbl{font-size:8px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--ink3)}
+.tb-total-val{font-size:14px;font-weight:700;color:var(--blue);letter-spacing:-.02em;font-feature-settings:"tnum"}
+
+/* ────────────────────────────────────────
+   SCREENS HOST
+   ──────────────────────────────────────── */
+#card{flex:1;min-height:0;overflow:hidden;display:flex;flex-direction:column}
+
+/* ────────────────────────────────────────
+   HOME SCREEN
+   ──────────────────────────────────────── */
+#homeScreen{flex:1;min-height:0;overflow:hidden;display:flex;flex-direction:column}
+#homeScreen::-webkit-scrollbar{display:none}
+
+/* ── HERO BAND ── */
+.hero{
+  flex:0 0 auto;padding:10px 18px 8px;
+  background:linear-gradient(145deg,#1558D6 0%,#0A2E80 100%);
+  position:relative;overflow:hidden;
+}
+.hero::before{content:'';position:absolute;right:-50px;top:-50px;width:200px;height:200px;
+  border-radius:62% 38% 46% 54% / 60% 44% 56% 40%;
+  background:rgba(255,255,255,.06);pointer-events:none;animation:blobFloat 8s ease-in-out infinite}
+.hero::after{content:'';position:absolute;left:-30px;bottom:-40px;width:130px;height:130px;
+  border-radius:40% 60% 54% 46% / 48% 52% 48% 52%;
+  background:rgba(0,174,239,.08);pointer-events:none;animation:blobFloat 11s ease-in-out infinite reverse}
+.hero-row{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}
+.hero-left{display:flex;flex-direction:column}
+.hero-title{display:flex;align-items:baseline;gap:0;line-height:1;margin-bottom:3px}
+.ht-mix{font-size:24px;font-weight:800;color:#00AEEF;letter-spacing:-.5px}
+.ht-bundles{font-size:24px;font-weight:800;color:#EE1C25;letter-spacing:-.5px}
+.hero-sub{font-size:11px;color:rgba(255,255,255,.65);font-weight:400;margin-bottom:6px}
+.hero-soc{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+.ww-soc{
+  display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;
+  width:24px;height:24px;border-radius:7px;
+  box-shadow:0 1px 4px rgba(0,0,0,.25);
+  opacity:.92;transition:opacity .15s;
+}
+.ww-soc:hover{opacity:1}
+
+
+/* ── PLANS BAR ── */
+.plans-bar{display:flex;align-items:center;justify-content:space-between;padding:5px 14px 3px;flex:0 0 auto}
+.plans-bar-title{font-size:13px;font-weight:700;color:var(--ink1)}
+.plans-bar-sub{font-size:11px;color:var(--ink3)}
+
+/* ────────────────────────────────────────
+   PLAN GRID
+   ──────────────────────────────────────── */
+.plan-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  padding:0 14px 10px;flex:1;min-height:0;align-content:stretch;
+}
+
+/* ── PLAN CARD ── */
+.pg-card{
+  display:flex;flex-direction:column;
+  border-radius:16px;
+  border:1.5px solid rgba(255,255,255,.55);
+  background:rgba(255,255,255,.78);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  box-shadow:0 2px 12px rgba(10,30,80,.10),0 1px 0 rgba(255,255,255,.8) inset;
+  cursor:pointer;touch-action:manipulation;
+  width:100%;height:100%;min-width:0;
+  text-align:left;overflow:hidden;position:relative;
+  transition:border-color .18s,box-shadow .18s,transform .12s,background .22s;
+}
+.pg-card:active{transform:scale(.96)}
+
+/* Coloured top accent bar */
+.pg-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;z-index:2}
+.pg-card[data-k="daily"]::before  {background:#0A8A45}
+.pg-card[data-k="3days"]::before  {background:#7C3AED}
+.pg-card[data-k="weekly"]::before {background:#E05000}
+.pg-card[data-k="2weeks"]::before {background:#0099A0}
+.pg-card[data-k="monthly"]::before{background:var(--blue)}
+.pg-card.on::before{height:4px}
+
+/* Card image */
+.pg-img{width:100%;height:52px;object-fit:cover;display:block;flex-shrink:0}
+
+/* Card body */
+.pg-body{display:flex;flex-direction:column;flex:1;padding:7px 10px 8px;gap:0}
+
+/* Period */
+.pg-period{
+  font-size:9px;font-weight:700;letter-spacing:.7px;
+  text-transform:uppercase;line-height:1;margin-bottom:4px;display:block;
+}
+.pg-card[data-k="daily"]   .pg-period{color:#0A8A45}
+.pg-card[data-k="3days"]   .pg-period{color:#7C3AED}
+.pg-card[data-k="weekly"]  .pg-period{color:#E05000}
+.pg-card[data-k="2weeks"]  .pg-period{color:#0099A0}
+.pg-card[data-k="monthly"] .pg-period{color:var(--blue)}
+
+/* Price */
+.pg-price{
+  font-size:16px;font-weight:800;color:var(--ink1);
+  letter-spacing:-.04em;line-height:1;
+  font-feature-settings:"tnum";display:block;
+}
+
+/* Offers row — icon · value · separator · icon · value */
+.pg-detail{
+  display:flex;align-items:center;flex-direction:row;gap:0;
+  margin-top:auto;padding-top:5px;
+  border-top:1px solid rgba(0,0,0,.07);
+  pointer-events:none;
+}
+.pg-offer{
+  display:flex;align-items:center;gap:3px;flex:1;
+  font-size:10px;font-weight:500;color:var(--ink2);
+  line-height:1;pointer-events:none;justify-content:center;
+}
+.pg-offer:not(:last-child){
+  border-right:1px solid rgba(0,0,0,.07);
+  margin-right:0;padding-right:0;
+}
+.pg-offer svg{flex-shrink:0;opacity:.55;width:10px;height:10px}
+.pg-offer b{font-weight:700;color:var(--ink1);font-size:11px}
+
+/* Badge */
+.pg-badge{
+  display:inline-flex;align-items:center;
+  background:var(--gold);color:#fff;
+  font-size:8px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;
+  padding:2px 7px;border-radius:var(--rpill);
+  margin-bottom:3px;flex-shrink:0;align-self:flex-start;
+}
+
+/* Monthly — image on top, content below */
+.pg-card.monthly{grid-column:1/-1;flex-direction:column;height:auto}
+.pg-card.monthly .pg-img{width:100%;height:52px;flex-shrink:0;object-fit:cover}
+.pg-card.monthly .pg-body{flex:1;min-width:0;padding:10px 12px 10px}
+.pg-card.monthly .pg-price{font-size:18px}
+
+/* ── SELECTED STATES ── */
+.pg-card.on{box-shadow:0 6px 20px rgba(10,30,80,.2);transform:scale(1.02)}
+.pg-card[data-k="daily"].on  {background:rgba(10,138,69,.16);border-color:rgba(10,138,69,.5)}
+.pg-card[data-k="3days"].on  {background:rgba(124,58,237,.13);border-color:rgba(124,58,237,.5)}
+.pg-card[data-k="weekly"].on {background:rgba(224,80,0,.13);border-color:rgba(224,80,0,.5)}
+.pg-card[data-k="2weeks"].on {background:rgba(0,153,160,.13);border-color:rgba(0,153,160,.5)}
+.pg-card[data-k="monthly"].on{background:rgba(21,88,214,.13);border-color:rgba(21,88,214,.5)}
+/* Selected: keep black text — light tint bg ensures readability */
+.pg-card.on .pg-period{font-weight:800}
+.pg-card.on .pg-price{color:var(--ink1);font-size:17px}
+.pg-card.on .pg-offer,.pg-card.on .pg-offer b{color:var(--ink1)}
+.pg-card.on .pg-detail{border-top-color:rgba(0,0,0,.1)}
+.pg-card.on .pg-offer:not(:last-child){border-right-color:rgba(0,0,0,.1)}
+
+/* ────────────────────────────────────────
+   SUMMARY CARD
+   ──────────────────────────────────────── */
+.summary-card{
+  display:none;flex:0 0 auto;
+  margin:0 14px 4px;border-radius:var(--r20);
+  overflow:hidden;position:relative;
+  box-shadow:0 4px 20px rgba(21,88,214,.28);
+}
+.summary-card.visible{display:block;animation:fadeUp .2s var(--ease)}
+.summary-card{background:linear-gradient(135deg,#0A2E80,#1558D6)}
+.summary-card[data-plan="daily"]  {background:linear-gradient(135deg,#065F30,#0A8A45);box-shadow:0 4px 20px rgba(10,138,69,.3)}
+.summary-card[data-plan="3days"]  {background:linear-gradient(135deg,#4A1FA8,#7C3AED);box-shadow:0 4px 20px rgba(124,58,237,.3)}
+.summary-card[data-plan="weekly"] {background:linear-gradient(135deg,#8B3000,#E05000);box-shadow:0 4px 20px rgba(224,80,0,.3)}
+.summary-card[data-plan="2weeks"] {background:linear-gradient(135deg,#005A60,#0099A0);box-shadow:0 4px 20px rgba(0,153,160,.3)}
+.summary-card[data-plan="monthly"]{background:linear-gradient(135deg,#0A2E80,#1558D6);box-shadow:0 4px 20px rgba(21,88,214,.3)}
+.summary-card::before{content:'';position:absolute;top:0;left:0;right:0;height:45%;background:linear-gradient(180deg,rgba(255,255,255,.1) 0%,transparent 100%);pointer-events:none;z-index:0}
+.summary-card::after{content:'';position:absolute;right:-28px;top:-28px;width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.07);pointer-events:none}
+.sc-top{display:flex;align-items:flex-start;justify-content:space-between;padding:10px 14px 8px;position:relative;z-index:1}
+.sc-left{display:flex;flex-direction:column;gap:2px}
+.sc-label{font-size:9px;font-weight:600;letter-spacing:.7px;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.sc-plan{font-size:15px;font-weight:700;color:#fff;letter-spacing:-.2px;line-height:1.2}
+.sc-detail{font-size:10px;color:rgba(255,255,255,.65);font-weight:400;margin-top:1px}
+.sc-right{display:flex;flex-direction:column;align-items:flex-end}
+.sc-cur{font-size:10px;font-weight:600;color:rgba(255,255,255,.55);line-height:1}
+.sc-amt{font-size:22px;font-weight:800;color:#fff;letter-spacing:-.04em;line-height:1;font-feature-settings:"tnum"}
+.sc-actions{display:flex;border-top:1px solid rgba(255,255,255,.12);position:relative;z-index:1}
+.sc-customise{flex:1;padding:11px 14px;display:flex;align-items:center;justify-content:center;gap:5px;font-size:12px;font-weight:600;color:rgba(255,255,255,.8);background:rgba(0,0,0,.1);border-right:1px solid rgba(255,255,255,.1);cursor:pointer;touch-action:manipulation;transition:background .1s;font-family:inherit;border:none}
+.sc-customise:active{background:rgba(0,0,0,.2)}
+.sc-continue{flex:2;padding:11px 16px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:14px;font-weight:700;color:#fff;letter-spacing:-.1px;background:rgba(255,255,255,.15);border:none;cursor:pointer;touch-action:manipulation;transition:background .1s;font-family:inherit}
+.sc-continue:active{background:rgba(255,255,255,.25)}
+
+/* ────────────────────────────────────────
+   PAY BAR — glass
+   ──────────────────────────────────────── */
+#payBar{flex:0 0 auto;padding:10px 16px max(16px,env(safe-area-inset-bottom));background:rgba(255,255,255,.8);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.5);box-shadow:0 -1px 0 rgba(10,20,60,.06)}
+#payBar.hidden{display:none}
+.next-btn,.pay-btn{width:100%;min-height:52px;border-radius:var(--rpill);background:var(--blue);display:flex;align-items:center;justify-content:space-between;padding:0 20px;box-shadow:var(--sh-blue);transition:transform .12s var(--spring),background .12s;position:relative;overflow:hidden}
+.next-btn:active,.pay-btn:active{transform:scale(.97);background:var(--blue-dk)}
+.pay-btn:disabled{opacity:.38;box-shadow:none;transform:none;background:var(--s3);border:1.5px solid var(--line)}
+.btn-left{display:flex;align-items:center;gap:10px;pointer-events:none}
+.btn-ic{width:32px;height:32px;border-radius:10px;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.btn-title{font-size:14px;font-weight:700;color:#fff;line-height:1.2}
+.btn-sub{font-size:9px;color:rgba(255,255,255,.52);margin-top:1px}
+.pay-btn:disabled .btn-title,.pay-btn:disabled .btn-sub{color:var(--ink3)}
+.btn-right{pointer-events:none;text-align:right}
+.btn-right-lbl{font-size:8px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:rgba(255,255,255,.45);margin-bottom:1px}
+.btn-right-amt{font-size:18px;font-weight:700;color:#fff;letter-spacing:-.03em;font-feature-settings:"tnum"}
+.pay-btn:disabled .btn-right-lbl,.pay-btn:disabled .btn-right-amt{color:var(--ink3)}
+.next-right{font-size:18px;font-weight:700;color:#fff;letter-spacing:-.03em;font-feature-settings:"tnum";pointer-events:none}
+
+/* ────────────────────────────────────────
+   NUMBER SCREEN
+   ──────────────────────────────────────── */
+#numScreen{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;display:none;flex-direction:column;padding:16px 18px max(14px,env(safe-area-inset-bottom))}
+#numScreen::-webkit-scrollbar{display:none}
+#numScreen.show{display:flex}
+.ns-back{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--blue);padding-bottom:14px}
+.bundle-pill{flex-shrink:0;border-radius:var(--r16);padding:14px 16px;margin-bottom:14px;box-shadow:var(--sh-blue);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;background:var(--blue)}
+.bundle-pill::before{content:'';position:absolute;right:-16px;top:-16px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.07);pointer-events:none}
+.bp-left{display:flex;flex-direction:column;gap:2px;z-index:1}
+.bp-lbl{font-size:9px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.bp-name{font-size:15px;font-weight:700;color:#fff;letter-spacing:-.2px}
+.bp-detail{font-size:10px;color:rgba(255,255,255,.65);margin-top:1px}
+.bp-price{font-size:24px;font-weight:800;color:#fff;letter-spacing:-.04em;font-feature-settings:"tnum";z-index:1}
+.ns-title{font-size:20px;font-weight:800;letter-spacing:-.4px;color:var(--ink1);margin-bottom:4px}
+.ns-title i{font-style:italic;color:var(--blue)}
+.ns-sub{font-size:11px;color:var(--ink3);font-weight:400;margin-bottom:14px}
+.num-field{display:flex;align-items:center;background:rgba(255,255,255,.8);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1.5px solid var(--line);border-radius:var(--r16);overflow:hidden;box-shadow:var(--sh0);transition:border-color .18s,box-shadow .18s;min-height:56px}
+.num-field.foc{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-a)}
+.num-field.ok{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-a)}
+.num-field.err{border-color:var(--err);box-shadow:0 0 0 3px var(--err-a)}
+.num-pre{display:flex;align-items:center;gap:7px;padding:0 12px 0 14px;border-right:1.5px solid var(--line);height:56px;flex-shrink:0;background:rgba(232,238,255,.5)}
+.num-flag{font-size:20px;line-height:1}
+.num-code{font-size:14px;font-weight:700;color:var(--ink2)}
+#numInput{flex:1;min-width:0;font-size:22px;font-weight:700;color:var(--ink1);padding:0 0 0 14px;height:56px;letter-spacing:.04em;caret-color:var(--blue);font-family:'DM Mono',monospace}
+#numInput::placeholder{color:var(--ink3);font-size:14px;font-weight:400;letter-spacing:0;font-family:'DM Sans',system-ui,sans-serif}
+#numClear{display:none;width:44px;height:56px;align-items:center;justify-content:center;flex-shrink:0}
+#numClear.show{display:flex}
+.num-status{display:flex;align-items:center;gap:7px;margin-top:8px;min-height:20px}
+.ns-icon{width:15px;height:15px;flex-shrink:0}
+.ns-txt{font-size:11px;font-weight:400;color:var(--ink3)}
+.num-status.ok .ns-txt{color:var(--grn)}
+.num-status.err .ns-txt{color:var(--err)}
+.num-verify{display:none;align-items:center;gap:8px;margin-top:8px}
+.num-verify.show{display:flex}
+.v-spin{width:14px;height:14px;border:2px solid var(--line);border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0;display:none}
+.num-verify.spinning .v-spin{display:block}
+.vok-wrap{display:none;align-items:center;gap:7px}
+.num-verify.done .vok-wrap{display:flex}
+.vok-ic{width:20px;height:20px;border-radius:50%;background:var(--grn);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.vok-txt{font-size:12px;font-weight:600;color:var(--grn)}
+.v-txt{font-size:12px;font-weight:400;color:var(--blue);display:none}
+.num-verify.spinning .v-txt{display:block}
+.trust{display:flex;gap:12px;margin-top:14px;padding:10px 13px;border-radius:12px;background:var(--grn-a);border:1px solid rgba(10,138,69,.12)}
+.trust-item{display:flex;align-items:center;gap:4px;font-size:10px;font-weight:600;color:var(--grn)}
+
+/* ────────────────────────────────────────
+   MODAL
+   ──────────────────────────────────────── */
+#modalScrim{position:fixed;inset:0;z-index:400;background:rgba(8,16,40,.42);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .24s var(--ease)}
+#modalScrim.open{opacity:1;pointer-events:auto}
+#modalSheet{position:fixed;left:0;right:0;bottom:0;z-index:401;background:rgba(240,244,255,.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:24px 24px 0 0;box-shadow:0 -8px 40px rgba(10,30,80,.16);padding-bottom:max(22px,env(safe-area-inset-bottom));transform:translateY(100%);transition:transform .3s var(--ease);max-height:88dvh;display:flex;flex-direction:column;overflow:hidden}
+#modalSheet.open{transform:translateY(0)}
+.modal-drag{width:36px;height:4px;border-radius:2px;background:var(--line);margin:12px auto 0;flex-shrink:0}
+.modal-head{flex-shrink:0;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line2)}
+.modal-title{font-size:16px;font-weight:700;color:var(--ink1);letter-spacing:-.2px}
+.modal-sub{font-size:10px;color:var(--blue);font-weight:400;margin-top:2px}
+.modal-x{width:30px;height:30px;border-radius:50%;background:var(--s2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;transition:background .12s}
+.modal-x:active{background:var(--s3)}
+.modal-price-bar{flex-shrink:0;padding:10px 20px;background:var(--blue-b);border-bottom:1px solid var(--blue-a);display:flex;align-items:center;justify-content:space-between}
+.mpb-lbl{font-size:9px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--blue)}
+.mpb-price{font-size:22px;font-weight:700;color:var(--blue);letter-spacing:-.03em;font-feature-settings:"tnum"}
+.mpb-breakdown{display:flex;gap:12px}
+.mpb-item{font-size:10px;color:var(--ink3);font-weight:400}
+.mpb-item span{color:var(--ink1);font-weight:600}
+.modal-plans{flex-shrink:0;display:flex;gap:7px;padding:10px 20px;border-bottom:1px solid var(--line2);overflow-x:auto;scrollbar-width:none}
+.modal-plans::-webkit-scrollbar{display:none}
+.mp-chip{flex-shrink:0;padding:7px 14px;border-radius:var(--rpill);background:var(--s2);border:1.5px solid transparent;font-size:12px;font-weight:600;color:var(--ink2);transition:all .12s;cursor:pointer;touch-action:manipulation;white-space:nowrap}
+.mp-chip.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.modal-body{flex:1;min-height:0;overflow-y:auto;padding:0 20px;scrollbar-width:none}
+.modal-body::-webkit-scrollbar{display:none}
+.sl-row{display:flex;flex-direction:column;gap:9px;padding:14px 0;border-bottom:1px solid var(--line2)}
+.sl-row:last-child{border-bottom:none}
+.sl-head{display:flex;align-items:center;justify-content:space-between}
+.sl-name{font-size:13px;font-weight:600;color:var(--ink2)}
+.sl-val-row{display:flex;align-items:baseline;gap:3px}
+.sl-val{font-size:18px;font-weight:700;color:var(--ink1);font-feature-settings:"tnum"}
+.sl-unit{font-size:11px;color:var(--ink3)}
+.sl-track{position:relative;height:34px;display:flex;align-items:center}
+.sl-bg{position:absolute;left:0;right:0;height:6px;border-radius:3px;background:var(--s3)}
+.sl-fill{position:absolute;left:0;height:6px;border-radius:3px;background:var(--blue);width:0;transition:width .06s}
+.sl-range{position:relative;z-index:2;-webkit-appearance:none;appearance:none;width:100%;height:34px;background:transparent;cursor:pointer;margin:0;padding:0}
+.sl-range::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:var(--blue);border:3px solid #fff;box-shadow:0 2px 8px rgba(21,88,214,.4);transition:transform .1s var(--spring)}
+.sl-range:active::-webkit-slider-thumb{transform:scale(1.2)}
+.sl-range::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:var(--blue);border:3px solid #fff}
+.modal-foot{flex-shrink:0;padding:10px 20px;border-top:1px solid var(--line2)}
+.modal-apply{width:100%;min-height:50px;border-radius:var(--rpill);background:var(--blue);color:#fff;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:var(--sh-blue);transition:transform .12s var(--spring);position:relative;overflow:hidden;font-family:inherit}
+.modal-apply:active{transform:scale(.97);background:var(--blue-dk)}
+
+
+/* Decorative semicircle on plan cards — mirrors summary card style */
+/* Second smaller circle for depth */
+.pg-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.pg-card.on .pg-period,.pg-card.on .pg-price,.pg-card.on .pg-detail,.pg-card.on .pg-badge{position:relative;z-index:1}
+.pg-card.on .pg-price{color:inherit;font-size:20px!important}.pg-card.on .pg-offer b{color:inherit}.pg-card.on .pg-offer-ic{background:rgba(255,255,255,.15)!important}
+
+
+/* ── TWO ORGANIC SHAPES PER CARD — mirrors summary card ── */
+/* ── TWO ORGANIC SHAPES + STRIPE per card ── */
+/* Shape 1 — large organic blob bottom-right */
+.pg-card::after{
+  content:'';position:absolute;
+  right:-22px;bottom:-22px;
+  width:90px;height:90px;
+  border-radius:62% 38% 54% 46% / 48% 56% 44% 52%;
+  pointer-events:none;z-index:0;
+}
+/* Shape 2 — smaller blob top-left via pg-body */
+.pg-body{position:relative;overflow:visible}
+.pg-body::before{
+  content:'';position:absolute;
+  left:-10px;top:20px;
+  width:50px;height:50px;
+  border-radius:40% 60% 38% 62% / 52% 48% 52% 48%;
+  pointer-events:none;z-index:0;opacity:.7;
+}
+/* Diagonal stripe overlay — on pg-body::after */
+/* Per-plan colours */
+.pg-card[data-k="daily"]::after    {background:rgba(10,138,69,.07)}
+.pg-card[data-k="3days"]::after    {background:rgba(124,58,237,.06)}
+.pg-card[data-k="weekly"]::after   {background:rgba(224,80,0,.07)}
+.pg-card[data-k="2weeks"]::after   {background:rgba(0,153,160,.06)}
+.pg-card[data-k="monthly"]::after  {background:rgba(21,88,214,.07)}
+.pg-card[data-k="daily"] .pg-body::before   {background:rgba(10,138,69,.05)}
+.pg-card[data-k="3days"] .pg-body::before   {background:rgba(124,58,237,.05)}
+.pg-card[data-k="weekly"] .pg-body::before  {background:rgba(224,80,0,.05)}
+.pg-card[data-k="2weeks"] .pg-body::before  {background:rgba(0,153,160,.05)}
+.pg-card[data-k="monthly"] .pg-body::before {background:rgba(21,88,214,.05)}
+/* Diagonal stripe per plan — layered on top of blob via inset box-shadow trick */
+.pg-card[data-k="daily"]   {background-image:repeating-linear-gradient(135deg,rgba(10,138,69,.025) 0,rgba(10,138,69,.025) 1px,transparent 1px,transparent 12px)}
+.pg-card[data-k="3days"]   {background-image:repeating-linear-gradient(135deg,rgba(124,58,237,.022) 0,rgba(124,58,237,.022) 1px,transparent 1px,transparent 12px)}
+.pg-card[data-k="weekly"]  {background-image:repeating-linear-gradient(135deg,rgba(224,80,0,.025) 0,rgba(224,80,0,.025) 1px,transparent 1px,transparent 12px)}
+.pg-card[data-k="2weeks"]  {background-image:repeating-linear-gradient(135deg,rgba(0,153,160,.022) 0,rgba(0,153,160,.022) 1px,transparent 1px,transparent 12px)}
+.pg-card[data-k="monthly"] {background-image:repeating-linear-gradient(135deg,rgba(21,88,214,.022) 0,rgba(21,88,214,.022) 1px,transparent 1px,transparent 12px)}
+/* Selected: keep stripe but deepen blobs */
+.pg-card.on::after{opacity:1.4}
+.pg-card.on .pg-body::before{opacity:1.2}
+/* Ensure z layering is correct */
+.pg-img,.pg-body,.pg-period,.pg-price,.pg-detail,.pg-badge,.pg-save{position:relative;z-index:1}
+.pg-card[data-k="daily"] .pg-body::before  {background:rgba(10,138,69,.05)}
+.pg-card[data-k="3days"] .pg-body::before  {background:rgba(124,58,237,.05)}
+.pg-card[data-k="weekly"] .pg-body::before {background:rgba(224,80,0,.05)}
+.pg-card[data-k="2weeks"] .pg-body::before {background:rgba(0,153,160,.05)}
+.pg-card[data-k="monthly"] .pg-body::before{background:rgba(21,88,214,.05)}
+/* Bolder on selected */
+.pg-card.on::after   {opacity:1.6}
+.pg-card.on .pg-body::before{opacity:1.6}
+/* Stripe pattern — keep but lighter */
+.pg-card[data-k="daily"]::after,.pg-card[data-k="3days"]::after,
+.pg-card[data-k="weekly"]::after,.pg-card[data-k="2weeks"]::after,
+.pg-card[data-k="monthly"]::after{background-image:none}
+
+
+/* ── SAVINGS PILL ── */
+.pg-save{
+  display:inline-flex;align-items:center;gap:3px;
+  background:rgba(10,138,69,.14);border:1.5px solid rgba(10,138,69,.35);
+  color:#0A8A45;font-size:9px;font-weight:800;letter-spacing:.1px;
+  padding:2px 8px;border-radius:var(--rpill);
+  margin-top:3px;margin-bottom:4px;align-self:flex-start;
+  position:relative;z-index:1;pointer-events:none;
+}
+
+/* ── PLANS BAR sub in blue ── */
+.plans-bar-sub{font-size:11px;color:var(--blue);font-weight:600}
+/* ── SUMMARY TRUST LINE ── */
+.sc-trust{display:flex;align-items:center;gap:5px;padding:5px 16px 7px;position:relative;z-index:1}
+.sc-trust span{font-size:9px;color:rgba(255,255,255,.5);font-weight:500}
+
+/* ── RIPPLE ── */
+.rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(255,255,255,.18);transform:scale(0);animation:ripple .5s ease forwards}
+</style>
+</head>
+<body>
+
+<div id="curtain" class="curtain"><img class="curtain-logo" src="assets/ecocash.png" alt="EcoCash"><div class="curtain-spin"></div></div>
+
+<div id="modalScrim" onclick="closeModal()"></div>
+<div id="modalSheet">
+  <div class="modal-drag"></div>
+  <div class="modal-head">
+    <div><div class="modal-title" id="modalTitle">Customise bundle</div><div class="modal-sub">Drag sliders to adjust your mix</div></div>
+    <button class="modal-x" onclick="closeModal()"><svg width="13" height="13" viewBox="0 0 24 24" fill="var(--ink3)"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
+  </div>
+  <div class="modal-price-bar">
+    <div><div class="mpb-lbl">Your price</div><div class="mpb-price" id="mpbPrice">USD 0.00</div></div>
+    <div class="mpb-breakdown"><div class="mpb-item"><span id="mpbV">0</span> Min</div><div class="mpb-item"><span id="mpbD">0</span> GB</div><div class="mpb-item"><span id="mpbS">0</span> SMS</div></div>
+  </div>
+  <div class="modal-plans" id="modalPlans">
+    <div class="mp-chip on" data-k="daily">Daily</div><div class="mp-chip" data-k="3days">3 Days</div><div class="mp-chip" data-k="weekly">Weekly</div><div class="mp-chip" data-k="2weeks">2 Weeks</div><div class="mp-chip" data-k="monthly">Monthly</div>
+  </div>
+  <div class="modal-body">
+    <div class="sl-row"><div class="sl-head"><span class="sl-name">Voice</span><div class="sl-val-row"><span class="sl-val" id="slVlbl">0</span><span class="sl-unit"> Min</span></div></div><div class="sl-track"><div class="sl-bg"></div><div class="sl-fill" id="tfV"></div><input type="range" class="sl-range" id="slV" min="0" step="1" value="0"></div></div>
+    <div class="sl-row"><div class="sl-head"><span class="sl-name">Data</span><div class="sl-val-row"><span class="sl-val" id="slDlbl">0</span><span class="sl-unit"> GB</span></div></div><div class="sl-track"><div class="sl-bg"></div><div class="sl-fill" id="tfD"></div><input type="range" class="sl-range" id="slD" min="0" step="1" value="0"></div></div>
+    <div class="sl-row"><div class="sl-head"><span class="sl-name">SMS</span><div class="sl-val-row"><span class="sl-val" id="slSlbl">0</span><span class="sl-unit"> SMS</span></div></div><div class="sl-track"><div class="sl-bg"></div><div class="sl-fill" id="tfS"></div><input type="range" class="sl-range" id="slS" min="0" step="1" value="0"></div></div>
+  </div>
+  <div class="modal-foot"><button class="modal-apply" onclick="hap(8);closeModal()"><svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Apply</button></div>
+</div>
+
+<div id="app">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="tb-left">
+      <img class="tb-econet" src="assets/econet.png" alt="Econet">
+      <div class="tb-brand">
+        <span class="tb-payless">Payless</span>
+        <div class="tb-byeco-row"><span class="tb-by">by</span><img class="tb-ecocash-logo" src="assets/ecocash.png" alt="EcoCash"></div>
+      </div>
+    </div>
+    <div class="tb-total" id="tbTotal">
+      <div class="tb-total-lbl">Total</div>
+      <div class="tb-total-val" id="tbTotalVal">USD 0.00</div>
+    </div>
+  </div>
+
+  <div id="card">
+
+    <!-- HOME SCREEN -->
+    <div id="homeScreen">
+
+      <!-- HERO -->
+      <div class="hero">
+        <div class="hero-row">
+          <div class="hero-left">
+            <div class="hero-title">
+              <span class="ht-mix">Mix</span><span class="ht-bundles">&nbsp;Bundles</span>
+            </div>
+            <div class="hero-sub">Voice · Data · SMS · One price</div>
+            <div class="hero-soc" id="wwIcons"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PLANS -->
+      <div class="plans-bar">
+        <span class="plans-bar-title">Choose your plan</span>
+        <span class="plans-bar-sub">from USD&#160;0.89</span>
+      </div>
+
+      <div class="plan-grid" id="homeGrid">
+
+        <button type="button" class="pg-card on" data-k="daily" onclick="selectPlan('daily')">
+          <svg class="pg-img" viewBox="0 0 280 72" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <defs><linearGradient id="gd" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#0A8A45" stop-opacity=".18"/><stop offset="100%" stop-color="#0A8A45" stop-opacity=".04"/></linearGradient></defs>
+  <rect width="280" height="72" fill="url(#gd)"/>
+  <!-- Irregular blob shape -->
+  <path d="M-10 40 Q40 10 90 35 Q140 60 190 30 Q230 10 290 25 L290 80 L-10 80Z" fill="#0A8A45" opacity=".08"/>
+  <path d="M-10 55 Q60 30 120 50 Q180 70 250 45 L290 80 L-10 80Z" fill="#0A8A45" opacity=".06"/>
+  <!-- Sun/day icon -->
+  <circle cx="38" cy="36" r="12" fill="#0A8A45" opacity=".25"/>
+  <circle cx="38" cy="36" r="7" fill="#0A8A45" opacity=".5"/>
+  <line x1="38" y1="18" x2="38" y2="22" stroke="#0A8A45" stroke-width="2.5" stroke-linecap="round" opacity=".4"/>
+  <line x1="38" y1="50" x2="38" y2="54" stroke="#0A8A45" stroke-width="2.5" stroke-linecap="round" opacity=".4"/>
+  <line x1="20" y1="36" x2="24" y2="36" stroke="#0A8A45" stroke-width="2.5" stroke-linecap="round" opacity=".4"/>
+  <line x1="52" y1="36" x2="56" y2="36" stroke="#0A8A45" stroke-width="2.5" stroke-linecap="round" opacity=".4"/>
+  <!-- Text label -->
+  <text x="62" y="30" font-family="DM Sans,sans-serif" font-size="12" font-weight="800" fill="#0A8A45" opacity=".95">Quick top-up</text>
+  <text x="62" y="47" font-family="DM Sans,sans-serif" font-size="10" font-weight="600" fill="#0A8A45" opacity=".75">Best for daily use</text>
+</svg>
+          <div class="pg-body">
+            <span class="pg-period">Daily</span>
+            <span class="pg-price" id="hgp-daily">USD&#160;0.89</span>
+            <div class="pg-detail" id="hgd-daily">
+              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg><b>20</b>&thinsp;Min</div>
+              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg><b>3</b>&thinsp;GB</div>
+              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg><b>25</b>&thinsp;SMS</div>
+            </div>
+          </div>
+        </button>
+        <button type="button" class="pg-card" data-k="3days" onclick="selectPlan('3days')">
+          <svg class="pg-img" viewBox="0 0 280 72" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <defs><linearGradient id="g3" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#7C3AED" stop-opacity=".18"/><stop offset="100%" stop-color="#7C3AED" stop-opacity=".04"/></linearGradient></defs>
+  <rect width="280" height="72" fill="url(#g3)"/>
+  <path d="M-10 45 Q50 15 110 40 Q170 65 230 38 Q260 25 290 32 L290 80 L-10 80Z" fill="#7C3AED" opacity=".08"/>
+  <path d="M-10 60 Q70 38 150 55 Q210 68 290 50 L290 80 L-10 80Z" fill="#7C3AED" opacity=".05"/>
+  <!-- 3-bar chart icon -->
+  <rect x="24" y="40" width="8" height="16" rx="2" fill="#7C3AED" opacity=".35"/>
+  <rect x="36" y="32" width="8" height="24" rx="2" fill="#7C3AED" opacity=".5"/>
+  <rect x="48" y="24" width="8" height="32" rx="2" fill="#7C3AED" opacity=".65"/>
+  <text x="68" y="30" font-family="DM Sans,sans-serif" font-size="12" font-weight="800" fill="#7C3AED" opacity=".95">Weekend bundle</text>
+  <text x="68" y="47" font-family="DM Sans,sans-serif" font-size="10" font-weight="600" fill="#7C3AED" opacity=".75">Perfect for the weekend</text>
+</svg>
+          <div class="pg-body">
+            <span class="pg-period">3 Days</span>
+            <span class="pg-price" id="hgp-3days">USD&#160;1.99</span>
+            <span class="pg-save">Save USD 0.68</span>
+            <div class="pg-detail" id="hgd-3days">
+              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg><b>50</b>&thinsp;Min</div>
+              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg><b>8</b>&thinsp;GB</div>
+              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg><b>25</b>&thinsp;SMS</div>
+            </div>
+          </div>
+        </button>
+        <button type="button" class="pg-card" data-k="weekly" onclick="selectPlan('weekly')">
+          <svg class="pg-img" viewBox="0 0 280 72" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <defs><linearGradient id="gw" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#E05000" stop-opacity=".18"/><stop offset="100%" stop-color="#E05000" stop-opacity=".04"/></linearGradient></defs>
+  <rect width="280" height="72" fill="url(#gw)"/>
+  <path d="M-10 38 Q60 8 130 38 Q200 68 270 35 L290 35 L290 80 L-10 80Z" fill="#E05000" opacity=".08"/>
+  <path d="M-10 58 Q80 40 160 58 Q230 72 290 56 L290 80 L-10 80Z" fill="#E05000" opacity=".05"/>
+  <!-- Calendar icon -->
+  <rect x="22" y="22" width="36" height="32" rx="4" fill="none" stroke="#E05000" stroke-width="2" opacity=".4"/>
+  <rect x="22" y="22" width="36" height="10" rx="4" fill="#E05000" opacity=".3"/>
+  <line x1="32" y1="18" x2="32" y2="26" stroke="#E05000" stroke-width="2.5" stroke-linecap="round" opacity=".5"/>
+  <line x1="48" y1="18" x2="48" y2="26" stroke="#E05000" stroke-width="2.5" stroke-linecap="round" opacity=".5"/>
+  <rect x="28" y="36" width="5" height="5" rx="1" fill="#E05000" opacity=".4"/>
+  <rect x="37" y="36" width="5" height="5" rx="1" fill="#E05000" opacity=".4"/>
+  <rect x="28" y="44" width="5" height="5" rx="1" fill="#E05000" opacity=".4"/>
+  <text x="70" y="30" font-family="DM Sans,sans-serif" font-size="12" font-weight="800" fill="#E05000" opacity=".95">Full week sorted</text>
+  <text x="70" y="47" font-family="DM Sans,sans-serif" font-size="10" font-weight="600" fill="#E05000" opacity=".75">Work · School · Home</text>
+</svg>
+          <div class="pg-body">
+            <span class="pg-period">Weekly</span>
+            <span class="pg-price" id="hgp-weekly">USD&#160;3.99</span>
+            <span class="pg-save">Save USD 2.24</span>
+            <div class="pg-detail" id="hgd-weekly">
+              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg><b>120</b>&thinsp;Min</div>
+              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg><b>20</b>&thinsp;GB</div>
+              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg><b>200</b>&thinsp;SMS</div>
+            </div>
+          </div>
+        </button>
+        <button type="button" class="pg-card" data-k="2weeks" onclick="selectPlan('2weeks')">
+          <svg class="pg-img" viewBox="0 0 280 72" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <defs><linearGradient id="g2w" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#0099A0" stop-opacity=".18"/><stop offset="100%" stop-color="#0099A0" stop-opacity=".04"/></linearGradient></defs>
+  <rect width="280" height="72" fill="url(#g2w)"/>
+  <path d="M-10 42 Q55 12 120 42 Q185 72 250 40 L290 38 L290 80 L-10 80Z" fill="#0099A0" opacity=".08"/>
+  <path d="M-10 60 Q90 42 180 60 Q240 72 290 58 L290 80 L-10 80Z" fill="#0099A0" opacity=".05"/>
+  <!-- Double wave / 2 weeks -->
+  <path d="M22 40 Q30 28 38 40 Q46 52 54 40" fill="none" stroke="#0099A0" stroke-width="2.5" stroke-linecap="round" opacity=".5"/>
+  <path d="M22 50 Q30 38 38 50 Q46 62 54 50" fill="none" stroke="#0099A0" stroke-width="2" stroke-linecap="round" opacity=".3"/>
+  <text x="68" y="30" font-family="DM Sans,sans-serif" font-size="12" font-weight="800" fill="#0099A0" opacity=".95">Fortnight bundle</text>
+  <text x="68" y="47" font-family="DM Sans,sans-serif" font-size="10" font-weight="600" fill="#0099A0" opacity=".75">Great for remote work</text>
+</svg>
+          <div class="pg-body">
+            <span class="pg-period">2 Weeks</span>
+            <span class="pg-price" id="hgp-2weeks">USD&#160;7.49</span>
+            <span class="pg-save">Save USD 4.94</span>
+            <div class="pg-detail" id="hgd-2weeks">
+              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg><b>250</b>&thinsp;Min</div>
+              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg><b>45</b>&thinsp;GB</div>
+              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg><b>150</b>&thinsp;SMS</div>
+            </div>
+          </div>
+        </button>
+
+        <button type="button" class="pg-card monthly" data-k="monthly" onclick="selectPlan('monthly')">
+          <svg class="pg-img" viewBox="0 0 560 72" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <defs><linearGradient id="gm" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#1558D6" stop-opacity=".18"/><stop offset="100%" stop-color="#1558D6" stop-opacity=".04"/></linearGradient></defs>
+  <rect width="560" height="72" fill="url(#gm)"/>
+  <!-- Same wave shapes, doubled in x-scale -->
+  <path d="M-10 45 Q100 15 220 40 Q340 65 460 38 Q510 25 570 32 L570 80 L-10 80Z" fill="#1558D6" opacity=".08"/>
+  <path d="M-10 60 Q140 38 300 55 Q420 68 570 50 L570 80 L-10 80Z" fill="#1558D6" opacity=".05"/>
+  <!-- 4 bars — same proportions as 3days 3-bar icon -->
+  <rect x="24" y="44" width="8" height="12" rx="2" fill="#1558D6" opacity=".28"/>
+  <rect x="36" y="36" width="8" height="20" rx="2" fill="#1558D6" opacity=".40"/>
+  <rect x="48" y="28" width="8" height="28" rx="2" fill="#1558D6" opacity=".55"/>
+  <rect x="60" y="20" width="8" height="36" rx="2" fill="#1558D6" opacity=".70"/>
+  <!-- Text at same relative position as other cards (icon ends ~68px, same ratio) -->
+  <text x="84" y="30" font-family="DM Sans,sans-serif" font-size="12" font-weight="800" fill="#1558D6" opacity=".95">Full month bundle</text>
+  <text x="84" y="47" font-family="DM Sans,sans-serif" font-size="10" font-weight="600" fill="#1558D6" opacity=".75">Best value for your money</text>
+</svg>
+          <div class="pg-body">
+            <span class="pg-badge">Best Value</span>
+            <span class="pg-period">Monthly</span>
+            <div class="pg-price-row">
+              <span class="pg-price" id="hgp-monthly">USD&#160;13.99</span>
+            </div>
+            <div class="pg-detail" id="hgd-monthly">
+              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg><b>600</b>&thinsp;Min</div>
+              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg><b>100</b>&thinsp;GB</div>
+              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg><b>1000</b>&thinsp;SMS</div>
+            </div>
+          </div>
+        </button>
+
+            </div><!-- /homeGrid -->
+
+      <!-- SUMMARY CARD -->
+      <div class="summary-card" id="summaryCard" data-plan="daily">
+        <div class="sc-top">
+          <div class="sc-left">
+            <span class="sc-label">Selected plan</span>
+            <span class="sc-plan" id="psPlan">Daily Mix</span>
+            <span class="sc-detail" id="psDetail">20 Min · 3 GB · 25 SMS</span>
+          </div>
+          <div class="sc-right">
+            <span class="sc-cur">USD</span>
+            <span class="sc-amt" id="psAmt">0.89</span>
+          </div>
+        </div>
+        <div class="sc-trust">
+          <svg width="9" height="9" viewBox="0 0 24 24" fill="rgba(255,255,255,.5)"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+          <span>EcoCash secured · No hidden fees · No airtime deducted</span>
+        </div>
+        <div class="sc-actions">
+          <button class="sc-customise" onclick="openModal()">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+            Customise
+          </button>
+          <button class="sc-continue" onclick="hap(10);goToNumScreen()">
+            Continue
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+          </button>
+        </div>
+      </div>
+
+    </div><!-- /homeScreen -->
+
+    <!-- NUMBER SCREEN -->
+    <div id="numScreen">
+      <button class="ns-back" onclick="goHome()"><svg width="16" height="16" viewBox="0 0 24 24" fill="var(--blue)"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>Back</button>
+      <div class="bundle-pill">
+        <div class="bp-left"><span class="bp-lbl">Paying for</span><span class="bp-name" id="bpName">Daily Mix</span><span class="bp-detail" id="bpDetail">20 Min · 3 GB · 25 SMS</span></div>
+        <span class="bp-price" id="bpPrice">USD&#160;0.89</span>
+      </div>
+      <div class="ns-title">Enter your <i>number</i></div>
+      <div class="ns-sub">Charged to your EcoCash wallet · Econet Zimbabwe</div>
+      <div class="num-field" id="numField">
+        <div class="num-pre"><span class="num-flag">🇿🇼</span><span class="num-code">+263</span></div>
+        <input id="numInput" type="tel" inputmode="numeric" pattern="[0-9]*" placeholder="771 234 567" maxlength="9" autocomplete="tel-national">
+        <button id="numClear"><svg width="18" height="18" viewBox="0 0 24 24" fill="var(--ink3)"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"/></svg></button>
+      </div>
+      <div class="num-status" id="numStatus"><div class="ns-icon" id="nsIcon"><svg width="14" height="14" viewBox="0 0 24 24" fill="var(--ink3)"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg></div><span class="ns-txt" id="nsTxt">Econet Zimbabwe · 077 · 078 · 073 · 071</span></div>
+      <div class="num-verify" id="numVerify"><div class="v-spin"></div><span class="v-txt">Verifying…</span><div class="vok-wrap"><div class="vok-ic"><svg width="10" height="10" viewBox="0 0 24 24" fill="#fff"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span class="vok-txt" id="vokTxt">Verified</span></div></div>
+      <div class="trust">
+        <div class="trust-item"><svg width="10" height="10" viewBox="0 0 24 24" fill="var(--grn)"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>Secure</div>
+        <div class="trust-item"><svg width="10" height="10" viewBox="0 0 24 24" fill="var(--grn)"><path d="M20 4H4c-1.11 0-2 .89-2 2v12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>EcoCash</div>
+        <div class="trust-item"><svg width="10" height="10" viewBox="0 0 24 24" fill="var(--grn)"><path d="M13 2.05v2.02c3.95.49 7 3.85 7 7.93 0 3.21-1.81 6-4.72 7.28L13 17v5h5l-1.22-1.22C19.91 19.07 22 15.76 22 12c0-5.18-3.95-9.45-9-9.95zM11 2.05C5.95 2.55 2 6.82 2 12c0 3.76 2.09 7.07 5.22 8.78L6 22h5v-5l-2.28 2.28C6.81 18 5 15.21 5 12c0-4.08 3.05-7.44 7-7.93V2.05z"/></svg>Instant</div>
+      </div>
+    </div><!-- /numScreen -->
+
+  </div><!-- /card -->
+
+  <!-- PAY BAR -->
+  <div id="payBar" class="hidden">
+    <button class="next-btn" id="nextBtn" style="display:none" onclick="goToNumScreen()">
+      <div class="btn-left"><div class="btn-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4 2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg></div><div><div class="btn-title" id="payTitle">Continue</div><div class="btn-sub">Select your number</div></div></div>
+      <span class="next-right" id="nextAmt">USD&#160;0.89</span>
+    </button>
+    <button class="pay-btn" id="payBtn" disabled style="display:none">
+      <div class="btn-left"><div class="btn-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M20 4H4c-1.11 0-2 .89-2 2v12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg></div><div><div class="btn-title" id="payTitle2">Pay via EcoCash</div><div class="btn-sub" id="paySub">Verify your number first</div></div></div>
+      <div class="btn-right"><div class="btn-right-lbl">Total</div><div class="btn-right-amt" id="payAmt">—</div></div>
+    </button>
+  </div>
+
+</div><!-- /app -->
+
+<script>
+'use strict';
+
+/* ── VIEWPORT HEIGHT ── */
+(function(){
+  function setVH(){var vp=window.visualViewport;document.documentElement.style.setProperty('--dvh',(vp?vp.height+vp.offsetTop:window.innerHeight)+'px');}
+  setVH();
+  if(window.visualViewport){window.visualViewport.addEventListener('resize',setVH,{passive:true});window.visualViewport.addEventListener('scroll',setVH,{passive:true});}
+  else window.addEventListener('resize',setVH,{passive:true});
+})();
+
+/* ── HAPTIC ── */
+function hap(p){try{if(navigator.vibrate)navigator.vibrate(p);}catch(e){}}
+
+/* ── PLANS ── */
+var PLANS={
+  daily:   {l:'Daily',   mV:20,  mS:25,  mD:3,  p:0.89, sv:5,  ss:5,  sd:1},
+  '3days': {l:'3 Days',  mV:50,  mS:25,  mD:8,  p:1.99, sv:10, ss:5,  sd:2},
+  weekly:  {l:'Weekly',  mV:120, mS:200, mD:20, p:3.99, sv:20, ss:50, sd:5},
+  '2weeks':{l:'2 Wks',  mV:250, mS:150, mD:45, p:7.49, sv:50, ss:50, sd:5},
+  monthly: {l:'Monthly', mV:600, mS:1000,mD:100,p:13.99,sv:50, ss:100,sd:10},
+};
+var ST={};
+Object.keys(PLANS).forEach(function(k){var p=PLANS[k];ST[k]={v:p.mV,s:p.mS,d:p.mD};});
+var AK='daily';
+
+function price(k){
+  var p=PLANS[k],s=ST[k];
+  return Math.round(((s.v/p.mV)+(s.s/p.mS)+(s.d/p.mD))/3*p.p*100)/100;
+}
+
+/* ── SOCIAL ICONS ── */
+var SOCIALS=[
+  {n:'WhatsApp',bg:'#25D366',fc:'#fff',p:'M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z'},
+  {n:'TikTok',bg:'#010101',fc:'#fff',p:'M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.95a8.16 8.16 0 004.77 1.52V7.03a4.85 4.85 0 01-1-.34z'},
+  {n:'YouTube',bg:'#FF0000',fc:'#fff',p:'M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z'},
+  {n:'X',bg:'#000',fc:'#fff',p:'M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'},
+  {n:'Instagram',bg:'linear-gradient(135deg,#f09433,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888)',fc:'#fff',p:'M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z'},
+  {n:'Facebook',bg:'#1877F2',fc:'#fff',p:'M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z'},
+  {n:'Snapchat',bg:'#FFFC00',fc:'#000',p:'M12.206.793c.99 0 4.347.276 5.93 3.821.529 1.193.403 3.219.342 4.868-.006.148-.011.291-.014.432.123.06.264.12.43.174.486.155 1.112.246 1.805.216.7-.03 1.092.122 1.095.538.002.4-.286.71-.83.898-.1.035-.21.07-.31.115-.455.2-1.033.456-1.116 1.015-.019.123.002.24.046.344l.003.01c.45 1.133 1.75 3.887 4.304 4.52.27.068.443.293.443.48 0 .43-1.13.87-2.952 1.15-.168.026-.296.133-.326.307-.04.218-.07.392-.107.624-.02.147-.058.325-.267.325-.07 0-.163-.018-.28-.045-.422-.098-.968-.22-1.717-.22-.68 0-1.365.118-1.994.36-.854.323-1.636.963-2.63 1.71-1.43 1.07-3.024 2.28-5.374 2.28-2.364 0-3.97-1.21-5.405-2.28-.996-.748-1.782-1.387-2.636-1.71-.63-.243-1.317-.362-2-.362-.64 0-1.12.105-1.547.2-.138.03-.258.06-.36.08-.216 0-.25-.173-.268-.322-.037-.232-.07-.406-.108-.624-.032-.172-.16-.28-.327-.305C1.13 16.88 0 16.44 0 16.01c0-.188.174-.412.44-.48 2.554-.633 3.853-3.387 4.303-4.52l.003-.01c.045-.104.066-.22.047-.344-.084-.56-.662-.814-1.118-1.015-.1-.044-.208-.08-.308-.114-.545-.19-.832-.498-.83-.9.003-.416.394-.568 1.094-.537.694.029 1.32-.06 1.806-.216.167-.054.308-.113.43-.174-.003-.14-.008-.283-.014-.43-.06-1.65-.187-3.675.342-4.869C7.858 1.07 11.215.793 12.206.793z'},
+  {n:'Telegram',bg:'#26A5E4',fc:'#fff',p:'M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z'},
+];
+
+function buildWorksWithIcons(id){
+  var el=document.getElementById(id);if(!el)return;
+  var h='';
+  SOCIALS.forEach(function(sc){
+    /* Use brand colour directly as icon fill; white icons get a soft white fill */
+    /* Each icon in a small pill with its own brand background — true colours always */
+    var bg=sc.bg;
+    h+='<span class="ww-soc" style="background:'+bg+'" title="'+sc.n+'">'
+      +'<svg width="13" height="13" viewBox="0 0 24 24" fill="'+sc.fc+'"><path d="'+sc.p+'"/></svg>'
+      +'</span>';
+  });
+  el.innerHTML=h;
+}
+
+/* ── SCREENS ── */
+var SCREEN='home';
+function showPayBar(mode){
+  var bar=document.getElementById('payBar');
+  var nb=document.getElementById('nextBtn');
+  var pb=document.getElementById('payBtn');
+  if(mode==='none'){bar.classList.add('hidden');return;}
+  bar.classList.remove('hidden');
+  if(mode==='next'){nb.style.display='';pb.style.display='none';}
+  else{nb.style.display='none';pb.style.display='';}
+}
+function goHome(){
+  SCREEN='home';
+  document.getElementById('homeScreen').style.display='';
+  document.getElementById('numScreen').classList.remove('show');
+  document.getElementById('tbTotal').classList.remove('show');
+  showPayBar('none');
+  var _sc2=document.getElementById('summaryCard');if(_sc2)_sc2.classList.add('visible');
+}
+function goToNumScreen(){
+  SCREEN='num';
+  document.getElementById('homeScreen').style.display='none';
+  document.getElementById('numScreen').classList.add('show');
+  document.getElementById('tbTotal').classList.add('show');
+  showPayBar('pay');
+  updateBundlePill();
+  var _sc3=document.getElementById('summaryCard');if(_sc3)_sc3.classList.remove('visible');
+  if(!numOK)setTimeout(function(){var el=document.getElementById('numInput');if(el)el.focus();},300);
+}
+
+/* ── SYNC UI ── */
+function syncUI(){
+  var k=AK,p=PLANS[k],s=ST[k],v=price(k);
+  var vAmt='USD '+v.toFixed(2);
+  var dStr=s.v+' Min · '+s.d+' GB · '+s.s+' SMS';
+
+
+
+  /* Summary card */
+  var _sc=document.getElementById('summaryCard');
+  if(_sc){
+    _sc.setAttribute('data-plan',k);
+    _sc.classList.add('visible');
+    var _sp=document.getElementById('psPlan');if(_sp)_sp.textContent=p.l+' Mix';
+    var _sd=document.getElementById('psDetail');if(_sd)_sd.textContent=dStr;
+    var _sa=document.getElementById('psAmt');if(_sa)_sa.textContent=v.toFixed(2);
+  }
+  /* Plan card highlight */
+  document.querySelectorAll('#homeGrid .pg-card').forEach(function(c){
+    c.classList.toggle('on',c.dataset.k===k);
+  });
+  /* Modal chips */
+  document.querySelectorAll('#modalPlans .mp-chip').forEach(function(c){
+    c.classList.toggle('on',c.dataset.k===k);
+  });
+
+  /* Card prices */
+  Object.keys(PLANS).forEach(function(k2){
+    var s2=ST[k2],v2=price(k2);
+    var el=document.getElementById('hgp-'+k2);if(el)el.textContent='USD '+v2.toFixed(2);
+    var ed=document.getElementById('hgd-'+k2);
+    if(ed){
+      var rows=ed.querySelectorAll('.pg-offer');
+      if(rows.length===3){
+        var bs=ed.querySelectorAll('b');
+        if(bs.length>=3){bs[0].textContent=s2.v;bs[1].textContent=s2.d;bs[2].textContent=s2.s;}
+      }
+    }
+  });
+
+  /* Pay bar */
+  var pt=document.getElementById('payTitle');if(pt)pt.textContent=p.l+' Mix';
+  var na=document.getElementById('nextAmt');if(na)na.textContent=vAmt;
+  var tv=document.getElementById('tbTotalVal');if(tv)tv.textContent=vAmt;
+  if(numOK){
+    var pt=document.getElementById('payTitle2');if(pt)pt.textContent='Pay USD '+v.toFixed(2);
+    var pa=document.getElementById('payAmt');if(pa)pa.textContent=vAmt;
+  }
+  if(SCREEN==='num')updateBundlePill();
+  syncSliders();
+}
+
+/* ── PLAN SELECTION ── */
+function selectPlan(k){
+  if(!PLANS[k])return;
+  AK=k;var p=PLANS[k];ST[k]={v:p.mV,s:p.mS,d:p.mD};
+  hap([8,20,8]);syncUI();
+}
+document.querySelectorAll('#homeGrid .pg-card').forEach(function(btn){
+  btn.onclick=function(){selectPlan(btn.dataset.k);};
+});
+
+/* ── MODAL ── */
+var modalOpen=false;
+function openModal(){
+  modalOpen=true;hap(6);
+  document.getElementById('modalTitle').textContent='Customise '+PLANS[AK].l+' bundle';
+  document.querySelectorAll('#modalPlans .mp-chip').forEach(function(c){c.classList.toggle('on',c.dataset.k===AK);});
+  syncSliders();
+  document.getElementById('modalScrim').classList.add('open');
+  document.getElementById('modalSheet').classList.add('open');
+}
+function closeModal(){
+  if(!modalOpen)return;modalOpen=false;hap(8);
+  document.getElementById('modalScrim').classList.remove('open');
+  document.getElementById('modalSheet').classList.remove('open');
+  syncUI();
+}
+document.getElementById('modalPlans').addEventListener('click',function(e){
+  var chip=e.target.closest('.mp-chip');
+  if(!chip||!chip.dataset.k)return;
+  var k=chip.dataset.k;if(k===AK)return;
+  hap(6);AK=k;var p=PLANS[k];ST[k]={v:p.mV,s:p.mS,d:p.mD};
+  document.querySelectorAll('#modalPlans .mp-chip').forEach(function(c){c.classList.toggle('on',c.dataset.k===k);});
+  document.getElementById('modalTitle').textContent='Customise '+p.l+' bundle';
+  syncSliders();syncUI();
+});
+
+/* ── SLIDERS ── */
+function syncSliders(){
+  var k=AK,p=PLANS[k],s=ST[k];
+  var slV=document.getElementById('slV');slV.max=Math.round(p.mV/p.sv);slV.value=Math.round(s.v/p.sv);
+  document.getElementById('slVlbl').textContent=s.v;setFill('tfV',s.v/p.mV*100);
+  var slD=document.getElementById('slD');slD.max=Math.round(p.mD/p.sd);slD.value=Math.round(s.d/p.sd);
+  document.getElementById('slDlbl').textContent=s.d;setFill('tfD',s.d/p.mD*100);
+  var slS=document.getElementById('slS');slS.max=Math.round(p.mS/p.ss);slS.value=Math.round(s.s/p.ss);
+  document.getElementById('slSlbl').textContent=s.s;setFill('tfS',s.s/p.mS*100);
+  updateModalPrice();
+}
+function setFill(id,pct){var el=document.getElementById(id);if(el)el.style.width=Math.max(0,Math.min(100,pct)).toFixed(1)+'%';}
+function updateModalPrice(){
+  var v=price(AK),s=ST[AK];
+  var ep=document.getElementById('mpbPrice');if(ep)ep.textContent='USD '+v.toFixed(2);
+  var ev=document.getElementById('mpbV');if(ev)ev.textContent=s.v;
+  var ed=document.getElementById('mpbD');if(ed)ed.textContent=s.d;
+  var es=document.getElementById('mpbS');if(es)es.textContent=s.s;
+}
+(function(){
+  function wire(slId,fillId,lblId,key){
+    document.getElementById(slId).addEventListener('input',function(){
+      var k=AK,p=PLANS[k],s=ST[k];
+      var step=p['s'+key],max=p['m'+key.toUpperCase()];
+      s[key]=Math.max(0,Math.min(Math.round(parseInt(this.value,10)*step),max));
+      document.getElementById(lblId).textContent=s[key];
+      setFill(fillId,s[key]/max*100);hap(4);updateModalPrice();
+      /* Live update summary */
+      var v=price(k),dStr=s.v+' Min · '+s.d+' GB · '+s.s+' SMS';
+      var psA=document.getElementById('psAmt');if(psA)psA.textContent=v.toFixed(2);
+      var psD=document.getElementById('psDetail');if(psD)psD.textContent=dStr;
+      var na=document.getElementById('nextAmt');if(na)na.textContent='USD '+v.toFixed(2);
+      var tv=document.getElementById('tbTotalVal');if(tv)tv.textContent='USD '+v.toFixed(2);
+    });
+  }
+  wire('slV','tfV','slVlbl','v');
+  wire('slD','tfD','slDlbl','d');
+  wire('slS','tfS','slSlbl','s');
+})();
+
+/* ── BUNDLE PILL ── */
+function updateBundlePill(){
+  var k=AK,p=PLANS[k],s=ST[k],v=price(k);
+  var bn=document.getElementById('bpName');if(bn)bn.textContent=p.l+' Mix';
+  var bd=document.getElementById('bpDetail');if(bd)bd.textContent=s.v+' Min · '+s.d+' GB · '+s.s+' SMS';
+  var bp=document.getElementById('bpPrice');if(bp)bp.textContent='USD '+v.toFixed(2);
+}
+
+/* ── NUMBER FIELD ── */
+var NETS=['071','077','078','073'];
+var numOK=false,numVerifying=false,numDigits='',vTimer=null;
+var numEl=document.getElementById('numInput');
+var numClearEl=document.getElementById('numClear');
+
+function setNS(type,msg){
+  var st=document.getElementById('numStatus');
+  var txt=document.getElementById('nsTxt');
+  var icon=document.getElementById('nsIcon');
+  var field=document.getElementById('numField');
+  if(!st)return;
+  st.className='num-status'+(type?' '+type:'');
+  txt.textContent=msg;
+  if(type==='err')field.classList.add('err');else field.classList.remove('err');
+  var icons={
+    ok:'<svg width="14" height="14" viewBox="0 0 24 24" fill="var(--grn)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>',
+    err:'<svg width="14" height="14" viewBox="0 0 24 24" fill="var(--err)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>',
+    def:'<svg width="14" height="14" viewBox="0 0 24 24" fill="var(--ink3)"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4 2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg>',
+  };
+  icon.innerHTML=icons[type]||icons.def;
+}
+numEl.addEventListener('focus',function(){if(!numOK)document.getElementById('numField').classList.add('foc');});
+numEl.addEventListener('blur',function(){if(!numOK&&!numVerifying)document.getElementById('numField').classList.remove('foc');});
+numEl.addEventListener('paste',function(e){
+  e.preventDefault();
+  var raw=(e.clipboardData||window.clipboardData).getData('text').replace(/\D/g,'');
+  if(raw.startsWith('00263'))raw=raw.slice(5);else if(raw.startsWith('263')&&raw.length>=12)raw=raw.slice(3);
+  while(raw.startsWith('0'))raw=raw.slice(1);
+  numEl.value=raw.slice(0,9);numEl.dispatchEvent(new Event('input',{bubbles:true}));
+});
+numEl.addEventListener('input',function(){
+  var raw=this.value.replace(/\D/g,'');
+  if(raw.startsWith('00263'))raw=raw.slice(5);else if(raw.startsWith('263')&&raw.length>=12)raw=raw.slice(3);
+  while(raw.startsWith('0'))raw=raw.slice(1);
+  raw=raw.slice(0,9);if(this.value!==raw)this.value=raw;
+  numDigits=raw;numClearEl.classList.toggle('show',raw.length>0);
+  if(numOK||numVerifying)resetVerify();updateNumStatus();clearTimeout(vTimer);
+  if(raw.length===9&&NETS.some(function(n){return('0'+raw).startsWith(n);}))vTimer=setTimeout(doVerify,800);
+});
+numClearEl.addEventListener('click',function(){
+  numEl.value='';numDigits='';numClearEl.classList.remove('show');
+  resetVerify();updateNumStatus();clearTimeout(vTimer);numEl.focus();
+});
+function updateNumStatus(){
+  var d=numDigits,n0='0'+d;
+  var isE=NETS.some(function(n){return n0.startsWith(n);});
+  if(!d.length){setNS('','Econet Zimbabwe · 077 · 078 · 073 · 071');return;}
+  if(!isE&&d.length>=3){setNS('err','Use an Econet number: 077, 078, 073 or 071');return;}
+  if(d.length<9){setNS('','Econet · '+d.length+'/9 digits');return;}
+  setNS('','Ready to verify…');
+}
+function doVerify(){
+  if(numDigits.length!==9||numOK||numVerifying)return;
+  var msisdn='0'+numDigits;
+  if(!NETS.some(function(n){return msisdn.startsWith(n);}))return;
+  numVerifying=true;hap(6);
+  document.getElementById('numStatus').style.display='none';
+  document.getElementById('numVerify').className='num-verify show spinning';
+  document.getElementById('numField').className='num-field foc';
+  var done=false;
+  function finish(){if(done)return;done=true;verOK(msisdn);}
+  setTimeout(finish,2000);
+}
+function verOK(msisdn){
+  numOK=true;numVerifying=false;
+  var disp='+263'+msisdn.replace(/^0/,'');
+  document.getElementById('numVerify').className='num-verify done';
+  document.getElementById('numStatus').style.display='';
+  document.getElementById('numField').className='num-field ok';
+  setNS('ok','✓ '+disp+' verified');
+  var v=price(AK);
+  var pb=document.getElementById('payBtn');if(pb)pb.disabled=false;
+  var pt=document.getElementById('payTitle2');if(pt)pt.textContent='Pay USD '+v.toFixed(2);
+  var ps=document.getElementById('paySub');if(ps)ps.textContent=disp+' · EcoCash';
+  var pa=document.getElementById('payAmt');if(pa)pa.textContent='USD '+v.toFixed(2);
+  hap([10,60,10]);
+}
+function resetVerify(){
+  numOK=false;numVerifying=false;
+  var nv=document.getElementById('numVerify');if(nv)nv.className='num-verify';
+  var ns=document.getElementById('numStatus');if(ns)ns.style.display='';
+  var nf=document.getElementById('numField');if(nf)nf.className='num-field';
+  var pb=document.getElementById('payBtn');if(pb)pb.disabled=true;
+  var pt=document.getElementById('payTitle2');if(pt)pt.textContent='Pay via EcoCash';
+  var ps=document.getElementById('paySub');if(ps)ps.textContent='Verify your number first';
+  var pa=document.getElementById('payAmt');if(pa)pa.textContent='—';
+}
+
+/* ── PAY ── */
+document.getElementById('payBtn').addEventListener('click',function(){
+  if(!numOK)return;
+  hap([10,60,10]);
+  var k=AK,p=PLANS[k],s=ST[k],v=price(k);
+  sessionStorage.setItem('selectedPlan',JSON.stringify({duration:p.l,voice:s.v,sms:s.s,data:s.d,amount:v.toFixed(2),planKey:k}));
+  sessionStorage.setItem('ecoRecipient',JSON.stringify({raw:'0'+numDigits,display:'+263'+numDigits}));
+  var curtain=document.getElementById('curtain');if(curtain)curtain.classList.add('show');
+  setTimeout(function(){window.location.href='login.html';},900);
+});
+
+document.querySelectorAll('.next-btn,.pay-btn,.modal-apply').forEach(function(b){
+  b.addEventListener('pointerdown',function(e){
+    var r=b.getBoundingClientRect(),sz=Math.max(r.width,r.height)*2;
+    var rip=document.createElement('span');rip.className='rip';
+    rip.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(e.clientX-r.left-sz/2)+'px;top:'+(e.clientY-r.top-sz/2)+'px;position:absolute;';
+    b.appendChild(rip);rip.addEventListener('animationend',function(){rip.remove();});
+  },{passive:true});
+});
+
+/* ── INIT ── */
+buildWorksWithIcons('wwIcons');
+syncUI();
+showPayBar('none');
+var _ns=document.getElementById('nextSub');
+if(_ns)_ns.addEventListener('click',function(e){e.stopPropagation();openModal();});
+</script>
+</body>
+</html>
