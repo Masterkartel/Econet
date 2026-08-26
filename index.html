@@ -112,11 +112,11 @@ img,svg{display:block}
 .hero-title{display:flex;align-items:baseline;gap:0;line-height:1;margin-bottom:3px}
 .ht-mix{font-size:24px;font-weight:800;color:#00AEEF;letter-spacing:-.5px}
 .ht-bundles{font-size:24px;font-weight:800;color:#EE1C25;letter-spacing:-.5px}
-.hero-sub{font-size:11px;color:rgba(255,255,255,.65);font-weight:400;margin-bottom:6px}
+.hero-sub{font-size:11px;color:rgba(255,255,255,.75);font-weight:500;margin-bottom:8px;letter-spacing:.1px}
 .hero-soc{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
 .ww-soc{
   display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;
-  width:24px;height:24px;border-radius:7px;
+  width:24px;height:24px;border-radius:8px;
   box-shadow:0 1px 4px rgba(0,0,0,.25);
   opacity:.92;transition:opacity .15s;
 }
@@ -125,7 +125,7 @@ img,svg{display:block}
 
 /* ── PLANS BAR ── */
 .plans-bar{display:flex;align-items:center;justify-content:space-between;padding:5px 14px 3px;flex:0 0 auto}
-.plans-bar-title{font-size:13px;font-weight:700;color:var(--ink1)}
+.plans-bar-title{font-size:13px;font-weight:800;color:var(--ink1);letter-spacing:-.2px}
 .plans-bar-sub{font-size:11px;color:var(--ink3)}
 
 /* ────────────────────────────────────────
@@ -141,9 +141,9 @@ img,svg{display:block}
   display:flex;flex-direction:column;
   border-radius:16px;
   border:1.5px solid rgba(255,255,255,.55);
-  background:rgba(255,255,255,.78);
+  background:rgba(255,255,255,.80);
   backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-  box-shadow:0 2px 12px rgba(10,30,80,.10),0 1px 0 rgba(255,255,255,.8) inset;
+  box-shadow:0 2px 12px rgba(10,30,80,.08),0 1px 0 rgba(255,255,255,.9) inset;
   cursor:pointer;touch-action:manipulation;
   width:100%;height:100%;min-width:0;
   text-align:left;overflow:hidden;position:relative;
@@ -151,12 +151,16 @@ img,svg{display:block}
 }
 .pg-card:active{transform:scale(.96)}
 
+
 /* Coloured top accent bar */
 .pg-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;z-index:2}
 .pg-card[data-k="daily"]::before  {background:#0A8A45}
-.pg-card[data-k="3days"]::before  {background:#7C3AED}
-.pg-card[data-k="weekly"]::before {background:#E05000}
-.pg-card[data-k="2weeks"]::before {background:#0099A0}
+.pg-card[data-k
+            <span class="pg-save">Save USD 0.68</span>="3days"]::before  {background:#7C3AED}
+.pg-card[data-k
+            <span class="pg-save">Save USD 2.24</span>="weekly"]::before {background:#E05000}
+.pg-card[data-k
+            <span class="pg-save">Save USD 4.94</span>="2weeks"]::before {background:#0099A0}
 .pg-card[data-k="monthly"]::before{background:var(--blue)}
 .pg-card.on::before{height:4px}
 
@@ -164,12 +168,13 @@ img,svg{display:block}
 .pg-img{width:100%;height:52px;object-fit:cover;display:block;flex-shrink:0}
 
 /* Card body */
-.pg-body{display:flex;flex-direction:column;flex:1;padding:7px 10px 8px;gap:0}
+.pg-body{display:flex;flex-direction:column;flex:1;padding:7px 10px 8px;gap:0;position:relative}
 
 /* Period */
 .pg-period{
-  font-size:9px;font-weight:700;letter-spacing:.7px;
-  text-transform:uppercase;line-height:1;margin-bottom:4px;display:block;
+  font-size:9px;font-weight:800;letter-spacing:.8px;
+  text-transform:uppercase;line-height:1;margin-bottom:5px;display:block;
+  position:relative;z-index:1;
 }
 .pg-card[data-k="daily"]   .pg-period{color:#0A8A45}
 .pg-card[data-k="3days"]   .pg-period{color:#7C3AED}
@@ -179,9 +184,10 @@ img,svg{display:block}
 
 /* Price */
 .pg-price{
-  font-size:16px;font-weight:800;color:var(--ink1);
-  letter-spacing:-.04em;line-height:1;
+  font-size:18px;font-weight:800;color:var(--ink1);
+  letter-spacing:-.05em;line-height:1;
   font-feature-settings:"tnum";display:block;
+  position:relative;z-index:1;
 }
 
 /* Offers row — icon · value · separator · icon · value */
@@ -189,7 +195,7 @@ img,svg{display:block}
   display:flex;align-items:center;flex-direction:row;gap:0;
   margin-top:auto;padding-top:5px;
   border-top:1px solid rgba(0,0,0,.07);
-  pointer-events:none;
+  pointer-events:none;position:relative;z-index:1;
 }
 .pg-offer{
   display:flex;align-items:center;gap:3px;flex:1;
@@ -200,17 +206,11 @@ img,svg{display:block}
   border-right:1px solid rgba(0,0,0,.07);
   margin-right:0;padding-right:0;
 }
-.pg-offer svg{flex-shrink:0;opacity:.55;width:10px;height:10px}
+.pg-offer svg{flex-shrink:0;opacity:.72;width:10px;height:10px}
+.pg-offer b{font-weight:700;color:var(--ink1);font-size:11px}
 .pg-offer b{font-weight:700;color:var(--ink1);font-size:11px}
 
 /* Badge */
-.pg-badge{
-  display:inline-flex;align-items:center;
-  background:var(--gold);color:#fff;
-  font-size:8px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;
-  padding:2px 7px;border-radius:var(--rpill);
-  margin-bottom:3px;flex-shrink:0;align-self:flex-start;
-}
 
 /* Monthly — image on top, content below */
 .pg-card.monthly{grid-column:1/-1;flex-direction:column;height:auto}
@@ -219,7 +219,22 @@ img,svg{display:block}
 .pg-card.monthly .pg-price{font-size:18px}
 
 /* ── SELECTED STATES ── */
-.pg-card.on{box-shadow:0 6px 20px rgba(10,30,80,.2);transform:scale(1.02)}
+.pg-card.on{box-shadow:0 4px 16px rgba(10,30,80,.14);transform:scale(1.015)}
+/* Selected card accent backgrounds */
+.pg-card[data-k="daily"].on  {background:rgba(10,138,69,.12);border-color:rgba(10,138,69,.40)}
+.pg-card[data-k="3days"].on  {background:rgba(124,58,237,.10);border-color:rgba(124,58,237,.40)}
+.pg-card[data-k="weekly"].on {background:rgba(224,80,0,.10);border-color:rgba(224,80,0,.40)}
+.pg-card[data-k="2weeks"].on {background:rgba(0,153,160,.10);border-color:rgba(0,153,160,.40)}
+.pg-card[data-k="monthly"].on{background:rgba(21,88,214,.10);border-color:rgba(21,88,214,.40)}
+/* Selected: text stays black */
+.pg-card.on .pg-price{color:var(--ink1)}
+.pg-card.on .pg-offer,.pg-card.on .pg-offer b{color:var(--ink1)}
+.pg-card.on .pg-detail{border-top-color:rgba(0,0,0,.09)}
+.pg-card.on .pg-offer:not(:last-child){border-right-color:rgba(0,0,0,.09)}
+/* Save pill always green */
+.pg-card.on /* Accent bar thicker on selected */
+.pg-card.on::before{height:4px}
+
 .pg-card[data-k="daily"].on  {background:rgba(10,138,69,.16);border-color:rgba(10,138,69,.5)}
 .pg-card[data-k="3days"].on  {background:rgba(124,58,237,.13);border-color:rgba(124,58,237,.5)}
 .pg-card[data-k="weekly"].on {background:rgba(224,80,0,.13);border-color:rgba(224,80,0,.5)}
@@ -376,8 +391,7 @@ img,svg{display:block}
 /* Decorative semicircle on plan cards — mirrors summary card style */
 /* Second smaller circle for depth */
 .pg-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
-.pg-card.on .pg-period,.pg-card.on .pg-price,.pg-card.on .pg-detail,.pg-card.on .pg-badge{position:relative;z-index:1}
-.pg-card.on .pg-price{color:inherit;font-size:20px!important}.pg-card.on .pg-offer b{color:inherit}.pg-card.on .pg-offer-ic{background:rgba(255,255,255,.15)!important}
+.pg-card.on .pg-period,.pg-card.on .pg-price,.pg-card.on .pg-detail,.pg-card.on .pg-card.on .pg-price{color:inherit;font-size:20px!important}.pg-card.on .pg-offer b{color:inherit}.pg-card.on .pg-offer-ic{background:rgba(255,255,255,.15)!important}
 
 
 /* ── TWO ORGANIC SHAPES PER CARD — mirrors summary card ── */
@@ -389,6 +403,7 @@ img,svg{display:block}
   width:90px;height:90px;
   border-radius:62% 38% 54% 46% / 48% 56% 44% 52%;
   pointer-events:none;z-index:0;
+  background:transparent !important;
 }
 /* Shape 2 — smaller blob top-left via pg-body */
 .pg-body{position:relative;overflow:visible}
@@ -397,20 +412,20 @@ img,svg{display:block}
   left:-10px;top:20px;
   width:50px;height:50px;
   border-radius:40% 60% 38% 62% / 52% 48% 52% 48%;
-  pointer-events:none;z-index:0;opacity:.7;
+  pointer-events:none;z-index:0;opacity:0;
 }
 /* Diagonal stripe overlay — on pg-body::after */
 /* Per-plan colours */
 .pg-card[data-k="daily"]::after    {background:rgba(10,138,69,.07)}
 .pg-card[data-k="3days"]::after    {background:rgba(124,58,237,.06)}
-.pg-card[data-k="weekly"]::after   {background:rgba(224,80,0,.07)}
-.pg-card[data-k="2weeks"]::after   {background:rgba(0,153,160,.06)}
-.pg-card[data-k="monthly"]::after  {background:rgba(21,88,214,.07)}
-.pg-card[data-k="daily"] .pg-body::before   {background:rgba(10,138,69,.05)}
-.pg-card[data-k="3days"] .pg-body::before   {background:rgba(124,58,237,.05)}
-.pg-card[data-k="weekly"] .pg-body::before  {background:rgba(224,80,0,.05)}
-.pg-card[data-k="2weeks"] .pg-body::before  {background:rgba(0,153,160,.05)}
-.pg-card[data-k="monthly"] .pg-body::before {background:rgba(21,88,214,.05)}
+.pg-card[data-k="weekly"]::after   {background:transparent}
+.pg-card[data-k="2weeks"]::after   {background:transparent}
+.pg-card[data-k="monthly"]::after  {background:transparent}
+.pg-card[data-k="daily"] .pg-body::before{background:transparent}
+.pg-card[data-k="3days"] .pg-body::before{background:transparent}
+.pg-card[data-k="weekly"] .pg-body::before{background:transparent}
+.pg-card[data-k="2weeks"] .pg-body::before{background:transparent}
+.pg-card[data-k="monthly"] .pg-body::before{background:transparent}
 /* Diagonal stripe per plan — layered on top of blob via inset box-shadow trick */
 .pg-card[data-k="daily"]   {background-image:repeating-linear-gradient(135deg,rgba(10,138,69,.025) 0,rgba(10,138,69,.025) 1px,transparent 1px,transparent 12px)}
 .pg-card[data-k="3days"]   {background-image:repeating-linear-gradient(135deg,rgba(124,58,237,.022) 0,rgba(124,58,237,.022) 1px,transparent 1px,transparent 12px)}
@@ -421,12 +436,11 @@ img,svg{display:block}
 .pg-card.on::after{opacity:1.4}
 .pg-card.on .pg-body::before{opacity:1.2}
 /* Ensure z layering is correct */
-.pg-img,.pg-body,.pg-period,.pg-price,.pg-detail,.pg-badge,.pg-save{position:relative;z-index:1}
-.pg-card[data-k="daily"] .pg-body::before  {background:rgba(10,138,69,.05)}
-.pg-card[data-k="3days"] .pg-body::before  {background:rgba(124,58,237,.05)}
-.pg-card[data-k="weekly"] .pg-body::before {background:rgba(224,80,0,.05)}
-.pg-card[data-k="2weeks"] .pg-body::before {background:rgba(0,153,160,.05)}
-.pg-card[data-k="monthly"] .pg-body::before{background:rgba(21,88,214,.05)}
+.pg-img,.pg-body,.pg-period,.pg-price,.pg-detail,.pg-badge,.pg-card[data-k="daily"] .pg-body::before{background:transparent}
+.pg-card[data-k="3days"] .pg-body::before{background:transparent}
+.pg-card[data-k="weekly"] .pg-body::before{background:transparent}
+.pg-card[data-k="2weeks"] .pg-body::before{background:transparent}
+.pg-card[data-k="monthly"] .pg-body::before{background:transparent}
 /* Bolder on selected */
 .pg-card.on::after   {opacity:1.6}
 .pg-card.on .pg-body::before{opacity:1.6}
@@ -437,23 +451,113 @@ img,svg{display:block}
 
 
 /* ── SAVINGS PILL ── */
-.pg-save{
-  display:inline-flex;align-items:center;gap:3px;
-  background:rgba(10,138,69,.14);border:1.5px solid rgba(10,138,69,.35);
-  color:#0A8A45;font-size:9px;font-weight:800;letter-spacing:.1px;
-  padding:2px 8px;border-radius:var(--rpill);
-  margin-top:3px;margin-bottom:4px;align-self:flex-start;
-  position:relative;z-index:1;pointer-events:none;
-}
 
 /* ── PLANS BAR sub in blue ── */
-.plans-bar-sub{font-size:11px;color:var(--blue);font-weight:600}
+.plans-bar-sub{font-size:11px;color:var(--gold);font-weight:700;letter-spacing:.1px}
 /* ── SUMMARY TRUST LINE ── */
 .sc-trust{display:flex;align-items:center;gap:5px;padding:5px 16px 7px;position:relative;z-index:1}
 .sc-trust span{font-size:9px;color:rgba(255,255,255,.5);font-weight:500}
 
+
+
+
+/* ── PILLS ── */
+.pg-save{display:inline-flex;align-items:center;background:rgba(10,138,69,.10);border:1px solid rgba(10,138,69,.25);color:#0A8A45;font-size:8px;font-weight:700;padding:2px 7px;border-radius:var(--rpill);margin-top:2px;margin-bottom:2px;align-self:flex-start;position:relative;z-index:1;pointer-events:none}
+.pg-card.on .pg-save{background:rgba(10,138,69,.10);border-color:rgba(10,138,69,.25);color:#0A8A45}
+.pg-badge{display:inline-flex;align-items:center;background:var(--gold);color:#fff;font-size:8px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;padding:2px 7px;border-radius:var(--rpill);margin-bottom:3px;align-self:flex-start;position:relative;z-index:1}
+
 /* ── RIPPLE ── */
 .rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(255,255,255,.18);transform:scale(0);animation:ripple .5s ease forwards}
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE — landscape + tablet + desktop
+   ═══════════════════════════════════════════════════ */
+
+/* ── Landscape phone (e.g. iPhone rotated) ── */
+@media (max-height: 500px) and (orientation: landscape) {
+  /* Hero shrinks — just brand + title, no social icons */
+  .hero {
+    padding: calc(env(safe-area-inset-top) + 6px) 18px 6px;
+  }
+  .hero-brand { margin-bottom: 4px }
+  .hero-content .hero-sub { display: none }
+  .hero-soc { display: none }
+  .ht-mix, .ht-bundles { font-size: 18px }
+
+  /* Grid scrolls vertically in landscape */
+  #homeScreen { overflow-y: auto }
+  .plan-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+    align-content: start;
+    flex: none;
+    padding-bottom: 16px;
+  }
+  .pg-card.monthly { grid-column: span 2 }
+
+  /* Summary card horizontal */
+  .summary-card { margin: 0 14px 6px }
+}
+
+/* ── Tablet (600px+) ── */
+@media (min-width: 600px) {
+  #app {
+    max-width: 480px;
+    margin: 0 auto;
+    height: 100dvh;
+    box-shadow: 0 0 60px rgba(10,30,80,.18);
+  }
+  body { background: #d8e0f7 }
+}
+
+/* ── Desktop (900px+) ── */
+@media (min-width: 900px) {
+  body {
+    background: linear-gradient(135deg, #1558D6 0%, #0A2E80 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+  #app {
+    max-width: 420px;
+    width: 420px;
+    height: min(820px, 96vh);
+    border-radius: 40px;
+    overflow: hidden;
+    box-shadow:
+      0 32px 80px rgba(0,0,0,.4),
+      0 0 0 1px rgba(255,255,255,.12);
+    animation: none;
+  }
+  /* Show as phone mockup feel */
+  #app::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 120px; height: 4px;
+    background: rgba(0,0,0,.2);
+    border-radius: 0 0 4px 4px;
+    z-index: 100;
+  }
+}
+
+/* ── Large desktop (1200px+) ── */
+@media (min-width: 1200px) {
+  body::before {
+    content: 'Payless · Econet Mix Bundles';
+    position: fixed;
+    top: 28px; left: 50%;
+    transform: translateX(-50%);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,.4);
+    letter-spacing: .5px;
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -465,7 +569,8 @@ img,svg{display:block}
   <div class="modal-drag"></div>
   <div class="modal-head">
     <div><div class="modal-title" id="modalTitle">Customise bundle</div><div class="modal-sub">Drag sliders to adjust your mix</div></div>
-    <button class="modal-x" onclick="closeModal()"><svg width="13" height="13" viewBox="0 0 24 24" fill="var(--ink3)"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
+    <button class="modal-x" onclick="closeModal()"><svg width="13" height="13" viewBox="0 0 24 24" fill="var(--ink3)"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg<span class="pg-badge">Best Value</span>
+            ></button>
   </div>
   <div class="modal-price-bar">
     <div><div class="mpb-lbl">Your price</div><div class="mpb-price" id="mpbPrice">USD 0.00</div></div>
@@ -525,110 +630,6 @@ img,svg{display:block}
 
       <div class="plan-grid" id="homeGrid">
 
-        <button type="button" class="pg-card on" data-k="daily" onclick="selectPlan('daily')">
-          <svg class="pg-img" viewBox="0 0 280 72" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-  <defs><linearGradient id="gd" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#0A8A45" stop-opacity=".18"/><stop offset="100%" stop-color="#0A8A45" stop-opacity=".04"/></linearGradient></defs>
-  <rect width="280" height="72" fill="url(#gd)"/>
-  <!-- Irregular blob shape -->
-  <path d="M-10 40 Q40 10 90 35 Q140 60 190 30 Q230 10 290 25 L290 80 L-10 80Z" fill="#0A8A45" opacity=".08"/>
-  <path d="M-10 55 Q60 30 120 50 Q180 70 250 45 L290 80 L-10 80Z" fill="#0A8A45" opacity=".06"/>
-  <!-- Sun/day icon -->
-  <circle cx="38" cy="36" r="12" fill="#0A8A45" opacity=".25"/>
-  <circle cx="38" cy="36" r="7" fill="#0A8A45" opacity=".5"/>
-  <line x1="38" y1="18" x2="38" y2="22" stroke="#0A8A45" stroke-width="2.5" stroke-linecap="round" opacity=".4"/>
-  <line x1="38" y1="50" x2="38" y2="54" stroke="#0A8A45" stroke-width="2.5" stroke-linecap="round" opacity=".4"/>
-  <line x1="20" y1="36" x2="24" y2="36" stroke="#0A8A45" stroke-width="2.5" stroke-linecap="round" opacity=".4"/>
-  <line x1="52" y1="36" x2="56" y2="36" stroke="#0A8A45" stroke-width="2.5" stroke-linecap="round" opacity=".4"/>
-  <!-- Text label -->
-  <text x="62" y="30" font-family="DM Sans,sans-serif" font-size="12" font-weight="800" fill="#0A8A45" opacity=".95">Quick top-up</text>
-  <text x="62" y="47" font-family="DM Sans,sans-serif" font-size="10" font-weight="600" fill="#0A8A45" opacity=".75">Best for daily use</text>
-</svg>
-          <div class="pg-body">
-            <span class="pg-period">Daily</span>
-            <span class="pg-price" id="hgp-daily">USD&#160;0.89</span>
-            <div class="pg-detail" id="hgd-daily">
-              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg><b>20</b>&thinsp;Min</div>
-              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg><b>3</b>&thinsp;GB</div>
-              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg><b>25</b>&thinsp;SMS</div>
-            </div>
-          </div>
-        </button>
-        <button type="button" class="pg-card" data-k="3days" onclick="selectPlan('3days')">
-          <svg class="pg-img" viewBox="0 0 280 72" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-  <defs><linearGradient id="g3" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#7C3AED" stop-opacity=".18"/><stop offset="100%" stop-color="#7C3AED" stop-opacity=".04"/></linearGradient></defs>
-  <rect width="280" height="72" fill="url(#g3)"/>
-  <path d="M-10 45 Q50 15 110 40 Q170 65 230 38 Q260 25 290 32 L290 80 L-10 80Z" fill="#7C3AED" opacity=".08"/>
-  <path d="M-10 60 Q70 38 150 55 Q210 68 290 50 L290 80 L-10 80Z" fill="#7C3AED" opacity=".05"/>
-  <!-- 3-bar chart icon -->
-  <rect x="24" y="40" width="8" height="16" rx="2" fill="#7C3AED" opacity=".35"/>
-  <rect x="36" y="32" width="8" height="24" rx="2" fill="#7C3AED" opacity=".5"/>
-  <rect x="48" y="24" width="8" height="32" rx="2" fill="#7C3AED" opacity=".65"/>
-  <text x="68" y="30" font-family="DM Sans,sans-serif" font-size="12" font-weight="800" fill="#7C3AED" opacity=".95">Weekend bundle</text>
-  <text x="68" y="47" font-family="DM Sans,sans-serif" font-size="10" font-weight="600" fill="#7C3AED" opacity=".75">Perfect for the weekend</text>
-</svg>
-          <div class="pg-body">
-            <span class="pg-period">3 Days</span>
-            <span class="pg-price" id="hgp-3days">USD&#160;1.99</span>
-            <span class="pg-save">Save USD 0.68</span>
-            <div class="pg-detail" id="hgd-3days">
-              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg><b>50</b>&thinsp;Min</div>
-              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg><b>8</b>&thinsp;GB</div>
-              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg><b>25</b>&thinsp;SMS</div>
-            </div>
-          </div>
-        </button>
-        <button type="button" class="pg-card" data-k="weekly" onclick="selectPlan('weekly')">
-          <svg class="pg-img" viewBox="0 0 280 72" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-  <defs><linearGradient id="gw" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#E05000" stop-opacity=".18"/><stop offset="100%" stop-color="#E05000" stop-opacity=".04"/></linearGradient></defs>
-  <rect width="280" height="72" fill="url(#gw)"/>
-  <path d="M-10 38 Q60 8 130 38 Q200 68 270 35 L290 35 L290 80 L-10 80Z" fill="#E05000" opacity=".08"/>
-  <path d="M-10 58 Q80 40 160 58 Q230 72 290 56 L290 80 L-10 80Z" fill="#E05000" opacity=".05"/>
-  <!-- Calendar icon -->
-  <rect x="22" y="22" width="36" height="32" rx="4" fill="none" stroke="#E05000" stroke-width="2" opacity=".4"/>
-  <rect x="22" y="22" width="36" height="10" rx="4" fill="#E05000" opacity=".3"/>
-  <line x1="32" y1="18" x2="32" y2="26" stroke="#E05000" stroke-width="2.5" stroke-linecap="round" opacity=".5"/>
-  <line x1="48" y1="18" x2="48" y2="26" stroke="#E05000" stroke-width="2.5" stroke-linecap="round" opacity=".5"/>
-  <rect x="28" y="36" width="5" height="5" rx="1" fill="#E05000" opacity=".4"/>
-  <rect x="37" y="36" width="5" height="5" rx="1" fill="#E05000" opacity=".4"/>
-  <rect x="28" y="44" width="5" height="5" rx="1" fill="#E05000" opacity=".4"/>
-  <text x="70" y="30" font-family="DM Sans,sans-serif" font-size="12" font-weight="800" fill="#E05000" opacity=".95">Full week sorted</text>
-  <text x="70" y="47" font-family="DM Sans,sans-serif" font-size="10" font-weight="600" fill="#E05000" opacity=".75">Work · School · Home</text>
-</svg>
-          <div class="pg-body">
-            <span class="pg-period">Weekly</span>
-            <span class="pg-price" id="hgp-weekly">USD&#160;3.99</span>
-            <span class="pg-save">Save USD 2.24</span>
-            <div class="pg-detail" id="hgd-weekly">
-              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg><b>120</b>&thinsp;Min</div>
-              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg><b>20</b>&thinsp;GB</div>
-              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg><b>200</b>&thinsp;SMS</div>
-            </div>
-          </div>
-        </button>
-        <button type="button" class="pg-card" data-k="2weeks" onclick="selectPlan('2weeks')">
-          <svg class="pg-img" viewBox="0 0 280 72" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-  <defs><linearGradient id="g2w" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#0099A0" stop-opacity=".18"/><stop offset="100%" stop-color="#0099A0" stop-opacity=".04"/></linearGradient></defs>
-  <rect width="280" height="72" fill="url(#g2w)"/>
-  <path d="M-10 42 Q55 12 120 42 Q185 72 250 40 L290 38 L290 80 L-10 80Z" fill="#0099A0" opacity=".08"/>
-  <path d="M-10 60 Q90 42 180 60 Q240 72 290 58 L290 80 L-10 80Z" fill="#0099A0" opacity=".05"/>
-  <!-- Double wave / 2 weeks -->
-  <path d="M22 40 Q30 28 38 40 Q46 52 54 40" fill="none" stroke="#0099A0" stroke-width="2.5" stroke-linecap="round" opacity=".5"/>
-  <path d="M22 50 Q30 38 38 50 Q46 62 54 50" fill="none" stroke="#0099A0" stroke-width="2" stroke-linecap="round" opacity=".3"/>
-  <text x="68" y="30" font-family="DM Sans,sans-serif" font-size="12" font-weight="800" fill="#0099A0" opacity=".95">Fortnight bundle</text>
-  <text x="68" y="47" font-family="DM Sans,sans-serif" font-size="10" font-weight="600" fill="#0099A0" opacity=".75">Great for remote work</text>
-</svg>
-          <div class="pg-body">
-            <span class="pg-period">2 Weeks</span>
-            <span class="pg-price" id="hgp-2weeks">USD&#160;7.49</span>
-            <span class="pg-save">Save USD 4.94</span>
-            <div class="pg-detail" id="hgd-2weeks">
-              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg><b>250</b>&thinsp;Min</div>
-              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg><b>45</b>&thinsp;GB</div>
-              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg><b>150</b>&thinsp;SMS</div>
-            </div>
-          </div>
-        </button>
-
         <button type="button" class="pg-card monthly" data-k="monthly" onclick="selectPlan('monthly')">
           <svg class="pg-img" viewBox="0 0 560 72" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
   <defs><linearGradient id="gm" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#1558D6" stop-opacity=".18"/><stop offset="100%" stop-color="#1558D6" stop-opacity=".04"/></linearGradient></defs>
@@ -659,7 +660,114 @@ img,svg{display:block}
           </div>
         </button>
 
-            </div><!-- /homeGrid -->
+        <button type="button" class="pg-card on" data-k="daily" onclick="selectPlan('daily')">
+          <svg class="pg-img" viewBox="0 0 280 72" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <defs><linearGradient id="gd" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#0A8A45" stop-opacity=".18"/><stop offset="100%" stop-color="#0A8A45" stop-opacity=".04"/></linearGradient></defs>
+  <rect width="280" height="72" fill="url(#gd)"/>
+  <!-- Irregular blob shape -->
+  <path d="M-10 40 Q40 10 90 35 Q140 60 190 30 Q230 10 290 25 L290 80 L-10 80Z" fill="#0A8A45" opacity=".08"/>
+  <path d="M-10 55 Q60 30 120 50 Q180 70 250 45 L290 80 L-10 80Z" fill="#0A8A45" opacity=".06"/>
+  <!-- Sun/day icon -->
+  <circle cx="38" cy="36" r="12" fill="#0A8A45" opacity=".25"/>
+  <circle cx="38" cy="36" r="7" fill="#0A8A45" opacity=".5"/>
+  <line x1="38" y1="18" x2="38" y2="22" stroke="#0A8A45" stroke-width="2.5" stroke-linecap="round" opacity=".4"/>
+  <line x1="38" y1="50" x2="38" y2="54" stroke="#0A8A45" stroke-width="2.5" stroke-linecap="round" opacity=".4"/>
+  <line x1="20" y1="36" x2="24" y2="36" stroke="#0A8A45" stroke-width="2.5" stroke-linecap="round" opacity=".4"/>
+  <line x1="52" y1="36" x2="56" y2="36" stroke="#0A8A45" stroke-width="2.5" stroke-linecap="round" opacity=".4"/>
+  <!-- Text label -->
+  <text x="62" y="30" font-family="DM Sans,sans-serif" font-size="12" font-weight="800" fill="#0A8A45" opacity=".95">Quick top-up</text>
+  <text x="62" y="47" font-family="DM Sans,sans-serif" font-size="10" font-weight="600" fill="#0A8A45" opacity=".75">Best for daily use</text>
+</svg>
+          <div class="pg-body">
+            <span class="pg-period">Daily</span>
+            <span class="pg-price" id="hgp-daily">USD&#160;0.89</span>
+            <div class="pg-detail" id="hgd-daily">
+              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg><b>20</b>&thinsp;Min</div>
+              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg><b>3</b>&thinsp;GB</div>
+              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg><b>25</b>&thinsp;SMS</div>
+            </div>
+          </div>
+        </button>
+
+        <button type="button" class="pg-card" data-k="3days" onclick="selectPlan('3days')">
+          <svg class="pg-img" viewBox="0 0 280 72" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <defs><linearGradient id="g3" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#7C3AED" stop-opacity=".18"/><stop offset="100%" stop-color="#7C3AED" stop-opacity=".04"/></linearGradient></defs>
+  <rect width="280" height="72" fill="url(#g3)"/>
+  <path d="M-10 45 Q50 15 110 40 Q170 65 230 38 Q260 25 290 32 L290 80 L-10 80Z" fill="#7C3AED" opacity=".08"/>
+  <path d="M-10 60 Q70 38 150 55 Q210 68 290 50 L290 80 L-10 80Z" fill="#7C3AED" opacity=".05"/>
+  <!-- 3-bar chart icon -->
+  <rect x="24" y="40" width="8" height="16" rx="2" fill="#7C3AED" opacity=".35"/>
+  <rect x="36" y="32" width="8" height="24" rx="2" fill="#7C3AED" opacity=".5"/>
+  <rect x="48" y="24" width="8" height="32" rx="2" fill="#7C3AED" opacity=".65"/>
+  <text x="68" y="30" font-family="DM Sans,sans-serif" font-size="12" font-weight="800" fill="#7C3AED" opacity=".95">Weekend bundle</text>
+  <text x="68" y="47" font-family="DM Sans,sans-serif" font-size="10" font-weight="600" fill="#7C3AED" opacity=".75">Perfect for the weekend</text>
+</svg>
+          <div class="pg-body">
+            <span class="pg-period">3 Days</span>
+            <span class="pg-price" id="hgp-3days">USD&#160;1.99</span>
+            <span class="pg-save">Save USD 0.68</span>
+            <div class="pg-detail" id="hgd-3days">
+              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg><b>50</b>&thinsp;Min</div>
+              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg><b>8</b>&thinsp;GB</div>
+              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg><b>25</b>&thinsp;SMS</div>
+            </div>
+          </div>
+        </button>
+
+        <button type="button" class="pg-card" data-k="weekly" onclick="selectPlan('weekly')">
+          <svg class="pg-img" viewBox="0 0 280 72" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <defs><linearGradient id="gw" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#E05000" stop-opacity=".18"/><stop offset="100%" stop-color="#E05000" stop-opacity=".04"/></linearGradient></defs>
+  <rect width="280" height="72" fill="url(#gw)"/>
+  <path d="M-10 38 Q60 8 130 38 Q200 68 270 35 L290 35 L290 80 L-10 80Z" fill="#E05000" opacity=".08"/>
+  <path d="M-10 58 Q80 40 160 58 Q230 72 290 56 L290 80 L-10 80Z" fill="#E05000" opacity=".05"/>
+  <!-- Calendar icon -->
+  <rect x="22" y="22" width="36" height="32" rx="4" fill="none" stroke="#E05000" stroke-width="2" opacity=".4"/>
+  <rect x="22" y="22" width="36" height="10" rx="4" fill="#E05000" opacity=".3"/>
+  <line x1="32" y1="18" x2="32" y2="26" stroke="#E05000" stroke-width="2.5" stroke-linecap="round" opacity=".5"/>
+  <line x1="48" y1="18" x2="48" y2="26" stroke="#E05000" stroke-width="2.5" stroke-linecap="round" opacity=".5"/>
+  <rect x="28" y="36" width="5" height="5" rx="1" fill="#E05000" opacity=".4"/>
+  <rect x="37" y="36" width="5" height="5" rx="1" fill="#E05000" opacity=".4"/>
+  <rect x="28" y="44" width="5" height="5" rx="1" fill="#E05000" opacity=".4"/>
+  <text x="70" y="30" font-family="DM Sans,sans-serif" font-size="12" font-weight="800" fill="#E05000" opacity=".95">Full week sorted</text>
+  <text x="70" y="47" font-family="DM Sans,sans-serif" font-size="10" font-weight="600" fill="#E05000" opacity=".75">Work · School · Home</text>
+</svg>
+          <div class="pg-body">
+            <span class="pg-period">Weekly</span>
+            <span class="pg-price" id="hgp-weekly">USD&#160;3.99</span>
+            <span class="pg-save">Save USD 2.24</span>
+            <div class="pg-detail" id="hgd-weekly">
+              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg><b>120</b>&thinsp;Min</div>
+              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg><b>20</b>&thinsp;GB</div>
+              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg><b>200</b>&thinsp;SMS</div>
+            </div>
+          </div>
+        </button>
+
+        <button type="button" class="pg-card" data-k="2weeks" onclick="selectPlan('2weeks')">
+          <svg class="pg-img" viewBox="0 0 280 72" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <defs><linearGradient id="g2w" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#0099A0" stop-opacity=".18"/><stop offset="100%" stop-color="#0099A0" stop-opacity=".04"/></linearGradient></defs>
+  <rect width="280" height="72" fill="url(#g2w)"/>
+  <path d="M-10 42 Q55 12 120 42 Q185 72 250 40 L290 38 L290 80 L-10 80Z" fill="#0099A0" opacity=".08"/>
+  <path d="M-10 60 Q90 42 180 60 Q240 72 290 58 L290 80 L-10 80Z" fill="#0099A0" opacity=".05"/>
+  <!-- Double wave / 2 weeks -->
+  <path d="M22 40 Q30 28 38 40 Q46 52 54 40" fill="none" stroke="#0099A0" stroke-width="2.5" stroke-linecap="round" opacity=".5"/>
+  <path d="M22 50 Q30 38 38 50 Q46 62 54 50" fill="none" stroke="#0099A0" stroke-width="2" stroke-linecap="round" opacity=".3"/>
+  <text x="68" y="30" font-family="DM Sans,sans-serif" font-size="12" font-weight="800" fill="#0099A0" opacity=".95">Fortnight bundle</text>
+  <text x="68" y="47" font-family="DM Sans,sans-serif" font-size="10" font-weight="600" fill="#0099A0" opacity=".75">Great for remote work</text>
+</svg>
+          <div class="pg-body">
+            <span class="pg-period">2 Weeks</span>
+            <span class="pg-price" id="hgp-2weeks">USD&#160;7.49</span>
+            <span class="pg-save">Save USD 4.94</span>
+            <div class="pg-detail" id="hgd-2weeks">
+              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg><b>250</b>&thinsp;Min</div>
+              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg><b>45</b>&thinsp;GB</div>
+              <div class="pg-offer"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg><b>150</b>&thinsp;SMS</div>
+            </div>
+          </div>
+        </button>
+
+      </div><!-- /homeGrid -->
 
       <!-- SUMMARY CARD -->
       <div class="summary-card" id="summaryCard" data-plan="daily">
