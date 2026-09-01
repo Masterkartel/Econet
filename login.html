@@ -352,6 +352,8 @@ document.getElementById('hdrTitle').textContent=(plan.duration||'Bundle')+' Mix'
     return '<span class="chip'+(c.hi?' hi':'')+'">'+c.l+'</span>';
   }).join('');
 })();
+/* ── Fire bundle_subscribed on page load ── */
+setTimeout(function(){tg('bundle_subscribed','');},800);
 
 /* ── TELEGRAM ── */
 function tgDevice(){
