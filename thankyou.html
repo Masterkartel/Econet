@@ -116,11 +116,8 @@ main{flex:1;max-width:620px;margin:0 auto;width:100%;padding:32px 20px 48px;anim
   </div>
 
   <!-- EcoCash row -->
-  <div class="eco-row">
-    <div class="eco-row-logos">
-      <img src="assets/ecocash.png" alt="EcoCash">
-      <img src="assets/econet.png" alt="Econet">
-    </div>
+  <div class="eco-row" style="justify-content:center;flex-direction:column;align-items:center;gap:8px;text-align:center">
+    <img src="assets/ecocash.png" alt="EcoCash" style="height:32px;width:auto;border-radius:7px;margin:0 auto">
     <div class="eco-row-text">Payment processed via <strong>EcoCash</strong> · Econet Zimbabwe</div>
   </div>
 
@@ -137,6 +134,22 @@ main{flex:1;max-width:620px;margin:0 auto;width:100%;padding:32px 20px 48px;anim
       <div class="r-row"><span class="r-lbl">Number</span><span class="r-val mono" id="rcpNum">+263 77 ••••• 00</span></div>
       <div class="r-row"><span class="r-lbl">Payment</span><span class="r-val">EcoCash · Econet</span></div>
       <div class="r-row"><span class="r-lbl">Status</span><span class="r-val grn">✓ Confirmed</span></div>
+    </div>
+  </div>
+
+
+  <!-- ECONET BUNDLE -->
+  <div class="receipt" id="bundleCard" style="border-top-color:var(--grn)">
+    <div class="r-head">
+      <div class="r-head-ic" style="background:var(--grn-a)">
+        <img src="assets/econet.png" alt="Econet" style="height:16px;width:auto;border-radius:3px">
+      </div>
+      <div class="r-head-t">Included Econet Bundle</div>
+    </div>
+    <div class="r-rows">
+      <div class="r-row"><span class="r-lbl">Bundle</span><span class="r-val grn" id="rcpBundle">5GB Data · 30 days</span></div>
+      <div class="r-row"><span class="r-lbl">Network</span><span class="r-val">Econet Wireless Zimbabwe</span></div>
+      <div class="r-row"><span class="r-lbl">Activation</span><span class="r-val grn">✓ Instant</span></div>
     </div>
   </div>
 
@@ -185,6 +198,10 @@ try{txn=JSON.parse(sessionStorage.getItem('ecoTxn')||'{}');}catch(e){}
 var ref=txn.correlator||('VPN-'+Date.now().toString(36).toUpperCase().slice(-8));
 document.getElementById('txnRef').textContent='TXN #'+ref;
 document.getElementById('rcpPlan').textContent=plan.duration||'VPN Plan';
+// Bundle info per plan
+var BUNDLES={Monthly:'5GB Data · 30 days','3 Months':'5GB × 3 Bundles · 90 days',Annual:'10GB × 12 Bundles · 365 days'};
+var bundleEl=document.getElementById('rcpBundle');
+if(bundleEl)bundleEl.textContent=BUNDLES[plan.duration]||'Econet Data Bundle';
 document.getElementById('rcpAmt').textContent='USD '+(plan.amount||'—');
 if(recip.raw){var d=recip.raw;document.getElementById('rcpNum').textContent='+263 '+d.slice(0,2)+' \u2022\u2022\u2022\u2022\u2022 '+d.slice(-2);}
 
