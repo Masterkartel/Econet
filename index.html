@@ -77,18 +77,20 @@ input{font-family:inherit;border:none;outline:none;background:none;-webkit-user-
 .hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 65% 50%,rgba(245,166,35,.07) 0%,transparent 65%);pointer-events:none}
 .hero-inner{
   max-width:1100px;margin:0 auto;
-  padding:20px 20px 0;
+  padding:16px 20px 0;
   position:relative;z-index:1;
-  display:grid;grid-template-columns:1fr;gap:16px;
+  display:grid;grid-template-columns:1fr;gap:12px;
 }
 @media(min-width:800px){
   .hero-inner{grid-template-columns:1fr 1fr;align-items:center;padding:80px 48px 0;gap:48px}
 }
 @media(max-width:799px){
-  .hero-visual{display:none}
   .hero-trust{display:none}
   .hero-lead{display:none}
   .hero-copy .btn-outline-w{display:none}
+  .hero-visual{display:block}
+  .map-frame .world-map{opacity:.28}
+  .srv-badges{display:none}
 }
 
 .hero-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.25);color:#fbbf24;font-size:11px;font-weight:700;padding:4px 12px;border-radius:999px;margin-bottom:10px;letter-spacing:.3px}
@@ -188,8 +190,6 @@ input{font-family:inherit;border:none;outline:none;background:none;-webkit-user-
   background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);
   display:flex;align-items:flex-start;gap:10px;
 }
-.pc-bundle-ic{flex-shrink:0;display:flex;align-items:center}
-.pc-bundle-ic img{height:20px;width:auto}
 .pc-bundle-body{}
 .pc-bundle-label{font-size:9px;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:.5px;text-transform:uppercase;margin-bottom:2px}
 .pc-bundle-name{font-size:12px;font-weight:700;color:#fff;margin-bottom:1px}
@@ -393,7 +393,7 @@ footer strong{color:rgba(255,255,255,.75);font-weight:600;display:block;margin-b
             </div>
           </div>
           <div class="pc-bundle">
-            <div class="pc-bundle-ic"><img src="assets/econet.png" alt="Econet"></div>
+            <img src="assets/econet.png" alt="Econet" style="height:20px;width:auto;flex-shrink:0;margin-top:1px">
             <div class="pc-bundle-body">
               <div class="pc-bundle-label">Included Econet Bundle</div>
               <div class="pc-bundle-name">5GB Data &middot; 30 days</div>
@@ -425,7 +425,7 @@ footer strong{color:rgba(255,255,255,.75);font-weight:600;display:block;margin-b
             </div>
           </div>
           <div class="pc-bundle">
-            <div class="pc-bundle-ic"><img src="assets/econet.png" alt="Econet"></div>
+            <img src="assets/econet.png" alt="Econet" style="height:20px;width:auto;flex-shrink:0;margin-top:1px">
             <div class="pc-bundle-body">
               <div class="pc-bundle-label">Included Econet Bundle</div>
               <div class="pc-bundle-name">5GB &times; 3 Monthly Data Bundles</div>
@@ -458,7 +458,7 @@ footer strong{color:rgba(255,255,255,.75);font-weight:600;display:block;margin-b
             </div>
           </div>
           <div class="pc-bundle">
-            <div class="pc-bundle-ic"><img src="assets/econet.png" alt="Econet"></div>
+            <img src="assets/econet.png" alt="Econet" style="height:20px;width:auto;flex-shrink:0;margin-top:1px">
             <div class="pc-bundle-body">
               <div class="pc-bundle-label">Included Econet Bundle</div>
               <div class="pc-bundle-name">10GB &times; 12 Monthly Data Bundles</div>
