@@ -6,7 +6,9 @@
 <meta name="theme-color" content="#16171d">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>NexaVPN — Private by default</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMzIgMzIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImZnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmNWE2MjMiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZTg5MjBmIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cGF0aCBkPSJNMTYgMUwzIDZ2MTBjMCA3LjUgNS41IDE0LjUgMTMgMTYuNUMyMy41IDMwLjUgMjkgMjMuNSAyOSAxNlY2TDE2IDF6IiBmaWxsPSJ1cmwoI2ZnKSIvPgogIDx0ZXh0IHg9IjE2IiB5PSIyMSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9InN5c3RlbS11aSxzYW5zLXNlcmlmIiBmb250LXNpemU9IjEzIiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjZmZmIj5OPC90ZXh0Pgo8L3N2Zz4=">
+  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMzIgMzIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImZnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmNWE2MjMiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZTg5MjBmIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cGF0aCBkPSJNMTYgMUwzIDZ2MTBjMCA3LjUgNS41IDE0LjUgMTMgMTYuNUMyMy41IDMwLjUgMjkgMjMuNSAyOSAxNlY2TDE2IDF6IiBmaWxsPSJ1cmwoI2ZnKSIvPgogIDx0ZXh0IHg9IjE2IiB5PSIyMSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9InN5c3RlbS11aSxzYW5zLXNlcmlmIiBmb250LXNpemU9IjEzIiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjZmZmIj5OPC90ZXh0Pgo8L3N2Zz4=">
+  <title>NexaVPN — Private by default</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=DM+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -75,22 +77,28 @@ input{font-family:inherit;border:none;outline:none;background:none;-webkit-user-
 .hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 65% 50%,rgba(245,166,35,.07) 0%,transparent 65%);pointer-events:none}
 .hero-inner{
   max-width:1100px;margin:0 auto;
-  padding:36px 20px 0;
+  padding:20px 20px 0;
   position:relative;z-index:1;
-  display:grid;grid-template-columns:1fr;gap:24px;
+  display:grid;grid-template-columns:1fr;gap:16px;
 }
 @media(min-width:800px){
   .hero-inner{grid-template-columns:1fr 1fr;align-items:center;padding:80px 48px 0;gap:48px}
 }
+@media(max-width:799px){
+  .hero-visual{display:none}
+  .hero-trust{display:none}
+  .hero-lead{display:none}
+  .hero-copy .btn-outline-w{display:none}
+}
 
-.hero-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.25);color:#fbbf24;font-size:11px;font-weight:700;padding:4px 12px;border-radius:999px;margin-bottom:14px;letter-spacing:.3px}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.25);color:#fbbf24;font-size:11px;font-weight:700;padding:4px 12px;border-radius:999px;margin-bottom:10px;letter-spacing:.3px}
 .hero-tag-dot{width:6px;height:6px;border-radius:50%;background:var(--amber);animation:pulse 1.5s ease-in-out infinite;flex-shrink:0}
-.hero-h1{font-size:clamp(32px,6vw,60px);font-weight:800;color:#fff;letter-spacing:-.04em;line-height:1.07;margin-bottom:12px}
+.hero-h1{font-size:clamp(26px,6vw,60px);font-weight:800;color:#fff;letter-spacing:-.04em;line-height:1.07;margin-bottom:8px}
 .hero-h1 em{color:var(--amber);font-style:normal}
-.hero-lead{font-size:clamp(13px,1.4vw,16px);color:rgba(255,255,255,.6);line-height:1.7;margin-bottom:20px}
+.hero-lead{font-size:clamp(12px,1.4vw,16px);color:rgba(255,255,255,.6);line-height:1.6;margin-bottom:12px}
 @media(min-width:800px){.hero-lead{max-width:440px}}
 
-.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:46px;padding:0 22px;border-radius:999px;font-size:14px;font-weight:700;cursor:pointer;border:none;position:relative;overflow:hidden;transition:transform .1s,opacity .12s;font-family:'DM Sans',sans-serif;-webkit-tap-highlight-color:transparent}
 .btn:active{transform:scale(.97)}
 .btn-amber{background:var(--amber);color:#000;box-shadow:var(--sh-amber)}
@@ -100,7 +108,7 @@ input{font-family:inherit;border:none;outline:none;background:none;-webkit-user-
 .btn-navy:active{background:var(--navy2)}
 .btn:disabled{opacity:.35;box-shadow:none;cursor:not-allowed;transform:none!important}
 
-.hero-trust{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:28px}
+.hero-trust{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
 .trust-item{font-size:12px;color:rgba(255,255,255,.55);display:flex;align-items:center;gap:5px;font-weight:500}
 .trust-item::before{content:'✓';color:#4ade80;font-weight:800}
 
@@ -123,19 +131,19 @@ input{font-family:inherit;border:none;outline:none;background:none;-webkit-user-
 .map-wave-track{display:flex;width:200%;animation:wave 10s linear infinite}
 .map-wave-svg{width:50%;height:28px;fill:var(--navy);flex-shrink:0;display:block}
 
-.srv-badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;padding-bottom:28px}
+.srv-badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;padding-bottom:16px}
 .srv-b{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.7);font-size:11px;font-weight:600;padding:4px 12px;border-radius:999px;font-family:'DM Mono',monospace;display:flex;align-items:center;gap:5px}
 .srv-b::before{content:'';width:5px;height:5px;border-radius:50%;background:#4ade80}
 
 /* ── PLANS SECTION ── */
-.plans-section{padding:32px 20px;max-width:1100px;margin:0 auto;width:100%}
+.plans-section{padding:20px 16px;max-width:1100px;margin:0 auto;width:100%}
 @media(min-width:800px){.plans-section{padding:64px 48px}}
 
-.sec-eyebrow{font-size:11px;font-weight:700;color:var(--ink3);letter-spacing:.8px;text-transform:uppercase;margin-bottom:6px}
-.sec-title{font-size:clamp(22px,3vw,32px);font-weight:800;color:var(--ink1);letter-spacing:-.03em;margin-bottom:4px}
-.sec-sub{font-size:14px;color:var(--ink2);margin-bottom:28px}
+.sec-eyebrow{font-size:10px;font-weight:700;color:var(--ink3);letter-spacing:.8px;text-transform:uppercase;margin-bottom:4px}
+.sec-title{font-size:clamp(18px,3vw,32px);font-weight:800;color:var(--ink1);letter-spacing:-.03em;margin-bottom:2px}
+.sec-sub{font-size:12px;color:var(--ink2);margin-bottom:16px}
 
-.plans-grid{display:grid;grid-template-columns:1fr;gap:14px}
+.plans-grid{display:grid;grid-template-columns:1fr;gap:10px}
 @media(min-width:600px){.plans-grid{grid-template-columns:repeat(3,1fr)}}
 
 /* PLAN CARD */
@@ -154,7 +162,7 @@ input{font-family:inherit;border:none;outline:none;background:none;-webkit-user-
 .plan-card.on .pc-bar{background:var(--amber)}
 .plan-card.pop .pc-bar{background:linear-gradient(90deg,var(--amber),#f97316)}
 
-.pc-main{padding:18px 18px 14px}
+.pc-main{padding:14px 14px 12px}
 .pc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
 .pc-name{font-size:13px;font-weight:700;color:var(--ink2);display:flex;align-items:center;gap:7px}
 .pc-badge{font-size:8px;font-weight:800;padding:3px 8px;border-radius:999px;text-transform:uppercase;letter-spacing:.4px}
@@ -180,8 +188,8 @@ input{font-family:inherit;border:none;outline:none;background:none;-webkit-user-
   background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);
   display:flex;align-items:flex-start;gap:10px;
 }
-.pc-bundle-ic{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.pc-bundle-ic img{height:18px;width:auto;border-radius:3px}
+.pc-bundle-ic{flex-shrink:0;display:flex;align-items:center}
+.pc-bundle-ic img{height:20px;width:auto}
 .pc-bundle-body{}
 .pc-bundle-label{font-size:9px;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:.5px;text-transform:uppercase;margin-bottom:2px}
 .pc-bundle-name{font-size:12px;font-weight:700;color:#fff;margin-bottom:1px}
@@ -310,9 +318,10 @@ footer strong{color:rgba(255,255,255,.75);font-weight:600;display:block;margin-b
 <div class="app">
   <nav class="nav">
     <div class="nav-brand">
-      <div class="nav-logo">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      </div>
+      <div class="nav-logo"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+  <path d="M50 4L10 18v30c0 24 18 45 40 48C72 93 90 72 90 48V18L50 4z" fill="#fff"/>
+  <text x="50" y="63" text-anchor="middle" font-family="system-ui,sans-serif" font-size="42" font-weight="900" fill="#f5a623" letter-spacing="-2">N</text>
+</svg></div>
       <span class="nav-name">NexaVPN</span>
     </div>
     <button class="nav-cta" onclick="openSheet()">
