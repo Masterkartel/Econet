@@ -2,431 +2,185 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#1558D6">
-<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#16171d">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Confirmed · EcoCash</title>
-<link rel="icon" href="assets/ecocash.png">
-<link rel="apple-touch-icon" href="assets/ecocash.png">
+<title>Connected · NexaVPN</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=DM+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* ════════════════════════════════════════════════
-   MATERIAL 3 DESIGN SYSTEM — EcoCash Pay
-   Tokens mapped to M3 color roles + typescale
-   ════════════════════════════════════════════════ */
-
-/* ── RESET ── */
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{width:100%;height:100%;overflow:hidden;overscroll-behavior:none;position:fixed;inset:0}
-body{font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;background:#F0F4FF;color:#0A0F1E}
-img{image-rendering:-webkit-optimize-contrast;-webkit-backface-visibility:hidden;display:block}
-svg{shape-rendering:geometricPrecision;display:block}
-button{font-family:inherit;cursor:pointer;touch-action:manipulation;outline:none;border:none;background:none;-webkit-user-select:none;user-select:none}
-input{font-family:inherit;outline:none;border:none;background:none}
+body{font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:#16171d;color:#f0f0f0}
+button{font-family:inherit;cursor:pointer;touch-action:manipulation;border:none;background:none;outline:none;-webkit-user-select:none;user-select:none}
+img{display:block}
 *{-webkit-user-select:none;user-select:none}
-input,textarea{-webkit-user-select:text!important;user-select:text!important}
 
-/* ── M3 COLOR TOKENS ── */
 :root{
-  /* Primary */
-  --md-primary:#1558D6;
-  --md-on-primary:#FFFFFF;
-  --md-primary-container:#D8E0FF;
-  --md-on-primary-container:#001257;
-
-  /* Secondary */
-  --md-secondary:#0A8A45;
-  --md-on-secondary:#FFFFFF;
-  --md-secondary-container:#C6F4D6;
-  --md-on-secondary-container:#002111;
-
-  /* Surface */
-  --md-background:#F0F4FF;
-  --md-surface:#FAFBFF;
-  --md-surface-dim:#D9DBE8;
-  --md-surface-container-lowest:#FFFFFF;
-  --md-surface-container-low:#F0F4FF;
-  --md-surface-container:#E8EEFF;
-  --md-surface-container-high:#E2E6F8;
-  --md-surface-container-highest:#D8DCED;
-  --md-on-surface:#0A0F1E;
-  --md-on-surface-variant:#3B4A72;
-
-  /* Outline */
-  --md-outline:#7B8CB0;
-  --md-outline-variant:#D4DCEF;
-
-  /* Error */
-  --md-error:#C8192B;
-  --md-error-container:#FFD9DF;
-  --md-on-error:#FFFFFF;
-
-  /* Legacy aliases — keep existing code working */
-  --white:var(--md-surface-container-lowest);
-  --bg:var(--md-background);
-  --s2:var(--md-surface-container);
-  --s3:var(--md-surface-container-high);
-  --ink1:var(--md-on-surface);
-  --ink2:var(--md-on-surface-variant);
-  --ink3:#7B8CB0;
-  --line:var(--md-outline-variant);
-  --line2:#EAEEFC;
-  --blue:var(--md-primary);
-  --blue-dk:#0E42B0;
-  --blue-a:rgba(21,88,214,.10);
-  --blue-b:rgba(21,88,214,.06);
-  --grn:var(--md-secondary);
-  --grn-a:rgba(10,138,69,.10);
-  --grn-b:rgba(10,138,69,.06);
-  --zes:#E05000;--zes-a:rgba(224,80,0,.10);
-  --dst:#0099A0;--dst-a:rgba(0,153,160,.10);
-  --gold:#C97000;
-  --err:var(--md-error);--err-a:rgba(200,25,43,.10);
-
-  /* M3 Shape — matches spec exactly */
-  --shape-none:0px;
-  --shape-xs:4px;
-  --shape-sm:8px;
-  --shape-md:12px;
-  --shape-lg:16px;
-  --shape-xl:28px;
-  --shape-full:999px;
-  /* Legacy radii */
-  --r8:8px;--r12:12px;--r14:14px;--r16:16px;--r20:20px;--r24:24px;--rpill:999px;
-
-  /* M3 Elevation (tonal + shadow) */
-  --elev-0:none;
-  --elev-1:0 1px 2px rgba(10,20,60,.12),0 1px 3px rgba(10,20,60,.08);
-  --elev-2:0 2px 6px rgba(10,20,60,.12),0 1px 4px rgba(10,20,60,.08);
-  --elev-3:0 4px 12px rgba(10,20,60,.14),0 2px 6px rgba(10,20,60,.09);
-  --elev-4:0 6px 20px rgba(10,20,60,.16),0 2px 8px rgba(10,20,60,.10);
-  /* Colored elevation for primary actions */
-  --elev-primary:0 4px 20px rgba(21,88,214,.30),0 1px 6px rgba(21,88,214,.16);
-  --elev-secondary:0 4px 16px rgba(10,138,69,.28);
-  /* Legacy shadow aliases */
-  --sh0:var(--elev-1);
-  --sh1:var(--elev-2);
-  --sh2:var(--elev-3);
-  --sh-blue:var(--elev-primary);
-  --sh-grn:var(--elev-secondary);
-
-  /* M3 Motion */
-  --motion-emphasized:cubic-bezier(0.2,0,0,1);
-  --motion-emphasized-decel:cubic-bezier(0.05,0.7,0.1,1);
-  --motion-emphasized-accel:cubic-bezier(0.3,0,0.8,0.15);
-  --motion-standard:cubic-bezier(0.2,0,0,1);
-  --motion-standard-decel:cubic-bezier(0,0,0,1);
-  --motion-standard-accel:cubic-bezier(0.3,0,1,1);
-  /* Legacy */
-  --ease:var(--motion-emphasized);
-  --spring:var(--motion-emphasized-decel);
-
-  /* M3 Duration */
-  --dur-short1:50ms;--dur-short2:100ms;--dur-short3:150ms;--dur-short4:200ms;
-  --dur-medium1:250ms;--dur-medium2:300ms;--dur-medium3:350ms;--dur-medium4:400ms;
-  --dur-long1:450ms;--dur-long2:500ms;
-
-  /* Topbar */
-  --tb-h:60px;
+  --bg:#16171d;--bg2:#1e1f28;--bg3:#252630;
+  --amber:#f5a623;--amber-dk:#d4891a;--amber-a:rgba(245,166,35,.15);
+  --grn:#4ade80;--grn-a:rgba(74,222,128,.12);
+  --line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.05);
+  --ink1:#f0f0f0;--ink2:#b0b2be;--ink3:#6b6d80;
+  --sh-amber:0 4px 24px rgba(245,166,35,.35);
+  --r12:12px;--rpill:999px;
+  --ease:cubic-bezier(.22,1,.36,1);
 }
 
+@keyframes pgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes checkPop{0%{transform:scale(0)}60%{transform:scale(1.15)}100%{transform:scale(1)}}
+@keyframes ripple{to{transform:scale(4);opacity:0}}
+@keyframes glow{0%,100%{box-shadow:0 0 20px rgba(74,222,128,.3)}50%{box-shadow:0 0 40px rgba(74,222,128,.6)}}
 
+.screen{display:flex;flex-direction:column;width:100%;height:100dvh;overflow:hidden;animation:pgIn .3s var(--ease) both}
 
-/* ── KEYFRAMES ── */
-@keyframes spin    {to{transform:rotate(360deg)}}
-@keyframes pgIn    {from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-@keyframes slideUp {from{transform:translateY(100%)}to{transform:none}}
-@keyframes fadeUp  {from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-@keyframes scrimIn {from{opacity:0}to{opacity:1}}
-@keyframes ripple  {to{transform:scale(4);opacity:0}}
-@keyframes scaleIn {from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
-@keyframes drawCheck{to{stroke-dashoffset:0}}
-@keyframes shake   {0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
-@keyframes stepIn  {from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-@keyframes blink   {0%,100%{opacity:1}50%{opacity:0}}
+/* NAV */
+.topbar{flex-shrink:0;min-height:calc(52px + env(safe-area-inset-top));display:flex;align-items:center;justify-content:space-between;padding:calc(env(safe-area-inset-top)+10px) 18px 10px;background:rgba(22,23,29,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
+.tb-brand{display:flex;align-items:center;gap:8px}
+.tb-logo-ic{width:26px;height:26px;border-radius:7px;background:var(--grn);display:flex;align-items:center;justify-content:center;flex-shrink:0;animation:glow 2s ease-in-out infinite}
+.tb-name{font-size:15px;font-weight:800;color:#fff;font-family:'DM Mono',monospace;letter-spacing:-.3px}
+.tb-status{font-size:11px;font-weight:700;color:var(--grn);background:var(--grn-a);border:1px solid rgba(74,222,128,.2);padding:4px 10px;border-radius:var(--rpill)}
 
-/* ── TOPBAR — identical on all pages ── */
-.topbar{
-  flex-shrink:0;
-  /* min-height so logo always has room; grows with safe-area on notched phones */
-  min-height:calc(64px + env(safe-area-inset-top));
-  display:flex;align-items:center;justify-content:space-between;
-  /* Correct padding: top=safe-area+14px, sides=20px, bottom=14px */
-  padding:calc(env(safe-area-inset-top) + 10px) 20px 10px;
-  background:var(--md-surface-container-lowest);
-  border-bottom:1.5px solid var(--md-outline-variant);
-  box-shadow:var(--elev-1);
-}
-.tb-left{display:flex;align-items:center;gap:12px}
-.tb-right{display:flex;align-items:center;gap:10px}
-.tb-econet{height:32px;width:auto;object-fit:contain}
-.tb-sep{width:1px;height:22px;background:var(--line);flex-shrink:0}
-.tb-ecocash{height:28px;width:auto;object-fit:contain}
-
-/* Back button — shared across login/bundle screens */
-.back-btn{
-  width:36px;height:36px;border-radius:50%;
-  background:var(--s2);border:1px solid var(--line);
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;transition:background .12s,transform .1s;
-}
-.back-btn:active{background:var(--s3);transform:scale(.93)}
-
-/* ── SHARED BUTTON ── */
-.btn-primary{
-  width:100%;min-height:54px;
-  border-radius:var(--shape-full);
-  background:var(--blue);color:#fff;
-  font-size:15px;font-weight:700;letter-spacing:-.1px;
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  box-shadow:var(--elev-primary);
-  transition:transform var(--dur-short4) var(--motion-emphasized),background .12s;
-  position:relative;overflow:hidden;
-}
-.btn-primary:active{transform:scale(.97);background:var(--blue-dk)}
-.btn-primary:disabled{opacity:.38;box-shadow:none;transform:none;background:var(--s3);border:1.5px solid var(--line);color:var(--ink3)}
-
-/* ── RIPPLE ── */
-.rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(255,255,255,.18);transform:scale(0);animation:ripple .5s ease forwards}
-
-/* ── CURTAIN ── */
-.curtain{
-  position:fixed;inset:0;z-index:9999;background:var(--white);
-  opacity:0;pointer-events:none;transition:opacity .22s;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;
-}
-.curtain.show{opacity:1;pointer-events:auto}
-.curtain-logo{height:80px;width:auto;object-fit:contain;filter:drop-shadow(0 4px 12px rgba(21,88,214,.25))}
-.curtain-spin{width:28px;height:28px;border:3px solid var(--line);border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite;margin-top:8px}
-
-/* ── BLUE SUMMARY CARD — price strip, receipt, bundle pill ── */
-.blue-card{
-  background:var(--blue);
-  border-radius:var(--shape-xl);
-  padding:18px 20px;
-  box-shadow:var(--elev-primary);
-  position:relative;overflow:hidden;
-}
-.blue-card::before{
-  content:'';position:absolute;
-  right:-24px;top:-24px;
-  width:110px;height:110px;border-radius:50%;
-  background:rgba(255,255,255,.07);pointer-events:none;
-}
-.blue-card::after{
-  content:'';position:absolute;
-  left:-20px;bottom:-20px;
-  width:70px;height:70px;border-radius:50%;
-  background:rgba(255,255,255,.05);pointer-events:none;
-}
-
-/* ── THANKYOU-SPECIFIC ── */
-#fw{position:fixed;inset:0;pointer-events:none;z-index:0}
-.page{display:flex;flex-direction:column;width:100%;height:100dvh;overflow:hidden;position:relative;z-index:1;animation:pgIn .3s var(--ease) both}
-
-/* Scroll body */
-.body{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding:0 20px max(20px,env(safe-area-inset-bottom))}
+/* BODY */
+.body{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;background:var(--bg);padding:18px;display:flex;flex-direction:column;gap:12px}
 .body::-webkit-scrollbar{display:none}
 
-/* Hero */
-.hero{display:flex;flex-direction:column;align-items:center;padding:28px 0 22px;text-align:center;animation:fadeUp .4s var(--ease) .1s both}
-.check-wrap{width:76px;height:76px;border-radius:50%;background:var(--grn);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 12px var(--grn-a);margin-bottom:20px;animation:scaleIn .4s var(--spring) .05s both}
-.check-path{stroke-dasharray:42;stroke-dashoffset:42;animation:drawCheck .45s var(--ease) .38s forwards}
-.hero-title{font-size:26px;font-weight:800;letter-spacing:-.5px;color:var(--ink1);line-height:1.1}
-.hero-sub{font-size:13px;color:var(--ink3);font-weight:500;margin-top:7px;line-height:1.55}
+/* SUCCESS HERO */
+.success-hero{background:var(--bg2);border:1px solid rgba(74,222,128,.2);border-radius:16px;padding:28px 20px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;position:relative;overflow:hidden}
+.success-hero::before{content:'';position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:200px;height:200px;background:radial-gradient(ellipse,rgba(74,222,128,.08) 0%,transparent 70%);pointer-events:none}
+.check-ring{width:72px;height:72px;border-radius:50%;background:var(--grn);display:flex;align-items:center;justify-content:center;animation:checkPop .4s var(--ease) .1s both;position:relative;z-index:1;box-shadow:0 4px 24px rgba(74,222,128,.4)}
+.success-title{font-size:22px;font-weight:800;color:#fff;letter-spacing:-.4px;position:relative;z-index:1}
+.success-sub{font-size:12px;color:var(--ink2);line-height:1.6;position:relative;z-index:1}
+.success-ref{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink3);margin-top:4px;position:relative;z-index:1}
 
-/* Receipt card */
-.receipt{border-radius:var(--shape-xl);padding:20px 22px;box-shadow:var(--elev-primary);position:relative;overflow:hidden;animation:fadeUp .4s var(--ease) .2s both;margin-bottom:14px}
-.receipt::before{content:'';position:absolute;right:-24px;top:-24px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.07);pointer-events:none}
-.receipt::after{content:'';position:absolute;left:-20px;bottom:-20px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.05);pointer-events:none}
-.receipt-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;position:relative;z-index:1}
-.receipt-lbl{font-size:9px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:5px}
-.receipt-plan{font-size:22px;font-weight:800;color:#fff;letter-spacing:-.3px;line-height:1.1}
-.receipt-detail{font-size:10px;color:rgba(255,255,255,.7);margin-top:4px;font-weight:500}
-.receipt-price-wrap{text-align:right}
-.receipt-cur{font-size:12px;font-weight:600;color:rgba(255,255,255,.65)}
-.receipt-price{font-size:40px;font-weight:800;color:#fff;letter-spacing:-.05em;line-height:1;font-feature-settings:"tnum"}
-.receipt-divider{height:1px;background:rgba(255,255,255,.18);margin:0 0 16px;position:relative;z-index:1}
-.receipt-rows{display:flex;flex-direction:column;gap:9px;position:relative;z-index:1}
-.receipt-row{display:flex;align-items:center;justify-content:space-between}
-.rr-label{font-size:11px;color:rgba(255,255,255,.6);font-weight:500}
-.rr-val{font-size:12px;font-weight:700;color:#fff;font-feature-settings:"tnum"}
-.rr-val.mono{font-size:11px;letter-spacing:.04em}
+/* RECEIPT */
+.receipt{background:var(--bg2);border:1px solid var(--line);border-left:2px solid var(--amber);border-radius:var(--r12);overflow:hidden}
+.r-head{padding:12px 14px;border-bottom:1px solid var(--line2);display:flex;align-items:center;gap:8px}
+.r-head-ic{width:28px;height:28px;border-radius:8px;background:var(--amber-a);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.r-head-t{font-size:13px;font-weight:700;color:#fff}
+.r-rows{display:flex;flex-direction:column}
+.r-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--line2)}
+.r-row:last-child{border-bottom:none}
+.r-lbl{font-size:11px;color:var(--ink3)}
+.r-val{font-size:12px;font-weight:700;color:var(--ink1);text-align:right}
+.r-val.amber{color:var(--amber)}
+.r-val.grn{color:var(--grn)}
+.r-val.mono{font-family:'DM Mono',monospace;font-size:11px}
 
-/* Info card */
-.info-card{background:var(--white);border:1px solid var(--line);border-radius:var(--shape-lg);padding:14px 18px;box-shadow:var(--elev-1);animation:fadeUp .4s var(--ease) .3s both;margin-bottom:12px}
-.info-row{display:flex;align-items:center;justify-content:space-between;padding:6px 0}
-.info-row+.info-row{border-top:1px solid var(--line2)}
-.ir-lbl{font-size:11px;color:var(--ink3);font-weight:500}
-.ir-val{font-size:12px;font-weight:700;color:var(--ink1)}
-.ir-val.grn{color:var(--grn)}
+/* SERVER PILLS */
+.servers{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.srv{background:var(--bg3);border:1px solid var(--line);color:var(--ink2);font-size:11px;font-weight:600;padding:5px 12px;border-radius:999px;font-family:'DM Mono',monospace;display:flex;align-items:center;gap:4px}
+.srv::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--grn);flex-shrink:0;animation:none}
 
-/* Trust */
-.trust{display:flex;justify-content:center;gap:22px;padding:10px 0;margin-bottom:6px;animation:fadeUp .4s var(--ease) .35s both}
-.trust-item{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--grn)}
+/* NEXT STEPS */
+.next{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r12);padding:14px}
+.next-t{font-size:13px;font-weight:700;color:#fff;margin-bottom:10px}
+.next-list{display:flex;flex-direction:column;gap:8px}
+.next-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--ink2);line-height:1.5}
+.next-dot{width:20px;height:20px;border-radius:50%;background:var(--amber-a);border:1px solid rgba(245,166,35,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;font-weight:800;color:var(--amber)}
 
-/* Done button */
-.done-btn{width:100%;min-height:54px;border-radius:var(--shape-full);background:var(--blue);color:#fff;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;box-shadow:var(--elev-primary);transition:transform var(--dur-short4) var(--motion-emphasized),background .12s;position:relative;overflow:hidden;animation:fadeUp .4s var(--ease) .4s both;margin-top:4px}
-.done-btn:active{transform:scale(.97);background:var(--blue-dk)}
-/* ── GLASS STYLING ── */
-.topbar{
-  background:rgba(255,255,255,.82) !important;
-  backdrop-filter:blur(20px) saturate(180%) !important;
-  -webkit-backdrop-filter:blur(20px) saturate(180%) !important;
-  border-bottom:1px solid rgba(255,255,255,.5) !important;
-}
-.card,.ctx-card,.proc,.info-card{
-  background:rgba(255,255,255,.85) !important;
-  backdrop-filter:blur(12px) !important;
-  -webkit-backdrop-filter:blur(12px) !important;
-  border-color:rgba(255,255,255,.6) !important;
-}
-.foot-bar,.foot-bar{
-  background:rgba(255,255,255,.88) !important;
-  backdrop-filter:blur(16px) !important;
-  -webkit-backdrop-filter:blur(16px) !important;
-}
+/* EcoCash/Econet logos row */
+.eco-row{display:flex;align-items:center;gap:8px;padding:12px 14px;background:var(--bg2);border:1px solid var(--line);border-radius:var(--r12)}
+.eco-row img{height:20px;width:auto;border-radius:4px}
+.eco-row span{font-size:12px;color:var(--ink2)}
 
-/* ── DM SANS FONT ── */
-body,button,input,select,textarea{font-family:'DM Sans',system-ui,sans-serif !important}
-
+/* FOOTER */
+.foot-bar{flex:0 0 auto;padding:10px 18px max(16px,env(safe-area-inset-bottom));background:rgba(22,23,29,.96);backdrop-filter:blur(16px);border-top:1px solid var(--line)}
+.done-btn{width:100%;min-height:52px;border-radius:var(--rpill);background:var(--amber);color:#000;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:var(--sh-amber);transition:transform .12s,background .12s;position:relative;overflow:hidden}
+.done-btn:active{transform:scale(.97);background:var(--amber-dk)}
+.rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(0,0,0,.12);transform:scale(0);animation:ripple .5s ease forwards}
 </style>
 </head>
 <body>
-<canvas id="fw"></canvas>
-
-<div class="page">
+<div class="screen">
   <div class="topbar">
-    <div class="tb-left">
-      <img class="tb-econet" src="assets/econet.png" alt="Econet Wireless">
-      <div class="tb-sep"></div>
-      <img class="tb-ecocash" src="assets/ecocash.png" alt="EcoCash">
+    <div class="tb-brand">
+      <div class="tb-logo-ic">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+      </div>
+      <span class="tb-name">NexaVPN</span>
     </div>
+    <span class="tb-status">Protected</span>
   </div>
 
   <div class="body">
-    <div class="hero">
-      <div class="check-wrap">
-        <svg width="38" height="38" viewBox="0 0 38 38" fill="none">
-          <polyline class="check-path" points="9,20 16,27 29,12" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+    <div class="success-hero">
+      <div class="check-ring">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L9.5 17.5 L20 7"/></svg>
       </div>
-      <div class="hero-title">Payment Confirmed!</div>
-      <div class="hero-sub">Your Econet bundle is now active.<br>Check your SMS for confirmation.</div>
+      <div class="success-title">You're Protected 🛡️</div>
+      <div class="success-sub">Payment confirmed. Your NexaVPN account is being activated. Check your EcoCash number for confirmation.</div>
+      <div class="success-ref" id="txnRef">TXN #VPN-000000</div>
     </div>
 
-    <div class="receipt blue-card">
-      <div class="receipt-top">
-        <div>
-          <div class="receipt-lbl">Bundle purchased</div>
-          <div class="receipt-plan" id="rcPlan">Daily Mix</div>
-          <div class="receipt-detail" id="rcDetail">20 Min · 3 GB · 25 SMS</div>
-        </div>
-        <div class="receipt-price-wrap">
-          <div class="receipt-cur">USD</div>
-          <div class="receipt-price" id="rcPrice">1.80</div>
-        </div>
+    <!-- EcoCash/Econet logos -->
+    <div class="eco-row">
+      <img src="assets/ecocash.png" alt="EcoCash">
+      <img src="assets/econet.png" alt="Econet">
+      <span>Payment processed via EcoCash · Econet Zimbabwe</span>
+    </div>
+
+    <!-- Receipt -->
+    <div class="receipt">
+      <div class="r-head">
+        <div class="r-head-ic"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="r-head-t">Payment Confirmation</div>
       </div>
-      <div class="receipt-divider"></div>
-      <div class="receipt-rows">
-        <div class="receipt-row"><span class="rr-label">Number</span><span class="rr-val" id="rcNumber">+263 77 000 0000</span></div>
-        <div class="receipt-row"><span class="rr-label">Paid via</span><span class="rr-val">EcoCash Wallet</span></div>
-        <div class="receipt-row"><span class="rr-label">Ref</span><span class="rr-val mono" id="rcRef">ECX-XXXXXXXX</span></div>
-        <div class="receipt-row"><span class="rr-label">Date &amp; Time</span><span class="rr-val" id="rcDate">—</span></div>
+      <div class="r-rows">
+        <div class="r-row"><span class="r-lbl">Service</span><span class="r-val">NexaVPN</span></div>
+        <div class="r-row"><span class="r-lbl">Plan</span><span class="r-val amber" id="rcpPlan">—</span></div>
+        <div class="r-row"><span class="r-lbl">Amount</span><span class="r-val amber" id="rcpAmt">USD —</span></div>
+        <div class="r-row"><span class="r-lbl">Number</span><span class="r-val mono" id="rcpNum">+263 77 ••••• 00</span></div>
+        <div class="r-row"><span class="r-lbl">Payment</span><span class="r-val">EcoCash · Econet</span></div>
+        <div class="r-row"><span class="r-lbl">Status</span><span class="r-val grn">✓ Confirmed</span></div>
       </div>
     </div>
 
-    <div class="info-card">
-      <div class="info-row"><span class="ir-lbl">Status</span><span class="ir-val grn">✓ Active</span></div>
-      <div class="info-row"><span class="ir-lbl">Network</span><span class="ir-val">Econet Wireless Zimbabwe</span></div>
-      <div class="info-row"><span class="ir-lbl">Activation</span><span class="ir-val">Instant</span></div>
+    <!-- Servers -->
+    <div style="background:var(--bg2);border:1px solid var(--line);border-radius:var(--r12);padding:14px">
+      <div style="font-size:11px;font-weight:700;color:var(--ink3);letter-spacing:.6px;text-transform:uppercase;margin-bottom:10px">Available Servers</div>
+      <div class="servers">
+        <span class="srv">NYC</span><span class="srv">LON</span><span class="srv">FRA</span>
+        <span class="srv">SIN</span><span class="srv">TOK</span><span class="srv">SYD</span><span class="srv">SAO</span>
+      </div>
     </div>
 
-    <div class="trust">
-      <div class="trust-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="var(--grn)"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>Secured by EcoCash</div>
-      <div class="trust-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="var(--grn)"><path d="M20 4H4c-1.11 0-2 .89-2 2v12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>Econet Verified</div>
+    <!-- Next steps -->
+    <div class="next">
+      <div class="next-t">Get started 🚀</div>
+      <div class="next-list">
+        <div class="next-item"><div class="next-dot">1</div>Download the WireGuard app on your device</div>
+        <div class="next-item"><div class="next-dot">2</div>Check your email for your NexaVPN account credentials</div>
+        <div class="next-item"><div class="next-dot">3</div>Import your config file and connect in one tap</div>
+        <div class="next-item"><div class="next-dot">4</div>Visit <b style="color:var(--amber)">nexavpn.world</b> for setup guides</div>
+      </div>
     </div>
+  </div>
 
-    <button class="done-btn" id="doneBtn" onclick="goHome()">Done</button>
+  <div class="foot-bar">
+    <button class="done-btn" id="doneBtn" onclick="window.location.href='index.html'">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Back to NexaVPN
+    </button>
   </div>
 </div>
 
 <script>
 'use strict';
+var plan={},recip={raw:'',display:''},txn={};
+try{plan=JSON.parse(sessionStorage.getItem('selectedPlan')||'{}');}catch(e){}
+try{recip=JSON.parse(sessionStorage.getItem('ecoRecipient')||'{}');}catch(e){}
+try{txn=JSON.parse(sessionStorage.getItem('ecoTxn')||'{}');}catch(e){}
 
-/* ── READ SESSION DATA ── */
-(function(){
-  var plan={},recipient={};
-  try{plan=JSON.parse(sessionStorage.getItem('selectedPlan')||'{}');}catch(e){}
-  try{recipient=JSON.parse(sessionStorage.getItem('ecoRecipient')||'{}');}catch(e){}
+var ref=txn.correlator||('VPN-'+Date.now().toString(36).toUpperCase().slice(-8));
+document.getElementById('txnRef').textContent='TXN #'+ref;
+document.getElementById('rcpPlan').textContent=plan.duration||'—';
+document.getElementById('rcpAmt').textContent='USD '+(plan.amount||'—');
+if(recip.raw){var d=recip.raw;document.getElementById('rcpNum').textContent='+263 '+d.slice(0,2)+' \u2022\u2022\u2022\u2022\u2022 '+d.slice(-2);}
 
-  if(plan.duration){
-    document.getElementById('rcPlan').textContent=(plan.duration||'')+(plan.duration?'Mix':'');
-    document.getElementById('rcPlan').textContent=plan.duration+' Mix';
-    document.getElementById('rcDetail').textContent=(plan.voice||0)+' Min \u00b7 '+(plan.data||0)+' GB \u00b7 '+(plan.sms||0)+' SMS';
-    document.getElementById('rcPrice').textContent=(plan.amount||'0.00');
-  }
-  if(recipient.display){
-    document.getElementById('rcNumber').textContent=recipient.display;
-  }
-  /* Ref */
-  var ref='ECX-'+Date.now().toString(36).toUpperCase().slice(-8);
-  document.getElementById('rcRef').textContent=ref;
-  /* Date */
-  var now=new Date();
-  document.getElementById('rcDate').textContent=now.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})+' '+now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
-})();
-
-/* ── FIREWORKS ── */
-(function(){
-  var canvas=document.getElementById('fw'),ctx=canvas.getContext('2d');
-  function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
-  resize();window.addEventListener('resize',resize);
-  var particles=[];
-  var COLORS=['#1558D6','#0A8A45','#FFCC00','#FF5A5A','#26A5E4','#FF9900'];
-  function burst(x,y){
-    for(var i=0;i<50;i++){
-      var angle=Math.random()*Math.PI*2;
-      var speed=3+Math.random()*6;
-      particles.push({x:x,y:y,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed-3,alpha:1,r:3+Math.random()*3,c:COLORS[Math.floor(Math.random()*COLORS.length)]});
-    }
-  }
-  function tick(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    for(var i=particles.length-1;i>=0;i--){
-      var p=particles[i];
-      p.x+=p.vx;p.y+=p.vy;p.vy+=0.18;p.alpha-=0.022;
-      if(p.alpha<=0){particles.splice(i,1);continue;}
-      ctx.globalAlpha=p.alpha;ctx.fillStyle=p.c;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
-    }
-    ctx.globalAlpha=1;
-    if(particles.length>0||_running)requestAnimationFrame(tick);
-  }
-  var _running=true;
-  /* Fire 3 bursts */
-  var W=window.innerWidth,H=window.innerHeight;
-  setTimeout(function(){burst(W*.3,H*.25);},200);
-  setTimeout(function(){burst(W*.7,H*.2);},450);
-  setTimeout(function(){burst(W*.5,H*.35);},700);
-  setTimeout(function(){_running=false;},2500);
-  tick();
-})();
-
-/* ── RIPPLE ── */
-document.getElementById('doneBtn').addEventListener('pointerdown',function(e){
-  var r=this.getBoundingClientRect(),sz=Math.max(r.width,r.height)*2;
-  var rip=document.createElement('span');rip.className='rip';
-  rip.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(e.clientX-r.left-sz/2)+'px;top:'+(e.clientY-r.top-sz/2)+'px;position:absolute;';
-  this.appendChild(rip);rip.addEventListener('animationend',function(){rip.remove();});
-},{passive:true});
-
-function goHome(){window.location.href='index.html';}
-
+document.getElementById('doneBtn').addEventListener('pointerdown',function(e){var r=this.getBoundingClientRect(),sz=Math.max(r.width,r.height)*2;var rip=document.createElement('span');rip.className='rip';rip.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(e.clientX-r.left-sz/2)+'px;top:'+(e.clientY-r.top-sz/2)+'px;position:absolute;';this.appendChild(rip);rip.addEventListener('animationend',function(){rip.remove();});},{passive:true});
 </script>
 </body>
 </html>
