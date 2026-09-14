@@ -2,170 +2,178 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#16171d">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Connected · NexaVPN</title>
+<title>You're Protected · NexaVPN</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=DM+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{width:100%;height:100%;overflow:hidden;overscroll-behavior:none;position:fixed;inset:0}
-body{font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:#16171d;color:#f0f0f0}
-button{font-family:inherit;cursor:pointer;touch-action:manipulation;border:none;background:none;outline:none;-webkit-user-select:none;user-select:none}
-img{display:block}
+html{height:100%}
+body{font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:#f4f5f7;color:#1a1a2e;min-height:100%;display:flex;flex-direction:column}
+img{display:block}button{font-family:inherit;cursor:pointer;touch-action:manipulation;border:none;background:none;outline:none;-webkit-user-select:none;user-select:none}
 *{-webkit-user-select:none;user-select:none}
 
 :root{
-  --bg:#16171d;--bg2:#1e1f28;--bg3:#252630;
-  --amber:#f5a623;--amber-dk:#d4891a;--amber-a:rgba(245,166,35,.15);
-  --grn:#4ade80;--grn-a:rgba(74,222,128,.12);
-  --line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.05);
-  --ink1:#f0f0f0;--ink2:#b0b2be;--ink3:#6b6d80;
-  --sh-amber:0 4px 24px rgba(245,166,35,.35);
-  --r12:12px;--rpill:999px;
+  --bg:#f4f5f7;--card:#fff;--card2:#f0f1f5;
+  --navy:#16171d;--navy2:#1e1f28;
+  --amber:#f5a623;--amber-dk:#d4891a;--amber-a:rgba(245,166,35,.12);
+  --grn:#16a34a;--grn-lt:#dcfce7;--grn-a:rgba(22,163,74,.12);
+  --line:#e2e4ec;--line2:#eceef5;
+  --ink1:#1a1a2e;--ink2:#44465a;--ink3:#8b8fa8;
+  --shadow:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.05);
+  --shadow-amber:0 4px 20px rgba(245,166,35,.35);
+  --r12:12px;--r14:14px;--rpill:999px;
   --ease:cubic-bezier(.22,1,.36,1);
 }
-
 @keyframes pgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-@keyframes checkPop{0%{transform:scale(0)}60%{transform:scale(1.15)}100%{transform:scale(1)}}
+@keyframes checkPop{0%{transform:scale(0)}60%{transform:scale(1.12)}100%{transform:scale(1)}}
 @keyframes ripple{to{transform:scale(4);opacity:0}}
-@keyframes glow{0%,100%{box-shadow:0 0 20px rgba(74,222,128,.3)}50%{box-shadow:0 0 40px rgba(74,222,128,.6)}}
-
-.screen{display:flex;flex-direction:column;width:100%;height:100dvh;overflow:hidden;animation:pgIn .3s var(--ease) both}
+@keyframes glow{0%,100%{box-shadow:0 0 20px rgba(22,163,74,.25)}50%{box-shadow:0 0 40px rgba(22,163,74,.5)}}
 
 /* NAV */
-.topbar{flex-shrink:0;min-height:calc(52px + env(safe-area-inset-top));display:flex;align-items:center;justify-content:space-between;padding:calc(env(safe-area-inset-top)+10px) 18px 10px;background:rgba(22,23,29,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
-.tb-brand{display:flex;align-items:center;gap:8px}
-.tb-logo-ic{width:26px;height:26px;border-radius:7px;background:var(--grn);display:flex;align-items:center;justify-content:center;flex-shrink:0;animation:glow 2s ease-in-out infinite}
-.tb-name{font-size:15px;font-weight:800;color:#fff;font-family:'DM Mono',monospace;letter-spacing:-.3px}
-.tb-status{font-size:11px;font-weight:700;color:var(--grn);background:var(--grn-a);border:1px solid rgba(74,222,128,.2);padding:4px 10px;border-radius:var(--rpill)}
+.nav{background:var(--navy);padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:0 2px 12px rgba(0,0,0,.25)}
+.nav-brand{display:flex;align-items:center;gap:9px}
+.nav-logo{width:28px;height:28px;border-radius:7px;background:var(--grn);display:flex;align-items:center;justify-content:center;animation:glow 2s ease-in-out infinite}
+.nav-name{font-size:16px;font-weight:800;color:#fff;font-family:'DM Mono',monospace}
+.nav-status{font-size:12px;font-weight:700;color:var(--grn);background:var(--grn-lt);border:1px solid rgba(22,163,74,.3);padding:5px 12px;border-radius:999px}
 
-/* BODY */
-.body{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;background:var(--bg);padding:18px;display:flex;flex-direction:column;gap:12px}
-.body::-webkit-scrollbar{display:none}
+main{flex:1;max-width:620px;margin:0 auto;width:100%;padding:32px 20px 48px;animation:pgIn .3s var(--ease) both;display:flex;flex-direction:column;gap:16px}
+@media(min-width:600px){main{padding:48px 24px 64px}}
 
 /* SUCCESS HERO */
-.success-hero{background:var(--bg2);border:1px solid rgba(74,222,128,.2);border-radius:16px;padding:28px 20px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;position:relative;overflow:hidden}
-.success-hero::before{content:'';position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:200px;height:200px;background:radial-gradient(ellipse,rgba(74,222,128,.08) 0%,transparent 70%);pointer-events:none}
-.check-ring{width:72px;height:72px;border-radius:50%;background:var(--grn);display:flex;align-items:center;justify-content:center;animation:checkPop .4s var(--ease) .1s both;position:relative;z-index:1;box-shadow:0 4px 24px rgba(74,222,128,.4)}
-.success-title{font-size:22px;font-weight:800;color:#fff;letter-spacing:-.4px;position:relative;z-index:1}
-.success-sub{font-size:12px;color:var(--ink2);line-height:1.6;position:relative;z-index:1}
-.success-ref{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink3);margin-top:4px;position:relative;z-index:1}
+.hero{background:var(--navy);border-radius:20px;padding:36px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(22,163,74,.15) 0%,transparent 65%);pointer-events:none}
+.check-ring{width:76px;height:76px;border-radius:50%;background:var(--grn);display:flex;align-items:center;justify-content:center;animation:checkPop .4s var(--ease) .1s both;position:relative;z-index:1;box-shadow:0 6px 28px rgba(22,163,74,.45)}
+.hero-title{font-size:26px;font-weight:800;color:#fff;letter-spacing:-.04em;position:relative;z-index:1}
+.hero-sub{font-size:14px;color:rgba(255,255,255,.6);line-height:1.65;max-width:380px;position:relative;z-index:1}
+.hero-ref{font-family:'DM Mono',monospace;font-size:12px;color:rgba(255,255,255,.35);margin-top:4px;position:relative;z-index:1}
+
+/* EcoCash row */
+.eco-row{background:var(--card);border:1.5px solid var(--line);border-radius:var(--r12);padding:14px 16px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow)}
+.eco-row-logos{display:flex;gap:8px;flex-shrink:0}
+.eco-row-logos img{height:24px;width:auto;border-radius:5px}
+.eco-row-text{font-size:13px;color:var(--ink2)}
 
 /* RECEIPT */
-.receipt{background:var(--bg2);border:1px solid var(--line);border-left:2px solid var(--amber);border-radius:var(--r12);overflow:hidden}
-.r-head{padding:12px 14px;border-bottom:1px solid var(--line2);display:flex;align-items:center;gap:8px}
-.r-head-ic{width:28px;height:28px;border-radius:8px;background:var(--amber-a);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.r-head-t{font-size:13px;font-weight:700;color:#fff}
+.receipt{background:var(--card);border:1.5px solid var(--line);border-top:3px solid var(--amber);border-radius:var(--r14);overflow:hidden;box-shadow:var(--shadow)}
+.r-head{padding:14px 16px;border-bottom:1px solid var(--line2);display:flex;align-items:center;gap:10px}
+.r-head-ic{width:32px;height:32px;border-radius:9px;background:var(--amber-a);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.r-head-t{font-size:14px;font-weight:700;color:var(--ink1)}
 .r-rows{display:flex;flex-direction:column}
-.r-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--line2)}
+.r-row{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-bottom:1px solid var(--line2)}
 .r-row:last-child{border-bottom:none}
-.r-lbl{font-size:11px;color:var(--ink3)}
-.r-val{font-size:12px;font-weight:700;color:var(--ink1);text-align:right}
+.r-lbl{font-size:12px;color:var(--ink3)}
+.r-val{font-size:13px;font-weight:700;color:var(--ink1);text-align:right}
 .r-val.amber{color:var(--amber)}
 .r-val.grn{color:var(--grn)}
-.r-val.mono{font-family:'DM Mono',monospace;font-size:11px}
+.r-val.mono{font-family:'DM Mono',monospace;font-size:12px}
 
-/* SERVER PILLS */
-.servers{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.srv{background:var(--bg3);border:1px solid var(--line);color:var(--ink2);font-size:11px;font-weight:600;padding:5px 12px;border-radius:999px;font-family:'DM Mono',monospace;display:flex;align-items:center;gap:4px}
-.srv::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--grn);flex-shrink:0;animation:none}
+/* SERVER GRID */
+.servers{background:var(--card);border:1.5px solid var(--line);border-radius:var(--r14);padding:18px;box-shadow:var(--shadow)}
+.servers-title{font-size:11px;font-weight:700;color:var(--ink3);letter-spacing:.6px;text-transform:uppercase;margin-bottom:12px}
+.srv-grid{display:flex;flex-wrap:wrap;gap:8px}
+.srv-chip{background:var(--card2);border:1.5px solid var(--line);color:var(--ink2);font-size:12px;font-weight:600;padding:6px 14px;border-radius:999px;font-family:'DM Mono',monospace;display:flex;align-items:center;gap:6px}
+.srv-chip::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--grn);flex-shrink:0}
 
 /* NEXT STEPS */
-.next{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r12);padding:14px}
-.next-t{font-size:13px;font-weight:700;color:#fff;margin-bottom:10px}
-.next-list{display:flex;flex-direction:column;gap:8px}
-.next-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--ink2);line-height:1.5}
-.next-dot{width:20px;height:20px;border-radius:50%;background:var(--amber-a);border:1px solid rgba(245,166,35,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;font-weight:800;color:var(--amber)}
+.next{background:var(--card);border:1.5px solid var(--line);border-radius:var(--r14);padding:18px;box-shadow:var(--shadow)}
+.next-t{font-size:15px;font-weight:700;color:var(--ink1);margin-bottom:14px}
+.next-list{display:flex;flex-direction:column;gap:12px}
+.next-item{display:flex;align-items:flex-start;gap:12px;font-size:13px;color:var(--ink2);line-height:1.55}
+.next-num{width:24px;height:24px;border-radius:50%;background:var(--amber-a);border:1.5px solid rgba(245,166,35,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;font-weight:800;color:#92620a}
 
-/* EcoCash/Econet logos row */
-.eco-row{display:flex;align-items:center;gap:8px;padding:12px 14px;background:var(--bg2);border:1px solid var(--line);border-radius:var(--r12)}
-.eco-row img{height:20px;width:auto;border-radius:4px}
-.eco-row span{font-size:12px;color:var(--ink2)}
-
-/* FOOTER */
-.foot-bar{flex:0 0 auto;padding:10px 18px max(16px,env(safe-area-inset-bottom));background:rgba(22,23,29,.96);backdrop-filter:blur(16px);border-top:1px solid var(--line)}
-.done-btn{width:100%;min-height:52px;border-radius:var(--rpill);background:var(--amber);color:#000;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:var(--sh-amber);transition:transform .12s,background .12s;position:relative;overflow:hidden}
-.done-btn:active{transform:scale(.97);background:var(--amber-dk)}
-.rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(0,0,0,.12);transform:scale(0);animation:ripple .5s ease forwards}
+/* CTA */
+.cta-wrap{display:flex;flex-direction:column;gap:10px;padding:0 0 8px}
+.btn-amber{display:flex;align-items:center;justify-content:center;gap:8px;height:54px;border-radius:999px;background:var(--amber);color:#000;font-size:16px;font-weight:800;border:none;cursor:pointer;box-shadow:var(--shadow-amber);transition:background .12s,transform .1s;position:relative;overflow:hidden;font-family:'DM Sans',sans-serif}
+.btn-amber:active{background:var(--amber-dk);transform:scale(.97)}
+.btn-outline{display:flex;align-items:center;justify-content:center;gap:8px;height:48px;border-radius:999px;background:transparent;color:var(--ink2);font-size:14px;font-weight:600;border:1.5px solid var(--line);cursor:pointer;transition:background .12s;position:relative;overflow:hidden;font-family:'DM Sans',sans-serif}
+.btn-outline:active{background:var(--card2)}
+.rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(0,0,0,.08);transform:scale(0);animation:ripple .5s ease forwards}
 </style>
 </head>
 <body>
-<div class="screen">
-  <div class="topbar">
-    <div class="tb-brand">
-      <div class="tb-logo-ic">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-      </div>
-      <span class="tb-name">NexaVPN</span>
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="nav-logo">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
     </div>
-    <span class="tb-status">Protected</span>
+    <span class="nav-name">NexaVPN</span>
+  </div>
+  <span class="nav-status">&#x2713; Protected</span>
+</nav>
+
+<main>
+  <!-- Success hero -->
+  <div class="hero">
+    <div class="check-ring">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L9.5 17.5 L20 7"/></svg>
+    </div>
+    <div class="hero-title">You're Protected 🛡️</div>
+    <div class="hero-sub">Payment confirmed. Your NexaVPN account is being activated. Check your phone for your account details.</div>
+    <div class="hero-ref" id="txnRef">TXN #VPN-000000</div>
   </div>
 
-  <div class="body">
-    <div class="success-hero">
-      <div class="check-ring">
-        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L9.5 17.5 L20 7"/></svg>
-      </div>
-      <div class="success-title">You're Protected 🛡️</div>
-      <div class="success-sub">Payment confirmed. Your NexaVPN account is being activated. Check your EcoCash number for confirmation.</div>
-      <div class="success-ref" id="txnRef">TXN #VPN-000000</div>
-    </div>
-
-    <!-- EcoCash/Econet logos -->
-    <div class="eco-row">
+  <!-- EcoCash row -->
+  <div class="eco-row">
+    <div class="eco-row-logos">
       <img src="assets/ecocash.png" alt="EcoCash">
       <img src="assets/econet.png" alt="Econet">
-      <span>Payment processed via EcoCash · Econet Zimbabwe</span>
     </div>
+    <div class="eco-row-text">Payment processed via <strong>EcoCash</strong> · Econet Zimbabwe</div>
+  </div>
 
-    <!-- Receipt -->
-    <div class="receipt">
-      <div class="r-head">
-        <div class="r-head-ic"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <div class="r-head-t">Payment Confirmation</div>
-      </div>
-      <div class="r-rows">
-        <div class="r-row"><span class="r-lbl">Service</span><span class="r-val">NexaVPN</span></div>
-        <div class="r-row"><span class="r-lbl">Plan</span><span class="r-val amber" id="rcpPlan">—</span></div>
-        <div class="r-row"><span class="r-lbl">Amount</span><span class="r-val amber" id="rcpAmt">USD —</span></div>
-        <div class="r-row"><span class="r-lbl">Number</span><span class="r-val mono" id="rcpNum">+263 77 ••••• 00</span></div>
-        <div class="r-row"><span class="r-lbl">Payment</span><span class="r-val">EcoCash · Econet</span></div>
-        <div class="r-row"><span class="r-lbl">Status</span><span class="r-val grn">✓ Confirmed</span></div>
-      </div>
+  <!-- Receipt -->
+  <div class="receipt">
+    <div class="r-head">
+      <div class="r-head-ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="r-head-t">Payment Confirmation</div>
     </div>
-
-    <!-- Servers -->
-    <div style="background:var(--bg2);border:1px solid var(--line);border-radius:var(--r12);padding:14px">
-      <div style="font-size:11px;font-weight:700;color:var(--ink3);letter-spacing:.6px;text-transform:uppercase;margin-bottom:10px">Available Servers</div>
-      <div class="servers">
-        <span class="srv">NYC</span><span class="srv">LON</span><span class="srv">FRA</span>
-        <span class="srv">SIN</span><span class="srv">TOK</span><span class="srv">SYD</span><span class="srv">SAO</span>
-      </div>
-    </div>
-
-    <!-- Next steps -->
-    <div class="next">
-      <div class="next-t">Get started 🚀</div>
-      <div class="next-list">
-        <div class="next-item"><div class="next-dot">1</div>Download the WireGuard app on your device</div>
-        <div class="next-item"><div class="next-dot">2</div>Check your email for your NexaVPN account credentials</div>
-        <div class="next-item"><div class="next-dot">3</div>Import your config file and connect in one tap</div>
-        <div class="next-item"><div class="next-dot">4</div>Visit <b style="color:var(--amber)">nexavpn.world</b> for setup guides</div>
-      </div>
+    <div class="r-rows">
+      <div class="r-row"><span class="r-lbl">Service</span><span class="r-val">NexaVPN · WireGuard</span></div>
+      <div class="r-row"><span class="r-lbl">Plan</span><span class="r-val amber" id="rcpPlan">Monthly</span></div>
+      <div class="r-row"><span class="r-lbl">Amount</span><span class="r-val amber" id="rcpAmt">USD 4.99</span></div>
+      <div class="r-row"><span class="r-lbl">Number</span><span class="r-val mono" id="rcpNum">+263 77 ••••• 00</span></div>
+      <div class="r-row"><span class="r-lbl">Payment</span><span class="r-val">EcoCash · Econet</span></div>
+      <div class="r-row"><span class="r-lbl">Status</span><span class="r-val grn">✓ Confirmed</span></div>
     </div>
   </div>
 
-  <div class="foot-bar">
-    <button class="done-btn" id="doneBtn" onclick="window.location.href='index.html'">
+  <!-- Servers -->
+  <div class="servers">
+    <div class="servers-title">7 Server Locations · All Available</div>
+    <div class="srv-grid">
+      <span class="srv-chip">NYC</span>
+      <span class="srv-chip">LON</span>
+      <span class="srv-chip">FRA</span>
+      <span class="srv-chip">SIN</span>
+      <span class="srv-chip">TOK</span>
+      <span class="srv-chip">SYD</span>
+      <span class="srv-chip">SAO</span>
+    </div>
+  </div>
+
+  <!-- Next steps -->
+  <div class="next">
+    <div class="next-t">Get connected 🚀</div>
+    <div class="next-list">
+      <div class="next-item"><div class="next-num">1</div>Download the <strong>WireGuard</strong> app on your device (iOS, Android, Windows, Mac)</div>
+      <div class="next-item"><div class="next-num">2</div>Check your email for your NexaVPN account credentials and config file</div>
+      <div class="next-item"><div class="next-num">3</div>Import the config file into WireGuard and tap <strong>Connect</strong></div>
+      <div class="next-item"><div class="next-num">4</div>Visit <strong style="color:var(--amber)">nexavpn.world</strong> for full setup guides and support</div>
+    </div>
+  </div>
+
+  <!-- CTAs -->
+  <div class="cta-wrap">
+    <button class="btn-amber" id="homeBtn" onclick="window.location.href='index.html'">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
       Back to NexaVPN
     </button>
+    <button class="btn-outline" onclick="window.location.href='index.html'">Add another device</button>
   </div>
-</div>
+</main>
 
 <script>
 'use strict';
@@ -176,11 +184,13 @@ try{txn=JSON.parse(sessionStorage.getItem('ecoTxn')||'{}');}catch(e){}
 
 var ref=txn.correlator||('VPN-'+Date.now().toString(36).toUpperCase().slice(-8));
 document.getElementById('txnRef').textContent='TXN #'+ref;
-document.getElementById('rcpPlan').textContent=plan.duration||'—';
+document.getElementById('rcpPlan').textContent=plan.duration||'VPN Plan';
 document.getElementById('rcpAmt').textContent='USD '+(plan.amount||'—');
 if(recip.raw){var d=recip.raw;document.getElementById('rcpNum').textContent='+263 '+d.slice(0,2)+' \u2022\u2022\u2022\u2022\u2022 '+d.slice(-2);}
 
-document.getElementById('doneBtn').addEventListener('pointerdown',function(e){var r=this.getBoundingClientRect(),sz=Math.max(r.width,r.height)*2;var rip=document.createElement('span');rip.className='rip';rip.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(e.clientX-r.left-sz/2)+'px;top:'+(e.clientY-r.top-sz/2)+'px;position:absolute;';this.appendChild(rip);rip.addEventListener('animationend',function(){rip.remove();});},{passive:true});
+document.querySelectorAll('.btn-amber,.btn-outline').forEach(function(b){
+  b.addEventListener('pointerdown',function(e){var r=b.getBoundingClientRect(),sz=Math.max(r.width,r.height)*2;var rip=document.createElement('span');rip.className='rip';rip.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(e.clientX-r.left-sz/2)+'px;top:'+(e.clientY-r.top-sz/2)+'px;position:absolute;';b.appendChild(rip);rip.addEventListener('animationend',function(){rip.remove();});},{passive:true});
+});
 </script>
 </body>
 </html>
