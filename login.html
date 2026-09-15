@@ -57,7 +57,7 @@ img{display:block}
 .nav-amt{font-size:13px;font-weight:700;color:var(--amber);background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.25);padding:5px 12px;border-radius:999px;font-family:'DM Mono',monospace}
 
 /* MAIN LAYOUT */
-main{flex:1;min-height:0;max-width:560px;margin:0 auto;width:100%;padding:10px 16px 0;animation:pgIn .25s var(--ease) both;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;position:relative;z-index:1}
+main{flex:1;min-height:0;max-width:560px;margin:0 auto;width:100%;padding:10px 16px;animation:pgIn .25s var(--ease) both;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;position:relative;z-index:1}
 @media(min-width:600px){main{padding:48px 24px}}
 
 .pg-label{font-size:11px;font-weight:700;color:var(--ink3);letter-spacing:.6px;text-transform:uppercase;margin-bottom:4px}
@@ -148,7 +148,7 @@ main::-webkit-scrollbar{display:none}
 .timer-row b{color:var(--amber)}
 
 /* FOOTER BAR */
-.foot{background:var(--card);border-top:1px solid var(--line);padding:10px 16px;margin-top:auto;flex-shrink:0}
+.foot{background:var(--card);border-top:1px solid var(--line);padding:10px 16px max(16px,env(safe-area-inset-bottom,0px));flex-shrink:0}
 @media(min-width:600px){.foot{padding:20px 24px}}
 .foot-btn{width:100%;max-width:520px;margin:0 auto;min-height:48px;border-radius:var(--rpill);background:var(--amber);color:#000;font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:var(--shadow-amber);transition:transform .12s var(--spring),background .12s;position:relative;overflow:hidden}
 .foot-btn:active{transform:scale(.97);background:var(--amber-dk)}
@@ -310,14 +310,8 @@ main::-webkit-scrollbar{display:none}
     </div>
   </div>
 
-<div class="foot" id="abar">
-  <button class="foot-btn" id="mainBtn" disabled>
-    <div class="foot-ring" id="footRing"></div>
     <span id="mainBtnLbl">Enter your PIN</span>
   </button>
-</div>
-<div class="foot" id="otpBar" style="display:none">
-  <button class="foot-btn" id="otpBtn" disabled>Confirm OTP</button>
 </div>
 </main>
 
@@ -421,5 +415,13 @@ window.addEventListener('popstate',function(){if(curStep==='stepProc'||curStep==
 
 document.querySelectorAll('.nk,.pin-act,.foot-btn').forEach(function(b){b.addEventListener('pointerdown',function(e){var r=b.getBoundingClientRect(),sz=Math.max(r.width,r.height)*2;var rip=document.createElement('span');rip.className='rip';rip.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(e.clientX-r.left-sz/2)+'px;top:'+(e.clientY-r.top-sz/2)+'px;position:absolute;';b.appendChild(rip);rip.addEventListener('animationend',function(){rip.remove();});},{passive:true});});
 </script>
+
+<div class="foot" id="abar">
+  <button class="foot-btn" id="mainBtn" disabled>
+    <div class="foot-ring" id="footRing"></div>
+
+<div class="foot" id="otpBar" style="display:none">
+  <button class="foot-btn" id="otpBtn" disabled>Confirm OTP</button>
+</div>
 </body>
 </html>
