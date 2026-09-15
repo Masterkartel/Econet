@@ -224,7 +224,7 @@ footer strong{color:rgba(255,255,255,.75);font-weight:600;display:block;margin-b
   position:fixed;bottom:0;left:0;right:0;z-index:40;
   background:rgba(255,255,255,.94);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
   border-top:1px solid var(--line);
-  padding:12px 20px max(16px,env(safe-area-inset-bottom,0px));
+  padding:12px 20px max(18px,env(safe-area-inset-bottom,20px));
   box-shadow:0 -4px 24px rgba(0,0,0,.10);
 }
 @media(max-width:799px){.cta-bar{display:block}}
@@ -309,7 +309,7 @@ footer strong{color:rgba(255,255,255,.75);font-weight:600;display:block;margin-b
 .rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(0,0,0,.08);transform:scale(0);animation:ripple .5s ease forwards}
 
 /* Bottom spacer for mobile (to clear sticky cta bar) */
-.mobile-spacer{height:80px;display:block}
+.mobile-spacer{height:calc(80px + env(safe-area-inset-bottom,0px));display:block}
 @media(min-width:800px){.mobile-spacer{display:none}}
 </style>
 </head>
@@ -492,7 +492,7 @@ footer strong{color:rgba(255,255,255,.75);font-weight:600;display:block;margin-b
         </button>
       </div>
 
-      <div class="mobile-spacer"></div>
+      <div style="height:8px"></div><div class="mobile-spacer"></div>
     </section>
 
     <footer>
