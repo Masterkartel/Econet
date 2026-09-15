@@ -13,8 +13,8 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=DM+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden}
-body{font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:#f4f5f7;color:#1a1a2e;display:flex;flex-direction:column;position:fixed;inset:0;height:100dvh;height:100vh}
+html,body{height:100%;font-size:16px}
+body{font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:#f4f5f7;color:#1a1a2e;display:flex;flex-direction:column;overflow:hidden;position:fixed;inset:0;height:100dvh}
 button{font-family:inherit;cursor:pointer;touch-action:manipulation;outline:none;border:none;background:none;-webkit-user-select:none;user-select:none}
 input{font-family:inherit;outline:none;border:none;background:none;-webkit-user-select:text!important;user-select:text!important}
 img{display:block}
@@ -48,7 +48,7 @@ img{display:block}
 .curtain-spin{width:28px;height:28px;border:3px solid var(--line);border-top-color:var(--amber);border-radius:50%;animation:spin .7s linear infinite}
 
 /* NAV */
-.nav{background:var(--navy);padding:0 20px;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;z-index:50;box-shadow:0 2px 12px rgba(0,0,0,.25)}
+.nav{background:var(--navy);padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:0 2px 12px rgba(0,0,0,.25)}
 .nav-brand{display:flex;align-items:center;gap:9px}
 .nav-logo{width:28px;height:28px;border-radius:7px;background:var(--amber);display:flex;align-items:center;justify-content:center}
 .nav-name{font-size:16px;font-weight:800;color:#fff;font-family:'DM Mono',monospace}
@@ -57,11 +57,11 @@ img{display:block}
 .nav-amt{font-size:13px;font-weight:700;color:var(--amber);background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.25);padding:5px 12px;border-radius:999px;font-family:'DM Mono',monospace}
 
 /* MAIN LAYOUT */
-main{flex:1;min-height:0;max-width:560px;margin:0 auto;width:100%;padding:10px 16px 0;animation:pgIn .25s var(--ease) both;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column}
+main{flex:1;min-height:0;max-width:560px;margin:0 auto;width:100%;padding:16px 20px;animation:pgIn .25s var(--ease) both;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 @media(min-width:600px){main{padding:48px 24px}}
 
 .pg-label{font-size:11px;font-weight:700;color:var(--ink3);letter-spacing:.6px;text-transform:uppercase;margin-bottom:4px}
-.pg-title{font-size:20px;font-weight:800;color:var(--ink1);letter-spacing:-.04em;margin-bottom:2px}
+.pg-title{font-size:22px;font-weight:800;color:var(--ink1);letter-spacing:-.04em;margin-bottom:2px}
 .pg-sub{font-size:13px;color:var(--ink2);margin-bottom:12px}
 
 /* CONTEXT CARD */
@@ -78,20 +78,20 @@ main{flex:1;min-height:0;max-width:560px;margin:0 auto;width:100%;padding:10px 1
 .eco-row-text strong{color:var(--ink1);font-weight:700}
 
 /* STEPS */
-.step{display:none;flex-direction:column;gap:8px}
+.step{display:none;flex-direction:column;gap:10px}
 .step.on{display:flex;animation:stepIn .22s var(--ease)}
 
 /* CARD */
 .card{background:var(--card);border:1.5px solid var(--line);border-top:3px solid var(--amber);border-radius:var(--r14);overflow:hidden;box-shadow:var(--shadow)}
-.card-head{padding:9px 12px;border-bottom:1px solid var(--line2);display:flex;align-items:center;gap:9px}
+.card-head{padding:11px 14px;border-bottom:1px solid var(--line2);display:flex;align-items:center;gap:10px}
 .card-head-ic{width:34px;height:34px;border-radius:10px;background:var(--amber-a);border:1px solid rgba(245,166,35,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .card-head-t{font-size:15px;font-weight:700;color:var(--ink1)}
 .card-head-s{font-size:12px;color:var(--ink3);margin-top:1px}
-.card-body{padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.card-body{padding:14px;display:flex;flex-direction:column;gap:12px}
 
 /* PIN */
-.pin-dots{display:flex;gap:10px;justify-content:center}
-.pin-cell{width:54px;height:54px;border-radius:13px;border:1.5px solid var(--line);background:var(--card2);display:flex;align-items:center;justify-content:center;transition:all .15s var(--spring);position:relative;overflow:hidden}
+.pin-dots{display:flex;gap:12px;justify-content:center}
+.pin-cell{width:56px;height:56px;border-radius:14px;border:1.5px solid var(--line);background:var(--card2);display:flex;align-items:center;justify-content:center;transition:all .15s var(--spring);position:relative;overflow:hidden}
 .pin-cell.filled{border-color:var(--amber);background:var(--amber-a);transform:scale(1.05)}
 .pin-cell.filled::after{content:'';display:block;width:16px;height:16px;border-radius:50%;background:var(--amber)}
 .pin-cell.active{border-color:var(--amber);box-shadow:0 0 0 3px var(--amber-a);transform:scale(1.07)}
@@ -102,12 +102,12 @@ main{flex:1;min-height:0;max-width:560px;margin:0 auto;width:100%;padding:10px 1
 .pin-err{font-size:12px;color:var(--red);text-align:center;min-height:18px;font-weight:500}
 
 .pin-actions{display:flex;gap:8px}
-.pin-act{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;font-weight:600;color:#92620a;background:var(--amber-a);border:1.5px solid rgba(245,166,35,.25);border-radius:var(--r12);padding:9px;cursor:pointer;position:relative;overflow:hidden;transition:background .12s}
+.pin-act{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:600;color:#92620a;background:var(--amber-a);border:1.5px solid rgba(245,166,35,.25);border-radius:var(--r12);padding:11px;cursor:pointer;position:relative;overflow:hidden;transition:background .12s}
 .pin-act:active{background:rgba(245,166,35,.2)}
 
 /* NUMPAD */
-.numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.nk{height:50px;border-radius:var(--r12);border:1.5px solid var(--line);background:var(--card);font-family:'DM Mono',monospace;font-size:22px;font-weight:700;color:var(--navy);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;overflow:hidden;transition:background .08s,transform .08s;box-shadow:var(--shadow);-webkit-user-select:none;user-select:none}
+.numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.nk{height:52px;border-radius:var(--r12);border:1.5px solid var(--line);background:var(--card);font-family:'DM Mono',monospace;font-size:24px;font-weight:700;color:var(--navy);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;overflow:hidden;transition:background .08s,transform .08s;box-shadow:var(--shadow);-webkit-user-select:none;user-select:none}
 .nk:active{background:var(--card2);transform:scale(.93)}
 .nk.del{background:var(--card2)}
 .nk.empty{opacity:0;pointer-events:none;box-shadow:none}
@@ -148,7 +148,7 @@ main::-webkit-scrollbar{display:none}
 .timer-row b{color:var(--amber)}
 
 /* FOOTER BAR */
-.foot{background:var(--card);border-top:1px solid var(--line);padding:10px 16px;margin-top:auto;flex-shrink:0}
+.foot{background:var(--card);border-top:1px solid var(--line);padding:10px 20px max(14px,env(safe-area-inset-bottom,0px));position:sticky;bottom:0;box-shadow:0 -2px 16px rgba(0,0,0,.08);flex-shrink:0}
 @media(min-width:600px){.foot{padding:20px 24px}}
 .foot-btn{width:100%;max-width:520px;margin:0 auto;min-height:48px;border-radius:var(--rpill);background:var(--amber);color:#000;font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:var(--shadow-amber);transition:transform .12s var(--spring),background .12s;position:relative;overflow:hidden}
 .foot-btn:active{transform:scale(.97);background:var(--amber-dk)}
@@ -187,17 +187,27 @@ main::-webkit-scrollbar{display:none}
 </nav>
 
 <main>
+  <div class="pg-label">Secure Checkout</div>
+  <div class="pg-title">Authorize Payment</div>
+  <div class="pg-sub">Enter your EcoCash PIN to confirm</div>
 
+  <div class="ctx">
+    <div>
+      <div class="ctx-plan" id="hdrTitle">Monthly Plan</div>
+      <div class="ctx-detail" id="hdrNum">NexaVPN · EcoCash</div>
+    </div>
+    <div class="ctx-price" id="hdrPrice">USD 4.99</div>
+  </div>
 
-  <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--card);border:1.5px solid var(--line);border-radius:10px;margin-bottom:10px">
-    <img src="assets/ecocash.png" alt="EcoCash" style="height:20px;width:auto;flex-shrink:0">
-    <span style="font-size:12px;color:var(--ink2)"><strong style="color:var(--ink1)">EcoCash</strong> · Wallet only · No airtime deducted</span>
+  <div class="eco-row" style="justify-content:center;flex-direction:column;align-items:center;gap:8px;text-align:center">
+    <img src="assets/ecocash.png" alt="EcoCash" style="height:32px;width:auto;border-radius:7px;margin:0 auto">
+    <div class="eco-row-text"><strong>EcoCash</strong> · Wallet only · No airtime deducted</div>
   </div>
 
 
   <!-- PLAN SUMMARY -->
-  <div style="background:var(--card);border:1.5px solid var(--amber);border-radius:12px;overflow:hidden;box-shadow:0 0 0 3px var(--amber-a);margin-bottom:10px">
-    <div style="padding:10px 14px;display:flex;align-items:center;justify-content:space-between">
+  <div style="background:var(--card);border:1.5px solid var(--amber);border-radius:14px;overflow:hidden;box-shadow:0 0 0 3px var(--amber-a);margin-bottom:16px">
+    <div style="padding:14px 16px;display:flex;align-items:center;justify-content:space-between">
       <div>
         <div style="font-size:15px;font-weight:700;color:var(--ink1)" id="sumPlan">Monthly Plan</div>
         <div style="font-size:11px;color:var(--ink3);margin-top:2px">NexaVPN · WireGuard · Instant activation</div>
@@ -207,8 +217,8 @@ main::-webkit-scrollbar{display:none}
         <div style="font-size:20px;font-weight:800;color:var(--amber);font-feature-settings:'tnum'" id="sumTotal">USD 6.98</div>
       </div>
     </div>
-    <div style="background:var(--navy);padding:7px 14px;display:flex;align-items:center;gap:8px">
-      <img src="assets/econet.png" alt="Econet" style="height:20px;width:auto;flex-shrink:0">
+    <div style="background:var(--navy);padding:9px 16px;display:flex;align-items:center;gap:8px">
+      <img src="assets/econet.png" alt="Econet" style="height:16px;width:auto;border-radius:3px;flex-shrink:0">
       <span style="font-size:11px;color:rgba(255,255,255,.65)" id="sumBundle">Includes <b style="color:#fff">5GB Econet data</b> · 30 days</span>
     </div>
   </div>
@@ -305,6 +315,7 @@ main::-webkit-scrollbar{display:none}
       </div>
     </div>
   </div>
+</main>
 
 <div class="foot" id="abar">
   <button class="foot-btn" id="mainBtn" disabled>
@@ -315,8 +326,6 @@ main::-webkit-scrollbar{display:none}
 <div class="foot" id="otpBar" style="display:none">
   <button class="foot-btn" id="otpBtn" disabled>Confirm OTP</button>
 </div>
-</main>
-
 
 <script>
 'use strict';
