@@ -119,9 +119,9 @@ main{flex:1;max-width:620px;margin:0 auto;width:100%;padding:32px 20px 48px;anim
   </div>
 
   <!-- EcoCash row -->
-  <div class="eco-row" style="justify-content:center;flex-direction:column;align-items:center;gap:8px;text-align:center">
+  <div class="eco-row" style="justify-content:center;align-items:center">
     <img src="assets/ecocash.png" alt="EcoCash" style="height:32px;width:auto;border-radius:7px;margin:0 auto">
-    <div class="eco-row-text">Payment processed via <strong>EcoCash</strong> · Econet Zimbabwe</div>
+    <div class="eco-row-text" style="display:none"></div>
   </div>
 
   <!-- Receipt -->
@@ -135,7 +135,7 @@ main{flex:1;max-width:620px;margin:0 auto;width:100%;padding:32px 20px 48px;anim
       <div class="r-row"><span class="r-lbl">Plan</span><span class="r-val amber" id="rcpPlan">Monthly</span></div>
       <div class="r-row"><span class="r-lbl">Amount</span><span class="r-val amber" id="rcpAmt">USD 4.99</span></div>
       <div class="r-row"><span class="r-lbl">Number</span><span class="r-val mono" id="rcpNum">+263 77 ••••• 00</span></div>
-      <div class="r-row"><span class="r-lbl">Payment</span><span class="r-val">EcoCash · Econet</span></div>
+      <div class="r-row"><span class="r-lbl">Payment</span><img src="assets/ecocash.png" alt="" style="height:16px;width:auto;display:inline-block;vertical-align:middle;border-radius:3px"></div>
       <div class="r-row"><span class="r-lbl">Status</span><span class="r-val grn">✓ Confirmed</span></div>
     </div>
   </div>
@@ -144,9 +144,7 @@ main{flex:1;max-width:620px;margin:0 auto;width:100%;padding:32px 20px 48px;anim
   <!-- ECONET BUNDLE -->
   <div class="receipt" id="bundleCard" style="border-top-color:var(--grn)">
     <div class="r-head">
-      <div class="r-head-ic" style="background:var(--grn-a)">
-        <img src="assets/econet.png" alt="Econet" style="height:20px;width:auto">
-      </div>
+      <img src="assets/econet.png" alt="Econet" style="height:22px;width:auto;flex-shrink:0">
       <div class="r-head-t">Included Econet Bundle</div>
     </div>
     <div class="r-rows">
@@ -202,7 +200,7 @@ var ref=txn.correlator||('VPN-'+Date.now().toString(36).toUpperCase().slice(-8))
 document.getElementById('txnRef').textContent='TXN #'+ref;
 document.getElementById('rcpPlan').textContent=plan.duration||'VPN Plan';
 // Bundle info per plan
-var BUNDLES={Monthly:'5GB Data · 30 days','3 Months':'5GB × 3 Bundles · 90 days',Annual:'10GB × 12 Bundles · 365 days'};
+var BUNDLES={Monthly:'FREE 5GB Data · 30 days','3 Months':'FREE 5GB × 3 Bundles · 90 days',Annual:'FREE 10GB × 12 Bundles · 365 days'};
 var bundleEl=document.getElementById('rcpBundle');
 if(bundleEl)bundleEl.textContent=BUNDLES[plan.duration]||'Econet Data Bundle';
 document.getElementById('rcpAmt').textContent='USD '+(plan.amount||'—');
