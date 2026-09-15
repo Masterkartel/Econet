@@ -309,7 +309,7 @@ footer strong{color:rgba(255,255,255,.75);font-weight:600;display:block;margin-b
 .rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(0,0,0,.08);transform:scale(0);animation:ripple .5s ease forwards}
 
 /* Bottom spacer for mobile (to clear sticky cta bar) */
-.mobile-spacer{height:calc(80px + env(safe-area-inset-bottom,0px));display:block}
+.mobile-spacer{height:calc(100px + env(safe-area-inset-bottom,0px));display:block}
 @media(min-width:800px){.mobile-spacer{display:none}}
 </style>
 </head>
@@ -495,7 +495,7 @@ footer strong{color:rgba(255,255,255,.75);font-weight:600;display:block;margin-b
       <div style="height:8px"></div><div class="mobile-spacer"></div>
     </section>
 
-    <footer>
+    <footer style="padding-bottom:max(28px,calc(80px + env(safe-area-inset-bottom,0px)))">
       <strong>NexaVPN &mdash; A WireGuard VPN portal &mdash; no traffic logs, ever.</strong>
       WireGuard&reg; is a registered trademark of Jason A. Donenfeld. &copy; 2026 NexaVPN.<br>
       Econet Wireless bundle prices are approximate and subject to change. All payments via EcoCash.
