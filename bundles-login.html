@@ -53,13 +53,13 @@ img{display:block}
 .nav-amt{font-size:12px;font-weight:700;color:#fff;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);padding:4px 10px;border-radius:999px;font-family:'DM Mono',monospace}
 
 /* SCROLL */
-.scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:12px 14px 8px;animation:pgIn .22s var(--ease)}
+.scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:12px 14px 8px;animation:pgIn .22s var(--ease);overscroll-behavior:contain}
 .scroll::-webkit-scrollbar{display:none}
 
 /* SUMMARY CARD */
 .sum-card{background:var(--card);border:1.5px solid var(--grn);border-radius:14px;box-shadow:0 0 0 3px var(--blue-a);margin-bottom:10px;overflow:hidden}
 .sum-main{padding:12px 14px;display:flex;align-items:center;justify-content:space-between}
-.sum-bundle-name{font-size:15px;font-weight:800;color:var(--ink1);letter-spacing:-.3px}
+.sum-bundle-name{font-size:14px;font-weight:800;color:var(--ink1);letter-spacing:-.2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:180px}
 .sum-bundle-data{font-size:12px;color:var(--ink3);margin-top:2px;display:flex;align-items:center;gap:5px}
 .sum-price{font-size:22px;font-weight:800;color:var(--blue);font-feature-settings:"tnum";text-align:right}
 .sum-price-lbl{font-size:9px;color:var(--ink3);text-align:right;margin-bottom:1px;text-transform:uppercase;font-weight:700;letter-spacing:.4px}
@@ -83,7 +83,7 @@ img{display:block}
 .step.on{display:flex;animation:stepIn .2s var(--ease)}
 
 /* PIN */
-.pin-dots{display:flex;gap:10px;justify-content:center}
+.pin-dots{display:flex;gap:8px;justify-content:center;max-width:100%}
 .pin-cell{width:56px;height:56px;border-radius:14px;border:1.5px solid var(--line);background:var(--card2);display:flex;align-items:center;justify-content:center;transition:all .15s var(--spring);position:relative;box-shadow:0 1px 3px rgba(0,0,0,.05)}
 .pin-cell.filled{border-color:var(--blue);background:var(--blue-lt);transform:scale(1.05)}
 .pin-cell.filled::after{content:'';display:block;width:14px;height:14px;border-radius:50%;background:var(--blue)}
@@ -92,13 +92,13 @@ img{display:block}
 .pin-digit{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:26px;font-weight:700;color:var(--blue)}
 .pin-cell.peek .pin-digit{display:flex}
 .pin-dots.wrong .pin-cell{animation:shake .3s ease;border-color:#dc2626}
-.pin-err{font-size:11px;color:#dc2626;text-align:center;min-height:16px;font-weight:500}
+.pin-err{font-size:11px;color:#dc2626;text-align:center;min-height:18px;font-weight:500;padding:0 4px}
 .pin-actions{display:flex;gap:8px}
 .pin-act{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;font-size:12px;font-weight:600;color:var(--grn2);background:var(--blue-a);border:1.5px solid rgba(0,102,204,.18);border-radius:12px;padding:9px;cursor:pointer;touch-action:manipulation}
 .pin-act:active{background:rgba(0,102,204,.18)}
 
 /* NUMPAD */
-.numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
 .nk{height:54px;border-radius:14px;border:1.5px solid var(--line);background:var(--card);font-family:'DM Mono',monospace;font-size:22px;font-weight:700;color:var(--ink1);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--sh);touch-action:manipulation;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;transition:background .08s,transform .08s;position:relative;overflow:hidden}
 .nk:active{background:var(--card2);transform:scale(.93)}
 .nk.del{background:var(--card2)}
@@ -128,8 +128,8 @@ img{display:block}
 .proc-eco{display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;background:var(--card2);border-top:1px solid var(--line2)}
 
 /* OTP */
-.otp-wrap{display:flex;gap:8px;justify-content:center}
-.otp-box{width:46px;height:56px;border-radius:10px;border:1.5px solid var(--line);background:var(--card2);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:22px;font-weight:800;color:var(--blue);transition:all .15s var(--spring)}
+.otp-wrap{display:flex;gap:6px;justify-content:center;max-width:100%}
+.otp-box{width:44px;height:54px;border-radius:10px;border:1.5px solid var(--line);background:var(--card2);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:22px;font-weight:800;color:var(--blue);transition:all .15s var(--spring)}
 .otp-box.filled{border-color:var(--blue);background:var(--blue-lt)}
 .otp-box.active{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-a);transform:scale(1.05)}
 .timer-row{display:flex;justify-content:center;gap:6px;font-size:12px}
@@ -150,7 +150,7 @@ img{display:block}
 <body>
 
 <div class="curtain" id="curtain">
-  <div class="curtain-logos"><img src="assets/ecocash.png" alt="EcoCash" style="height:24px;width:auto;border-radius:4px"></div>
+  <div class="curtain-logos"><img src="assets/ecocash.png" alt="EcoCash" style="height:30px;width:auto"></div>
     <img src="assets/econet.png" alt="Econet" style="height:24px;width:auto;border-radius:4px">
   </div>
   <div class="curtain-spin"></div>
