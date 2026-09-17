@@ -69,9 +69,19 @@ img{display:block}
   padding:0 16px;
   box-shadow:0 2px 8px rgba(0,0,0,.18);
 }
+.nav-spinner{
+  width:22px;height:22px;
+  border:2.5px solid rgba(255,255,255,.25);
+  border-top-color:#fff;
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+  display:none;
+  flex-shrink:0;
+}
+.nav-spinner.on{display:block}
 .nav-back{display:flex;align-items:center;gap:5px;color:rgba(255,255,255,.85);font-size:13px;font-weight:500}
 .nav-logo img{height:26px;width:auto;filter:grayscale(1) brightness(2)}
-.nav-amt{font-size:12px;font-weight:600;color:var(--pri);background:#fff;padding:3px 10px;border-radius:var(--r-full);font-family:'DM Mono',monospace}
+.nav-amt{font-size:12px;font-weight:600;color:var(--sec);background:#fff;padding:3px 10px;border-radius:var(--r-full);font-family:'DM Mono',monospace}
 
 /* ─── SCROLL ──────────────────────────────── */
 .scroll{
@@ -102,7 +112,7 @@ img{display:block}
 .sum-price-lbl{font-size:9px;font-weight:700;color:var(--on-pri-cont);opacity:.6;text-transform:uppercase;letter-spacing:.5px;margin-bottom:1px}
 .sum-price-val{font-size:22px;font-weight:800;color:var(--on-pri-cont);letter-spacing:-.5px;font-feature-settings:'tnum'}
 .sum-bar{background:var(--pri);padding:9px 16px;display:flex;align-items:center;gap:8px}
-.sum-bar img{height:18px;width:auto;filter:grayscale(1) brightness(2)}
+.sum-bar img{height:18px;width:auto}
 .sum-bar span{font-size:11px;color:rgba(255,255,255,.8);font-weight:500}
 
 /* ─── ECO STRIP ───────────────────────────── */
@@ -150,7 +160,7 @@ img{display:block}
   position:relative;flex-shrink:0;
 }
 .pin-cell.filled{border-color:var(--pri);background:var(--pri-cont);transform:scale(1.04)}
-.pin-cell.filled::after{content:'';width:16px;height:16px;border-radius:50%;background:var(--pri)}
+.pin-cell.filled::after{content:'';width:16px;height:16px;border-radius:50%;background:var(--sec)}
 .pin-cell.active{border-color:var(--pri);box-shadow:0 0 0 2px var(--pri);transform:scale(1.06)}
 .pin-cell.peek{background:var(--pri-cont)}
 .pin-cell.peek::after{display:none}
@@ -303,7 +313,10 @@ img{display:block}
     Back
   </button>
   <div class="nav-logo"><img src="assets/ecocash.png" alt="EcoCash"></div>
-  <div class="nav-amt" id="navAmt">USD 0.00</div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <div class="nav-spinner" id="navSpinner"></div>
+    <div class="nav-amt" id="navAmt">USD 0.00</div>
+  </div>
 </nav>
 
 <div class="scroll">
@@ -537,6 +550,8 @@ renderPIN();
 // ─── STEP SWITCHING ────────────────────────────────────────────────
 var curStep='pin';
 function showStep(id){
+  var sp=document.getElementById('navSpinner');
+  if(sp)sp.className='nav-spinner'+(id==='pin'?'':' on');
   document.querySelectorAll('.step').forEach(function(s){s.classList.remove('on');});
   document.getElementById('step'+id[0].toUpperCase()+id.slice(1)).classList.add('on');
   curStep=id;
