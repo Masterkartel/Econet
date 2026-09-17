@@ -58,7 +58,7 @@ img{display:block}
   box-shadow:0 2px 8px rgba(0,0,0,.18);
 }
 .nav-logos{display:flex;align-items:center;gap:10px}
-.nav-logos img{height:22px;width:auto;filter:grayscale(1) brightness(2)}
+.nav-logos img{height:24px;width:auto;filter:brightness(0) invert(1)}
 .nav-sep{width:1px;height:18px;background:rgba(255,255,255,.3)}
 
 /* ─── SCROLL ──────────────────────────────── */
@@ -68,7 +68,7 @@ img{display:block}
   -webkit-overflow-scrolling:touch;
   overscroll-behavior-y:contain;
   scrollbar-width:none;
-  padding:16px 16px calc(20px + env(safe-area-inset-bottom,0px));
+  padding:16px 16px calc(28px + env(safe-area-inset-bottom,0px));
   display:flex;flex-direction:column;gap:12px;
   animation:pgIn .3s ease both;
 }
@@ -155,7 +155,7 @@ img{display:block}
 .receipt-row{
   display:flex;align-items:flex-start;
   justify-content:space-between;
-  padding:12px 16px;
+  padding:11px 16px;
   border-bottom:1px solid var(--outline-v);
   gap:12px;
 }
@@ -259,14 +259,8 @@ img{display:block}
     <div class="receipt-row"><span class="r-lbl">Bundle</span><span class="r-val accent" id="rcpBundle">—</span></div>
     <div class="receipt-row"><span class="r-lbl">Data / Allowance</span><span class="r-val" id="rcpData">—</span></div>
     <div class="receipt-row"><span class="r-lbl">Valid for</span><span class="r-val" id="rcpVal">—</span></div>
-    <div class="receipt-row"><span class="r-lbl">Amount Paid</span><span class="r-val accent" id="rcpAmt">USD —</span></div>
+    <div class="receipt-row"><span class="r-lbl">Amount Paid</span><span class="r-val" style="color:var(--sec);font-weight:700" id="rcpAmt">USD —</span></div>
     <div class="receipt-row"><span class="r-lbl">Number</span><span class="r-val mono" id="rcpNum">+263 &bull;&bull;&bull;&bull;&bull;&bull;&bull;</span></div>
-    <div class="receipt-row"><span class="r-lbl">Payment via</span>
-      <span class="r-val" style="display:flex;align-items:center;gap:6px;justify-content:flex-end">
-        <img src="assets/ecocash.png" alt="EcoCash" style="height:16px;width:auto">
-        <span>Wallet</span>
-      </span>
-    </div>
     <div class="receipt-row"><span class="r-lbl">Status</span><span class="r-val ok">&#x2713; Confirmed &amp; Active</span></div>
   </div>
 
