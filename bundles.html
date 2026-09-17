@@ -3,367 +3,587 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#0066CC">
+<meta name="theme-color" content="#0057B8">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>Econet Bundles &middot; EcoCash</title>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Econet Bundles</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=DM+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html{height:100%}
-body{font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:#F0F4FF;color:#0a0f2e;display:flex;flex-direction:column;position:fixed;inset:0;width:100%;height:100dvh;overflow:hidden}
-button{font-family:inherit;cursor:pointer;touch-action:manipulation;border:none;background:none;outline:none;-webkit-user-select:none;user-select:none}
-img{display:block}input{font-family:inherit;border:none;outline:none;background:none;-webkit-user-select:text!important;user-select:text!important}
+html,body{height:100%}
+body{
+  font-family:'DM Sans',system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  background:#F2F4FF;
+  color:#191C22;
+  display:flex;flex-direction:column;
+  position:fixed;inset:0;width:100%;
+  height:100vh;height:100dvh;
+  overflow:hidden;
+}
+button{font-family:inherit;touch-action:manipulation;border:none;background:none;cursor:pointer;outline:none;-webkit-user-select:none;user-select:none}
+input{font-family:inherit;border:none;outline:none;background:none;-webkit-user-select:text!important;user-select:text!important}
+img{display:block}
 *{-webkit-user-select:none;user-select:none}
 
 :root{
-  /* Econet blue */
-  --blue:#0066CC;--blue2:#0052A5;--blue3:#003D7A;
-  --blue-lt:#E8F2FF;--blue-a:rgba(0,102,204,.10);
-  /* EcoCash red */
-  --red:#CC0000;--red2:#A50000;--red-lt:#FFE8E8;--red-a:rgba(204,0,0,.10);
-  /* Neutrals */
-  --bg:#F0F4FF;--card:#fff;--card2:#F5F8FF;
-  --line:#D4DEF0;--line2:#E8EEF8;
-  --ink1:#0a0f2e;--ink2:#2d3561;--ink3:#7880a8;
-  --sh:0 1px 3px rgba(0,66,153,.07),0 4px 16px rgba(0,66,153,.06);
-  --sh-blue:0 4px 20px rgba(0,102,204,.30);
-  --sh-red:0 4px 20px rgba(204,0,0,.25);
-  --rpill:999px;--r12:12px;--r14:14px;
-  --ease:cubic-bezier(.22,1,.36,1);
+  --pri:#0057B8;
+  --pri-cont:#D6E4FF;
+  --on-pri-cont:#001B4D;
+  --sec:#CC0000;
+  --sec-cont:#FFDAD6;
+  --bg:#F2F4FF;
+  --surf:#FFFFFF;
+  --surf-lo:#F2F4FF;
+  --surf-mid:#ECEFFE;
+  --surf-hi:#E1E4F3;
+  --on-surf:#191C22;
+  --on-surf-v:#42474F;
+  --outline:#73788A;
+  --outline-v:#C3C7D6;
+  --r-sm:12px;--r-md:16px;--r-lg:24px;--r-xl:28px;--r-full:999px;
+  --sh1:0 1px 2px rgba(0,0,0,.06),0 1px 3px rgba(0,0,0,.08);
+  --sh2:0 2px 6px rgba(0,0,0,.07),0 1px 3px rgba(0,0,0,.06);
+  --sh-pri:0 2px 12px rgba(0,87,184,.22);
+  --sh-sec:0 2px 12px rgba(204,0,0,.22);
 }
 
-@keyframes pgIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@keyframes pgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 @keyframes ripple{to{transform:scale(4);opacity:0}}
-@keyframes spin{to{transform:rotate(360deg)}}
 
-/* NAV */
-.nav{flex-shrink:0;background:var(--blue);display:flex;align-items:center;justify-content:space-between;padding:calc(env(safe-area-inset-top,0px)+11px) 16px 11px;min-height:calc(54px + env(safe-area-inset-top,0px));box-shadow:0 3px 12px rgba(0,0,0,.22)}
-.nav-brand{display:flex;align-items:center;gap:8px}
-.nav-logos{display:flex;align-items:center;gap:6px}
-.nav-div{width:1px;height:20px;background:rgba(255,255,255,.3)}
-.nav-title{font-size:15px;font-weight:700;color:#fff}
-.nav-num{font-size:11px;font-weight:600;color:rgba(255,255,255,.8);font-family:'DM Mono',monospace;background:rgba(255,255,255,.12);padding:3px 8px;border-radius:999px}
+/* ─── NAV ─────────────────────────────────── */
+.nav{
+  flex-shrink:0;
+  background:var(--pri);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 16px;
+  height:56px;
+  padding-top:env(safe-area-inset-top,0px);
+  height:calc(56px + env(safe-area-inset-top,0px));
+  box-shadow:0 1px 0 rgba(255,255,255,.08),0 2px 8px rgba(0,0,0,.18);
+}
+.nav-logo img{height:28px;width:auto}
+.nav-title{font-size:15px;font-weight:600;color:rgba(255,255,255,.9);letter-spacing:.1px}
 
-/* TABS */
-.tabs{flex-shrink:0;background:var(--card);border-bottom:2px solid var(--line);display:flex;overflow:hidden}
-.tabs::-webkit-scrollbar{display:none}
-.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:10px 4px;font-size:10px;font-weight:600;color:var(--ink3);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:color .15s,border-color .15s;touch-action:manipulation;min-width:0}
-.tab svg{width:16px;height:16px;flex-shrink:0}
-.tab.on{color:var(--blue);border-bottom-color:var(--blue);font-weight:700}
-.tab-wa.on{color:#25D366;border-bottom-color:#25D366}
-.tab-fb.on{color:#1877F2;border-bottom-color:#1877F2}
+/* ─── TABS ────────────────────────────────── */
+.tabs{
+  flex-shrink:0;
+  background:var(--surf);
+  border-bottom:1px solid var(--outline-v);
+  display:flex;
+}
+.tab{
+  flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:3px;
+  padding:9px 2px;
+  color:var(--on-surf-v);
+  border-bottom:2px solid transparent;
+  margin-bottom:-1px;
+  transition:color .18s,border-color .18s;
+  font-size:10px;font-weight:500;letter-spacing:.2px;
+  position:relative;
+}
+.tab svg{width:20px;height:20px;flex-shrink:0}
+.tab.on{color:var(--pri);border-bottom-color:var(--pri);font-weight:700}
+.tab.wa.on{color:#25D366;border-bottom-color:#25D366}
+.tab.fb.on{color:#1877F2;border-bottom-color:#1877F2}
 
-/* SCROLL */
-.scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:12px 12px 80px;display:flex;flex-direction:column;gap:8px}
+/* ─── SCROLL ──────────────────────────────── */
+.scroll{
+  flex:1;min-height:0;
+  overflow-y:auto;overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-y:contain;
+  scrollbar-width:none;
+  padding:14px 14px calc(90px + env(safe-area-inset-bottom,0px));
+  display:flex;flex-direction:column;gap:10px;
+  animation:pgIn .22s ease both;
+}
 .scroll::-webkit-scrollbar{display:none}
 
-/* SECTION HEADER */
-.sec-head{display:flex;align-items:center;gap:8px;padding:2px 0}
-.sec-label{font-size:10px;font-weight:700;color:var(--ink3);letter-spacing:.7px;text-transform:uppercase;flex-shrink:0}
-.sec-line{flex:1;height:1px;background:var(--line)}
+/* ─── SECTION HEADER ─────────────────────── */
+.sec-row{display:flex;align-items:center;gap:8px;margin:4px 0 2px}
+.sec-label{font-size:10px;font-weight:700;color:var(--on-surf-v);letter-spacing:.8px;text-transform:uppercase;flex-shrink:0}
+.sec-line{flex:1;height:1px;background:var(--outline-v)}
 
-/* BUNDLE GRID */
-.bundle-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+/* ─── BUNDLE GRID ─────────────────────────── */
+.bundle-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 
-/* BUNDLE CARD */
-.bundle-card{background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:14px 13px 12px;cursor:pointer;position:relative;box-shadow:0 2px 8px rgba(0,66,153,.06),0 1px 2px rgba(0,66,153,.04);transition:border-color .15s,box-shadow .15s,transform .1s;touch-action:manipulation;-webkit-tap-highlight-color:transparent;overflow:hidden;min-width:0;display:flex;flex-direction:column}
-.bundle-card:active{transform:scale(.97)}
-.bundle-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--line);border-radius:14px 14px 0 0;transition:background .15s}
-.bundle-card.on{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-a),0 4px 16px rgba(0,102,204,.12)}
-.bundle-card.on::before{background:var(--blue)}
-.bundle-card.wide{grid-column:span 2}
-/* Social card variants */
-.bundle-card.wa.on{border-color:#25D366;box-shadow:0 0 0 2.5px rgba(37,211,102,.12),var(--sh)}
-.bundle-card.wa.on::before{background:#25D366}
-.bundle-card.fb.on{border-color:#1877F2;box-shadow:0 0 0 2.5px rgba(24,119,242,.12),var(--sh)}
-.bundle-card.fb.on::before{background:#1877F2}
+/* ─── BUNDLE CARD ─────────────────────────── */
+.bcard{
+  background:var(--surf);
+  border:1px solid var(--outline-v);
+  border-radius:var(--r-md);
+  padding:14px 13px 13px;
+  display:flex;flex-direction:column;gap:0;
+  position:relative;
+  box-shadow:var(--sh1);
+  cursor:pointer;
+  touch-action:manipulation;
+  transition:transform .12s,box-shadow .12s,border-color .15s,background .15s;
+  overflow:hidden;
+  min-width:0;
+}
+.bcard::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--outline-v);
+  transition:background .15s;
+}
+.bcard.on{
+  border-color:var(--pri);
+  background:var(--pri-cont);
+  box-shadow:0 0 0 2px var(--pri),var(--sh1);
+}
+.bcard.on::after{background:var(--pri)}
+.bcard:active{transform:scale(.97)}
 
-.bc-tag{font-size:9px;font-weight:700;color:var(--ink3);letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px;display:flex;align-items:center;gap:4px}
-.bc-dot{width:5px;height:5px;border-radius:50%;background:var(--blue);flex-shrink:0}
-.bc-dot.wa{background:#25D366}
-.bc-dot.fb{background:#1877F2}
-.bc-data{font-size:22px;font-weight:800;color:var(--ink1);letter-spacing:-.5px;line-height:1;margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
-.bc-validity{font-size:10px;color:var(--ink3);margin-bottom:7px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.bc-price{font-size:18px;font-weight:800;color:var(--blue);margin-top:auto}
-.bc-price.wa{color:#25D366}
-.bc-price.fb{color:#1877F2}
-.bc-price span{font-size:10px;font-weight:500;color:var(--ink3)}
-.bc-radio{position:absolute;top:10px;right:9px;width:17px;height:17px;border-radius:50%;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;transition:border-color .15s}
-.bc-radio.on{border-color:var(--blue)}
-.bc-radio-dot{width:8px;height:8px;border-radius:50%;background:var(--blue)}
-.bc-app-icon{position:absolute;top:9px;right:9px;width:22px;height:22px}
+.bcard.wide{grid-column:span 2}
 
-/* COMBO CARD */
-.combo-card{background:linear-gradient(135deg,var(--blue) 0%,var(--blue2) 100%);border-radius:14px;padding:16px 14px 14px;cursor:pointer;position:relative;overflow:hidden;box-shadow:var(--sh-blue);transition:transform .1s;touch-action:manipulation}
-.combo-card:active{transform:scale(.97)}
-.combo-card.on{box-shadow:0 0 0 3px rgba(0,102,204,.3),var(--sh-blue)}
-.combo-best::after{content:'BEST VALUE';position:absolute;top:11px;right:11px;font-size:8px;font-weight:800;color:var(--blue);background:#fff;padding:2px 7px;border-radius:999px;letter-spacing:.5px}
-.cc-lbl{font-size:9px;font-weight:700;color:rgba(255,255,255,.55);letter-spacing:.5px;text-transform:uppercase;margin-bottom:3px}
-.cc-name{font-size:16px;font-weight:800;color:#fff;margin-bottom:5px;line-height:1.2}
-.cc-pills{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;overflow:hidden}
-.cc-pill{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.18);color:#fff;font-size:10px;font-weight:600;padding:3px 9px;border-radius:999px;white-space:nowrap}
-.cc-price{font-size:26px;font-weight:800;color:#fff;letter-spacing:-.4px;display:flex;align-items:baseline;gap:4px}
-.cc-price span{font-size:12px;font-weight:400;color:rgba(255,255,255,.6)}
-.cc-validity{font-size:10px;color:rgba(255,255,255,.5);margin-top:4px}
-.cc-radio{position:absolute;bottom:14px;right:14px;width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center}
-.cc-radio.on{border-color:#fff;background:#fff}
-.cc-radio-dot{width:10px;height:10px;border-radius:50%;background:var(--blue)}
+.bcard-tag{font-size:9px;font-weight:700;color:var(--on-surf-v);letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:4px}
+.bcard-dot{width:5px;height:5px;border-radius:50%;background:var(--pri);flex-shrink:0}
+.bcard-dot.wa{background:#25D366}
+.bcard-dot.fb{background:#1877F2}
 
-/* BUY BAR */
-.buy-bar{flex-shrink:0;background:var(--card);border-top:1px solid var(--line);padding:10px 12px max(14px,env(safe-area-inset-bottom,0px));box-shadow:0 -2px 12px rgba(0,66,153,.08)}
-.buy-bar-inner{display:flex;align-items:center;gap:10px}
+.bcard-data{font-size:22px;font-weight:800;color:var(--on-surf);letter-spacing:-.5px;line-height:1;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bcard-sub{font-size:10px;color:var(--on-surf-v);margin-bottom:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bcard-price{font-size:18px;font-weight:800;color:var(--pri);margin-top:auto}
+.bcard-price span{font-size:11px;font-weight:400;color:var(--on-surf-v)}
+
+.bcard.on .bcard-data,.bcard.on .bcard-price{color:var(--on-pri-cont)}
+.bcard.on .bcard-tag,.bcard.on .bcard-sub,.bcard.on .bcard-price span{color:var(--on-pri-cont);opacity:.7}
+
+.bcard-radio{
+  position:absolute;top:11px;right:11px;
+  width:18px;height:18px;border-radius:50%;
+  border:1.5px solid var(--outline-v);
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color .15s,background .15s;
+}
+.bcard.on .bcard-radio{border-color:var(--pri);background:var(--pri)}
+.bcard-radio-dot{width:9px;height:9px;border-radius:50%;background:#fff}
+
+.bcard-app{position:absolute;top:10px;right:10px;width:22px;height:22px}
+
+/* ─── COMBO CARD ─────────────────────────── */
+.ccard{
+  background:linear-gradient(155deg, var(--pri) 0%, #003A8C 100%);
+  border-radius:var(--r-lg);
+  padding:18px 16px 56px;
+  position:relative;
+  cursor:pointer;
+  touch-action:manipulation;
+  box-shadow:var(--sh-pri);
+  transition:transform .12s,box-shadow .12s;
+  overflow:hidden;
+  display:block;
+}
+.ccard::before{
+  content:'';position:absolute;
+  top:-30px;right:-30px;
+  width:140px;height:140px;
+  border-radius:50%;
+  background:rgba(255,255,255,.06);
+  pointer-events:none;
+}
+.ccard:active{transform:scale(.98)}
+.ccard.on{box-shadow:0 0 0 2.5px #fff,0 0 0 5px var(--pri),var(--sh-pri)}
+
+.ccard-badge{
+  position:absolute;top:14px;right:14px;
+  font-size:9px;font-weight:700;color:var(--pri);
+  background:#fff;padding:3px 10px;
+  border-radius:var(--r-full);letter-spacing:.5px;
+}
+.ccard-lbl{font-size:10px;font-weight:600;color:rgba(255,255,255,.6);letter-spacing:.6px;text-transform:uppercase;margin-bottom:4px}
+.ccard-name{font-size:20px;font-weight:700;color:#fff;margin-bottom:10px;line-height:1.2;letter-spacing:-.2px}
+.ccard-pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.ccard-pill{
+  background:rgba(255,255,255,.16);
+  border:1px solid rgba(255,255,255,.2);
+  color:#fff;font-size:11px;font-weight:500;
+  padding:4px 11px;border-radius:var(--r-full);
+  white-space:nowrap;letter-spacing:.1px;
+}
+.ccard-price{font-size:34px;font-weight:800;color:#fff;letter-spacing:-.6px;line-height:1;display:flex;align-items:baseline;gap:6px}
+.ccard-price-sub{font-size:13px;font-weight:400;color:rgba(255,255,255,.6)}
+.ccard-validity{font-size:11px;color:rgba(255,255,255,.55);margin-top:6px}
+
+.ccard-radio{
+  position:absolute;bottom:16px;right:16px;
+  width:24px;height:24px;min-width:24px;min-height:24px;
+  border-radius:50%;
+  border:2px solid rgba(255,255,255,.4);
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color .15s,background .15s;
+}
+.ccard.on .ccard-radio{border-color:#fff;background:#fff}
+.ccard-radio-dot{width:12px;height:12px;min-width:12px;min-height:12px;border-radius:50%;background:var(--pri)}
+
+/* ─── BUY BAR ─────────────────────────────── */
+.buy-bar{
+  flex-shrink:0;
+  background:var(--surf);
+  border-top:1px solid var(--outline-v);
+  padding:10px 16px max(16px,env(safe-area-inset-bottom,0px));
+  display:flex;align-items:center;gap:12px;
+  box-shadow:0 -2px 12px rgba(0,0,0,.07);
+}
 .buy-info{flex:1;min-width:0}
-.buy-none{font-size:13px;color:var(--ink3)}
-.buy-name{font-size:13px;font-weight:700;color:var(--ink1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.buy-price{font-size:11px;color:var(--blue);font-weight:600;margin-top:1px}
-.buy-btn{flex-shrink:0;height:48px;padding:0 26px;border-radius:var(--rpill);background:var(--red);color:#fff;font-size:15px;font-weight:800;display:flex;align-items:center;gap:7px;box-shadow:var(--sh-red);transition:background .12s,transform .1s;position:relative;overflow:hidden;touch-action:manipulation}
-.buy-btn:active{background:var(--red2);transform:scale(.97)}
-.buy-btn:disabled{background:var(--line);color:var(--ink3);box-shadow:none;transform:none}
+.buy-hint{font-size:13px;color:var(--on-surf-v)}
+.buy-name{font-size:14px;font-weight:600;color:var(--on-surf);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.buy-detail{font-size:12px;color:var(--pri);margin-top:2px;font-weight:500}
+.buy-btn{
+  flex-shrink:0;height:48px;padding:0 28px;
+  border-radius:var(--r-full);
+  background:var(--sec);color:#fff;
+  font-size:14px;font-weight:600;letter-spacing:.3px;
+  display:flex;align-items:center;gap:8px;
+  box-shadow:var(--sh-sec);
+  transition:transform .12s,box-shadow .12s,background .12s;
+  position:relative;overflow:hidden;
+  font-family:'DM Sans',sans-serif;
+}
+.buy-btn:active{transform:scale(.96);box-shadow:none;background:#A50000}
+.buy-btn:disabled{background:var(--surf-hi);color:var(--on-surf-v);box-shadow:none}
 
-/* SHEET */
-#overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.55);display:none;opacity:0;transition:opacity .25s}
-#sheet{position:fixed;inset:0;z-index:201;background:var(--bg);display:none;flex-direction:column;transform:translateY(100%);transition:transform .32s cubic-bezier(.22,1,.36,1)}
-#sheet.open{transform:translateY(0)}
-@media(min-width:600px){#sheet{inset:auto;top:50%;left:50%;transform:translate(-50%,-60%);width:460px;max-height:92vh;border-radius:20px;box-shadow:0 24px 80px rgba(0,0,0,.35);opacity:0;transition:transform .28s var(--ease),opacity .28s}#sheet.open{transform:translate(-50%,-50%);opacity:1}}
+/* ─── OVERLAY + SHEET ─────────────────────── */
+.overlay{
+  position:fixed;inset:0;z-index:100;
+  background:rgba(0,0,0,.55);
+  display:none;opacity:0;
+  transition:opacity .25s;
+}
+.sheet{
+  position:fixed;z-index:101;
+  bottom:0;left:0;right:0;
+  background:var(--surf);
+  border-radius:var(--r-xl) var(--r-xl) 0 0;
+  display:none;
+  flex-direction:column;
+  max-height:90vh;
+  transform:translateY(100%);
+  transition:transform .32s cubic-bezier(.22,1,.36,1);
+  box-shadow:0 -4px 32px rgba(0,0,0,.18);
+}
+.sheet.open{transform:translateY(0)}
 
-.sh-nav{background:var(--blue);flex-shrink:0;padding:calc(env(safe-area-inset-top,0px)+13px) 16px 13px;display:flex;align-items:center;justify-content:space-between}
-@media(min-width:600px){.sh-nav{border-radius:20px 20px 0 0;padding:16px 20px}}
-.sh-title{font-size:16px;font-weight:800;color:#fff}
-.sh-x{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;line-height:1;cursor:pointer}
+.sheet-handle{
+  width:36px;height:4px;border-radius:2px;
+  background:var(--outline-v);
+  margin:12px auto 0;flex-shrink:0;
+}
+.sheet-head{
+  padding:14px 20px 12px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--outline-v);
+  flex-shrink:0;
+}
+.sheet-title{font-size:17px;font-weight:700;color:var(--on-surf)}
+.sheet-close{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--surf-mid);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--on-surf-v);font-size:20px;line-height:1;
+}
+.sheet-body{
+  flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:18px 20px max(24px,env(safe-area-inset-bottom,0px));
+  display:flex;flex-direction:column;gap:16px;
+}
 
-.sh-body{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:13px}
+/* Sheet: bundle summary */
+.sh-sum{
+  background:var(--pri-cont);
+  border-radius:var(--r-md);
+  overflow:hidden;
+}
+.sh-sum-top{padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.sh-sum-name{font-size:16px;font-weight:700;color:var(--on-pri-cont);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:55%}
+.sh-sum-detail{font-size:11px;color:var(--on-pri-cont);opacity:.65;margin-top:2px}
+.sh-sum-price{font-size:26px;font-weight:800;color:var(--on-pri-cont);text-align:right;flex-shrink:0;letter-spacing:-.5px}
+.sh-sum-bar{
+  background:var(--pri);
+  padding:9px 16px;
+  display:flex;align-items:center;gap:8px;
+}
+.sh-sum-bar img{height:18px;width:auto}
+.sh-sum-bar span{font-size:11px;color:rgba(255,255,255,.8);font-weight:500;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
-.sh-sum{background:var(--card);border:2px solid var(--blue);border-radius:14px;box-shadow:0 0 0 3px var(--blue-a),0 4px 16px rgba(0,102,204,.10);overflow:hidden}
-.sh-sum-main{padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px}
-.sh-sum-name{font-size:15px;font-weight:800;color:var(--ink1);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:180px}
-.sh-sum-detail{font-size:11px;color:var(--ink3);margin-top:2px}
-.sh-sum-price{font-size:24px;font-weight:800;color:var(--blue)}
-.sh-sum-bar{background:var(--blue2);padding:9px 16px;display:flex;align-items:center;gap:10px}
-.sh-sum-bar span{font-size:11px;color:rgba(255,255,255,.8);font-weight:600}
+/* Sheet: eco pay row */
+.sh-pay{
+  display:flex;align-items:center;gap:14px;
+  background:var(--surf-lo);
+  border:1px solid var(--outline-v);
+  border-radius:var(--r-md);
+  padding:14px;
+}
+.sh-pay img{height:24px;width:auto;flex-shrink:0}
+.sh-pay-t{font-size:13px;font-weight:600;color:var(--on-surf);margin-bottom:3px}
+.sh-pay-d{font-size:12px;color:var(--on-surf-v);line-height:1.5}
 
-/* EcoCash payment box */
-.sh-pay{background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;align-items:flex-start;gap:12px;box-shadow:var(--sh)}
-.sh-pay-logo{flex-shrink:0;display:flex;align-items:center}
-.sh-pay-t{font-size:13px;font-weight:700;color:var(--ink1);margin-bottom:3px}
-.sh-pay-d{font-size:12px;color:var(--ink2);line-height:1.5}
+/* Number field — M3 filled text field */
+.field-lbl{font-size:11px;font-weight:600;color:var(--on-surf-v);letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px}
+.nfield{
+  display:flex;align-items:center;
+  background:var(--surf-mid);
+  border-radius:var(--r-sm) var(--r-sm) 0 0;
+  border-bottom:2px solid var(--outline);
+  height:56px;
+  transition:border-color .18s;
+}
+.nfield.focus{border-bottom-color:var(--pri)}
+.nfield.ok{border-bottom-color:#16A34A}
+.nfield-pre{
+  display:flex;align-items:center;gap:7px;
+  padding:0 12px;
+  border-right:1px solid var(--outline-v);
+  height:100%;flex-shrink:0;
+}
+.nfield-pre img{height:16px;border-radius:2px}
+.nfield-code{font-size:14px;font-weight:600;color:var(--on-surf-v);font-family:'DM Mono',monospace}
+#ni{
+  flex:1;min-width:0;height:100%;
+  padding:0 14px;
+  font-size:22px;font-weight:600;
+  color:var(--on-surf);
+  font-family:'DM Mono',monospace;
+  letter-spacing:.05em;
+  caret-color:var(--pri);
+  background:transparent;
+  -webkit-user-select:text!important;user-select:text!important;
+}
+#ni::placeholder{font-size:14px;font-weight:400;color:var(--on-surf-v);letter-spacing:0;font-family:'DM Sans',sans-serif}
+.nfield-hint{font-size:12px;color:var(--on-surf-v);margin-top:6px;min-height:18px}
+.nfield-hint.ok{color:#16A34A;font-weight:600}
 
-/* Number field */
-.field-lbl{font-size:10px;font-weight:700;color:var(--ink3);letter-spacing:.6px;text-transform:uppercase;margin-bottom:6px}
-.nfield{display:flex;align-items:center;background:var(--card);border:1.5px solid var(--line);border-radius:10px;overflow:hidden;height:58px;transition:border-color .18s,box-shadow .18s;box-shadow:var(--sh)}
-.nfield.foc{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-a)}
-.nfield.ok{border-color:#16a34a;box-shadow:0 0 0 3px rgba(22,163,74,.12)}
-.npre{display:flex;align-items:center;gap:7px;padding:0 12px 0 13px;border-right:1px solid var(--line);height:100%;flex-shrink:0;background:var(--card2)}
-.nflag img{height:15px;border-radius:2px}
-.ncode{font-size:14px;font-weight:700;color:var(--ink2);font-family:'DM Mono',monospace}
-#ni{flex:1;min-width:0;font-size:20px;font-weight:700;color:var(--ink1);padding:0 12px;height:100%;background:transparent;caret-color:var(--blue);letter-spacing:.05em;font-family:'DM Mono',monospace;-webkit-user-select:text!important;user-select:text!important}
-#ni::placeholder{color:var(--ink3);font-size:14px;font-weight:400;letter-spacing:0;font-family:'DM Sans',sans-serif}
-#nhint{font-size:12px;color:var(--ink3);margin-top:7px;min-height:16px;transition:color .15s}
-#nhint.ok{color:#16a34a;font-weight:600}
+/* CTA button */
+.cta{
+  width:100%;height:48px;
+  border-radius:var(--r-full);
+  background:var(--sec);color:#fff;
+  font-size:14px;font-weight:600;letter-spacing:.3px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  box-shadow:var(--sh-sec);
+  border:none;cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+  transition:transform .12s,box-shadow .12s,background .12s;
+  position:relative;overflow:hidden;
+  touch-action:manipulation;
+}
+.cta:disabled{background:var(--surf-hi);color:var(--on-surf-v);box-shadow:none}
+.cta:not(:disabled):active{transform:scale(.97);box-shadow:none;background:#A50000}
 
-.sub-btn{width:100%;height:50px;border-radius:var(--rpill);background:var(--red);color:#fff;font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:var(--sh-red);border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .12s,transform .1s;position:relative;overflow:hidden;touch-action:manipulation}
-.sub-btn:disabled{opacity:.35;box-shadow:none;cursor:not-allowed}
-.sub-btn:not(:disabled):active{background:var(--red2);transform:scale(.98)}
-
-.rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(255,255,255,.2);transform:scale(0);animation:ripple .5s ease forwards}
-.rip.dark{background:rgba(0,0,0,.07)}
+.rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(255,255,255,.22);transform:scale(0);animation:ripple .5s ease forwards}
+.rip-dark{background:rgba(0,0,0,.08)}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav class="nav">
-  <div class="nav-brand">
-    <div class="nav-logos"><img src="assets/econet.png" alt="Econet" style="height:32px;width:auto"></div>
-    <span class="nav-title">USD Bundles</span>
+  <div class="nav-logo">
+    <img src="assets/econet.png" alt="Econet">
   </div>
+  <span class="nav-title">USD Bundles</span>
 </nav>
 
-<!-- TABS -->
 <div class="tabs" id="tabBar">
-  
   <button class="tab on" data-cat="data">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 6l5 5 4-8 4 12 3-5 3 3 3-3"/></svg><span>Data</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 6l5 5 4-8 4 12 3-5 3 3 3-3"/></svg>
+    <span>Data</span>
   </button>
   <button class="tab" data-cat="combo">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span>Combo</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+    <span>Combo</span>
   </button>
   <button class="tab" data-cat="voice">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.9a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg><span>Voice</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.9a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+    <span>Voice</span>
   </button>
-  <button class="tab tab-wa" data-cat="social" data-sub="whatsapp">
-    <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#25D366" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+  <button class="tab wa" data-cat="wa">
+    <svg viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
     <span>WA</span>
   </button>
-  <button class="tab tab-fb" data-cat="social" data-sub="facebook">
-    <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#1877F2" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+  <button class="tab fb" data-cat="fb">
+    <svg viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
     <span>FB</span>
   </button>
   <button class="tab" data-cat="night">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><span>Night</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <span>Night</span>
   </button>
   <button class="tab" data-cat="sms">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>SMS</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <span>SMS</span>
   </button>
 </div>
 
-<!-- BUNDLE LIST -->
 <div class="scroll" id="scrollArea"></div>
 
-<!-- BUY BAR -->
 <div class="buy-bar">
-  <div class="buy-bar-inner">
-    <div class="buy-info">
-      <div class="buy-none" id="buyNone">Select a bundle above</div>
-      <div id="buyDetail" style="display:none">
-        <div class="buy-name" id="buyName"></div>
-        <div class="buy-price" id="buyPrice"></div>
-      </div>
+  <div class="buy-info">
+    <div class="buy-hint" id="buyHint">Select a bundle above</div>
+    <div id="buySelected" style="display:none">
+      <div class="buy-name" id="buyName"></div>
+      <div class="buy-detail" id="buyDetail"></div>
     </div>
-    <button class="buy-btn" id="buyBtn" disabled onclick="openSheet()">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg>
-      Pay
-    </button>
   </div>
+  <button class="buy-btn" id="buyBtn" disabled>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+    Pay
+  </button>
 </div>
 
-<div id="overlay"></div>
-<div id="sheet">
-  <div class="sh-nav">
-    <span class="sh-title">Pay via EcoCash</span>
-    <button class="sh-x" id="closeBtn">&#215;</button>
+<!-- OVERLAY + SHEET -->
+<div class="overlay" id="overlay"></div>
+<div class="sheet" id="sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-head">
+    <span class="sheet-title">Pay via EcoCash</span>
+    <button class="sheet-close" id="sheetClose">&#215;</button>
   </div>
-  <div class="sh-body">
+  <div class="sheet-body">
     <div class="sh-sum">
-      <div class="sh-sum-main">
-        <div>
-          <div class="sh-sum-name" id="psName">Bundle</div>
-          <div class="sh-sum-detail" id="psDetail">Econet Zimbabwe</div>
+      <div class="sh-sum-top">
+        <div style="min-width:0;flex:1">
+          <div class="sh-sum-name" id="shName">Bundle</div>
+          <div class="sh-sum-detail" id="shDetail">Econet Zimbabwe</div>
         </div>
-        <div class="sh-sum-price" id="psPrice">USD 0.00</div>
+        <div class="sh-sum-price" id="shPrice">USD 0.00</div>
       </div>
       <div class="sh-sum-bar">
-        <img src="assets/econet.png" alt="Econet" style="height:18px;width:auto;border-radius:3px">
-        <span id="psBundleDetail">Loading&hellip;</span>
+        <img src="assets/econet.png" alt="Econet">
+        <span id="shBundle">—</span>
       </div>
     </div>
 
     <div class="sh-pay">
-      <div class="sh-pay-logo">
-        <img src="assets/ecocash.png" alt="EcoCash" style="height:22px;width:auto;border-radius:4px">
-      </div>
+      <img src="assets/ecocash.png" alt="EcoCash">
       <div>
-        <div class="sh-pay-t">EcoCash Payment</div>
-        <div class="sh-pay-d">Enter your Econet number. You&rsquo;ll receive a push prompt. Wallet only &mdash; no airtime deducted.</div>
+        <div class="sh-pay-t">EcoCash Wallet</div>
+        <div class="sh-pay-d">Wallet only &mdash; no airtime deducted. Instant activation on confirmation.</div>
       </div>
     </div>
 
     <div>
       <div class="field-lbl">Econet number</div>
       <div class="nfield" id="nfield">
-        <div class="npre">
-          <div class="nflag"><img src="https://flagcdn.com/w20/zw.png" width="20" height="15" alt="ZW" onerror="this.style.display='none'"></div>
-          <span class="ncode">+263</span>
+        <div class="nfield-pre">
+          <img src="https://flagcdn.com/w20/zw.png" alt="ZW" onerror="this.style.display='none'">
+          <span class="nfield-code">+263</span>
         </div>
-        <input id="ni" type="tel" inputmode="numeric" pattern="[0-9]*" placeholder="771 234 567" maxlength="9" autocomplete="tel-national">
+        <input id="ni" type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="9" placeholder="77 123 4567" autocomplete="tel-national">
       </div>
-      <div id="nhint">077 &middot; 078 &middot; 073 &middot; 071</div>
+      <div class="nfield-hint" id="nhint">Econet: 077 &middot; 078 &middot; 073 &middot; 071</div>
     </div>
 
-    <button class="sub-btn" id="subBtn" disabled>
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg>
-      <span id="subLbl">Enter your number</span>
+    <button class="cta" id="ctaBtn" disabled>
+      <span id="ctaLbl">Enter your number</span>
     </button>
-    <p style="font-size:11px;color:var(--ink3);text-align:center;line-height:1.6">No credit card &middot; Wallet only &middot; Instant activation</p>
+    <p style="text-align:center;font-size:11px;color:var(--on-surf-v)">No credit card &middot; Instant activation</p>
   </div>
 </div>
 
 <script>
 'use strict';
-function hap(t){try{if(navigator.vibrate)navigator.vibrate(t);}catch(e){}}
-function rip(btn,e,dark){var r=btn.getBoundingClientRect(),sz=Math.max(r.width,r.height)*2;var el=document.createElement('span');el.className='rip'+(dark?' dark':'');el.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(e.clientX-r.left-sz/2)+'px;top:'+(e.clientY-r.top-sz/2)+'px;position:absolute;';btn.appendChild(el);el.addEventListener('animationend',function(){el.remove();});}
+function hap(ms){try{navigator.vibrate&&navigator.vibrate(ms);}catch(e){}}
+function ripple(el,e,dark){
+  var r=el.getBoundingClientRect(),sz=Math.max(r.width,r.height)*2;
+  var rip=document.createElement('span');
+  rip.className='rip'+(dark?' rip-dark':'');
+  rip.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(e.clientX-r.left-sz/2)+'px;top:'+(e.clientY-r.top-sz/2)+'px;position:absolute;';
+  el.appendChild(rip);
+  rip.addEventListener('animationend',function(){rip.remove();});
+}
 
-var BUNDLES=[
-  {id:'d1',cat:'data',sub:'daily',name:'Daily 50MB',data:'50MB',validity:'1 day',price:'0.25'},
-  {id:'d2',cat:'data',sub:'daily',name:'Daily 150MB',data:'150MB',validity:'1 day',price:'0.50'},
-  {id:'d3',cat:'data',sub:'daily',name:'Daily 500MB',data:'500MB',validity:'1 day',price:'0.99'},
-  {id:'w1',cat:'data',sub:'weekly',name:'Weekly 1GB',data:'1GB',validity:'7 days',price:'1.49'},
-  {id:'w2',cat:'data',sub:'weekly',name:'Weekly 2GB',data:'2GB',validity:'7 days',price:'2.49'},
-  {id:'w3',cat:'data',sub:'weekly',name:'Weekly 5GB',data:'5GB',validity:'7 days',price:'3.99'},
-  {id:'m1',cat:'data',sub:'monthly',name:'Monthly 1GB',data:'1GB',validity:'30 days',price:'1.99'},
-  {id:'m2',cat:'data',sub:'monthly',name:'Monthly 3GB',data:'3GB',validity:'30 days',price:'3.99'},
-  {id:'m3',cat:'data',sub:'monthly',name:'Monthly 5GB',data:'5GB',validity:'30 days',price:'5.99'},
-  {id:'m4',cat:'data',sub:'monthly',name:'Monthly 10GB',data:'10GB',validity:'30 days',price:'9.99'},
-  {id:'m5',cat:'data',sub:'monthly',name:'Monthly 20GB',data:'20GB',validity:'30 days',price:'17.99'},
-  {id:'n1',cat:'night',sub:'night',name:'Night 2GB',data:'2GB',validity:'12AM–5AM · 7d',price:'0.99'},
-  {id:'n2',cat:'night',sub:'night',name:'Night 5GB',data:'5GB',validity:'12AM–5AM · 30d',price:'1.99'},
-  {id:'s1',cat:'social',sub:'whatsapp',name:'WhatsApp 7 days',data:'Unlimited',validity:'7 days',price:'0.75',app:'wa'},
-  {id:'s2',cat:'social',sub:'whatsapp',name:'WhatsApp 30 days',data:'Unlimited',validity:'30 days',price:'1.99',app:'wa'},
-  {id:'s3',cat:'social',sub:'facebook',name:'Facebook 7 days',data:'Unlimited',validity:'7 days',price:'0.75',app:'fb'},
-  {id:'s4',cat:'social',sub:'facebook',name:'Facebook 30 days',data:'Unlimited',validity:'30 days',price:'1.99',app:'fb'},
-  {id:'v1',cat:'voice',sub:'voice',name:'All-Net 30 mins',data:'30 mins',validity:'7 days',price:'1.50'},
-  {id:'v2',cat:'voice',sub:'voice',name:'All-Net 60 mins',data:'60 mins',validity:'30 days',price:'2.99'},
-  {id:'v3',cat:'voice',sub:'voice',name:'All-Net 100 mins',data:'100 mins',validity:'30 days',price:'4.49'},
-  {id:'v4',cat:'voice',sub:'voice',name:'On-Net Unlimited',data:'Unlimited on-net',validity:'30 days',price:'5.99'},
-  {id:'x1',cat:'sms',sub:'sms',name:'50 SMS',data:'50 SMS',validity:'7 days',price:'0.50'},
-  {id:'x2',cat:'sms',sub:'sms',name:'100 SMS',data:'100 SMS',validity:'30 days',price:'0.99'},
-  {id:'c1',cat:'combo',sub:'combo',name:'Combo S',data:'1GB + 30 mins',validity:'7 days',price:'2.49',combo:true},
-  {id:'c2',cat:'combo',sub:'combo',name:'Combo M',data:'3GB + 60 mins + 50 SMS',validity:'30 days',price:'5.99',combo:true},
-  {id:'c3',cat:'combo',sub:'combo',name:'Combo L',data:'5GB + 100 mins + 100 SMS',validity:'30 days',price:'9.99',combo:true},
-  {id:'c4',cat:'combo',sub:'combo',name:'Combo XL',data:'10GB + Unlimited on-net + 200 SMS',validity:'30 days',price:'17.99',combo:true,best:true},
+var BUNDLES = [
+  // Data — daily
+  {id:'d1',cat:'data',sub:'Daily',name:'50MB Day Pass',data:'50MB',val:'1 day',price:'0.25'},
+  {id:'d2',cat:'data',sub:'Daily',name:'150MB Day Pass',data:'150MB',val:'1 day',price:'0.50'},
+  {id:'d3',cat:'data',sub:'Daily',name:'500MB Day Pass',data:'500MB',val:'1 day',price:'0.99'},
+  // Data — weekly
+  {id:'w1',cat:'data',sub:'Weekly',name:'Weekly 1GB',data:'1GB',val:'7 days',price:'1.49'},
+  {id:'w2',cat:'data',sub:'Weekly',name:'Weekly 2GB',data:'2GB',val:'7 days',price:'2.49'},
+  {id:'w3',cat:'data',sub:'Weekly',name:'Weekly 5GB',data:'5GB',val:'7 days',price:'3.99'},
+  // Data — monthly
+  {id:'m1',cat:'data',sub:'Monthly',name:'Monthly 1GB',data:'1GB',val:'30 days',price:'1.99'},
+  {id:'m2',cat:'data',sub:'Monthly',name:'Monthly 3GB',data:'3GB',val:'30 days',price:'3.99'},
+  {id:'m3',cat:'data',sub:'Monthly',name:'Monthly 5GB',data:'5GB',val:'30 days',price:'5.99'},
+  {id:'m4',cat:'data',sub:'Monthly',name:'Monthly 10GB',data:'10GB',val:'30 days',price:'9.99'},
+  {id:'m5',cat:'data',sub:'Monthly',name:'Monthly 20GB',data:'20GB',val:'30 days',price:'17.99'},
+  // Combo
+  {id:'c1',cat:'combo',sub:'Combo',name:'Combo S',data:'1GB + 30 mins',val:'7 days',price:'2.49',pills:['1GB Data','30 mins']},
+  {id:'c2',cat:'combo',sub:'Combo',name:'Combo M',data:'3GB + 60 mins + 50 SMS',val:'30 days',price:'5.99',pills:['3GB Data','60 mins','50 SMS']},
+  {id:'c3',cat:'combo',sub:'Combo',name:'Combo L',data:'5GB + 100 mins + 100 SMS',val:'30 days',price:'9.99',pills:['5GB Data','100 mins','100 SMS']},
+  {id:'c4',cat:'combo',sub:'Combo',name:'Combo XL',data:'10GB + Unlimited + 200 SMS',val:'30 days',price:'17.99',pills:['10GB Data','Unlimited on-net','200 SMS'],best:true},
+  // Voice
+  {id:'v1',cat:'voice',sub:'Voice',name:'30 mins All-Net',data:'30 mins',val:'7 days',price:'1.50'},
+  {id:'v2',cat:'voice',sub:'Voice',name:'60 mins All-Net',data:'60 mins',val:'30 days',price:'2.99'},
+  {id:'v3',cat:'voice',sub:'Voice',name:'100 mins All-Net',data:'100 mins',val:'30 days',price:'4.49'},
+  {id:'v4',cat:'voice',sub:'Voice',name:'On-Net Unlimited',data:'Unlimited on-net',val:'30 days',price:'5.99'},
+  // WhatsApp
+  {id:'s1',cat:'wa',sub:'WhatsApp',name:'WhatsApp 7 days',data:'Unlimited WA',val:'7 days',price:'0.75',app:'wa'},
+  {id:'s2',cat:'wa',sub:'WhatsApp',name:'WhatsApp 30 days',data:'Unlimited WA',val:'30 days',price:'1.99',app:'wa'},
+  // Facebook
+  {id:'f1',cat:'fb',sub:'Facebook',name:'Facebook 7 days',data:'Unlimited FB',val:'7 days',price:'0.75',app:'fb'},
+  {id:'f2',cat:'fb',sub:'Facebook',name:'Facebook 30 days',data:'Unlimited FB',val:'30 days',price:'1.99',app:'fb'},
+  // Night
+  {id:'n1',cat:'night',sub:'Night Surf',name:'Night 2GB',data:'2GB',val:'12AM\u20135AM \u00b7 7 days',price:'0.99'},
+  {id:'n2',cat:'night',sub:'Night Surf',name:'Night 5GB',data:'5GB',val:'12AM\u20135AM \u00b7 30 days',price:'1.99'},
+  // SMS
+  {id:'x1',cat:'sms',sub:'SMS',name:'50 SMS Pack',data:'50 SMS',val:'7 days',price:'0.50'},
+  {id:'x2',cat:'sms',sub:'SMS',name:'100 SMS Pack',data:'100 SMS',val:'30 days',price:'0.99'},
 ];
-var SUBLABELS={daily:'Daily',weekly:'Weekly',monthly:'Monthly',night:'Night Surf',whatsapp:'WhatsApp',facebook:'Facebook',voice:'Voice Calls',sms:'SMS',combo:'Combo Deals'};
 
-var WA_SVG='<svg width="18" height="18" viewBox="0 0 24 24"><path fill="#25D366" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>';
-var FB_SVG='<svg width="18" height="18" viewBox="0 0 24 24"><path fill="#1877F2" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>';
+var WA_ICON='<svg class="bcard-app" viewBox="0 0 24 24"><path fill="#25D366" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>';
+var FB_ICON='<svg class="bcard-app" viewBox="0 0 24 24"><path fill="#1877F2" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>';
 
-var curCat='data',curSub=null,selId=null,numOK=false,verTO=null;
+var sel=null,curCat='data',numOK=false,verTO=null;
 
 function renderBundles(){
-  var area=document.getElementById('scrollArea');area.innerHTML='';
-  var list=BUNDLES.filter(function(b){
-    if(curCat==='all')return true;
-    if(curCat==='social'&&curSub)return b.cat==='social'&&b.sub===curSub;
-    return b.cat===curCat;
-  });
-  if(!list.length){area.innerHTML='<div style="text-align:center;padding:32px;color:var(--ink3);font-size:13px">No bundles in this category</div>';return;}
+  var area=document.getElementById('scrollArea');
+  area.innerHTML='';
+  var list=BUNDLES.filter(function(b){return b.cat===curCat;});
+  if(!list.length){area.innerHTML='<p style="text-align:center;padding:32px;color:var(--on-surf-v);font-size:13px">No bundles in this category</p>';return;}
   var groups={};
-  list.forEach(function(b){if(!groups[b.sub])groups[b.sub]=[];groups[b.sub].push(b);});
+  list.forEach(function(b){groups[b.sub]=groups[b.sub]||[];groups[b.sub].push(b);});
   Object.keys(groups).forEach(function(sub){
-    var items=groups[sub];
-    var sec=document.createElement('div');sec.className='sec-head';
-    sec.innerHTML='<div class="sec-line"></div><span class="sec-label">'+SUBLABELS[sub]+'</span><div class="sec-line"></div>';
+    var sec=document.createElement('div');sec.className='sec-row';
+    sec.innerHTML='<div class="sec-line"></div><span class="sec-label">'+sub+'</span><div class="sec-line"></div>';
     area.appendChild(sec);
-    if(sub==='combo'){
-      items.forEach(function(b){
-        var card=document.createElement('div');
-        card.className='combo-card'+(b.id===selId?' on':'')+(b.best?' combo-best':'');
-        var pills=b.data.split(' + ').map(function(p){return'<span class="cc-pill">'+p+'</span>';}).join('');
-        card.innerHTML='<div class="cc-lbl">Econet Combo</div><div class="cc-name">'+b.name+'</div><div class="cc-pills">'+pills+'</div><div class="cc-price">USD '+b.price+'<span>/once</span></div><div class="cc-validity">Valid '+b.validity+'</div><div class="cc-radio'+(b.id===selId?' on':'')+'">'+( b.id===selId?'<div class="cc-radio-dot"></div>':'' )+'</div>';
-        card.onclick=function(){selectBundle(b.id);};
-        card.addEventListener('pointerdown',function(e){rip(card,e);},{passive:true});
-        area.appendChild(card);
+    if(curCat==='combo'){
+      groups[sub].forEach(function(b){
+        var c=document.createElement('div');c.className='ccard'+(b.id===sel?' on':'');
+        var pills=b.pills.map(function(p){return'<span class="ccard-pill">'+p+'</span>';}).join('');
+        c.innerHTML=(b.best?'<div class="ccard-badge">BEST VALUE</div>':'')+
+          '<div class="ccard-lbl">Econet Combo</div>'+
+          '<div class="ccard-name">'+b.name+'</div>'+
+          '<div class="ccard-pills">'+pills+'</div>'+
+          '<div class="ccard-price">USD '+b.price+'<span class="ccard-price-sub">/once</span></div>'+
+          '<div class="ccard-validity">Valid '+b.val+'</div>'+
+          '<div class="ccard-radio'+(b.id===sel?' on':'')+'"><div class="ccard-radio-dot"></div></div>';
+        c.addEventListener('click',function(){pick(b.id);});
+        c.addEventListener('pointerdown',function(e){ripple(c,e);},{passive:true});
+        area.appendChild(c);
       });
     } else {
       var grid=document.createElement('div');grid.className='bundle-grid';
-      items.forEach(function(b){
-        var isWa=b.app==='wa',isFb=b.app==='fb';
-        var wide=b.cat==='social';
+      groups[sub].forEach(function(b){
+        var wide=b.cat==='wa'||b.cat==='fb';
         var card=document.createElement('div');
-        card.className='bundle-card'+(wide?' wide':'')+(b.id===selId?' on':'')+(isWa?' wa':isFb?' fb':'');
-        var dotCls='bc-dot'+(isWa?' wa':isFb?' fb':'');
-        var priceCls='bc-price'+(isWa?' wa':isFb?' fb':'');
-        var appIcon=isWa?('<div class="bc-app-icon">'+WA_SVG+'</div>'):isFb?('<div class="bc-app-icon">'+FB_SVG+'</div>'):'';
+        card.className='bcard'+(wide?' wide':'')+(b.id===sel?' on':'');
+        var dotCls='bcard-dot'+(b.app==='wa'?' wa':b.app==='fb'?' fb':'');
+        var appIcon=b.app==='wa'?WA_ICON:b.app==='fb'?FB_ICON:'';
+        var radioHtml=!wide?('<div class="bcard-radio"><div class="bcard-radio-dot"></div></div>'):'';
         card.innerHTML=
-          '<div class="bc-tag"><div class="'+dotCls+'"></div>'+b.validity+'</div>'+
-          '<div class="bc-data">'+b.data+'</div>'+
-          '<div class="bc-validity">'+b.name+'</div>'+
-          '<div class="'+priceCls+'">USD '+b.price+'<span>/once</span></div>'+
-          (wide?'':('<div class="bc-radio'+(b.id===selId?' on':'')+'">'+(b.id===selId?'<div class="bc-radio-dot"></div>':'')+'</div>'))+
-          appIcon;
-        card.onclick=function(){selectBundle(b.id);};
-        card.addEventListener('pointerdown',function(e){rip(card,e,true);},{passive:true});
+          '<div class="bcard-tag"><div class="'+dotCls+'"></div>'+b.val+'</div>'+
+          '<div class="bcard-data">'+b.data+'</div>'+
+          '<div class="bcard-sub">'+b.name+'</div>'+
+          '<div class="bcard-price">USD '+b.price+'<span>/once</span></div>'+
+          radioHtml+appIcon;
+        card.addEventListener('click',function(){pick(b.id);});
+        card.addEventListener('pointerdown',function(e){ripple(card,e,true);},{passive:true});
         grid.appendChild(card);
       });
       area.appendChild(grid);
@@ -371,64 +591,89 @@ function renderBundles(){
   });
 }
 
-function selectBundle(id){
-  selId=id;hap(8);
+function pick(id){
+  sel=id;hap(8);
   var b=BUNDLES.find(function(x){return x.id===id;});if(!b)return;
-  document.getElementById('buyNone').style.display='none';
-  document.getElementById('buyDetail').style.display='';
-  document.getElementById('buyName').textContent=b.name+' · '+b.data;
-  document.getElementById('buyPrice').textContent='USD '+b.price+' · '+b.validity;
+  document.getElementById('buyHint').style.display='none';
+  document.getElementById('buySelected').style.display='';
+  document.getElementById('buyName').textContent=b.name+' \u00b7 '+b.data;
+  document.getElementById('buyDetail').textContent='USD '+b.price+' \u00b7 '+b.val;
   document.getElementById('buyBtn').disabled=false;
-  document.getElementById('psName').textContent=b.name;
-  document.getElementById('psDetail').textContent=b.data+' · Econet Zimbabwe';
-  document.getElementById('psPrice').textContent='USD '+b.price;
-  document.getElementById('psBundleDetail').textContent=b.data+' · '+b.validity;
-  sessionStorage.setItem('selectedBundle',JSON.stringify({id:b.id,name:b.name,data:b.data,validity:b.validity,price:b.price,cat:b.cat}));
-  if(numOK){var sl=document.getElementById('subLbl');if(sl)sl.textContent='Pay USD '+b.price+' via EcoCash';}
+  document.getElementById('shName').textContent=b.name;
+  document.getElementById('shDetail').textContent=b.data+' \u00b7 Econet Zimbabwe';
+  document.getElementById('shPrice').textContent='USD '+b.price;
+  document.getElementById('shBundle').textContent=b.data+' \u00b7 '+b.val;
+  sessionStorage.setItem('selectedBundle',JSON.stringify({id:b.id,name:b.name,data:b.data,val:b.val,price:b.price}));
+  if(numOK)document.getElementById('ctaLbl').textContent='Pay USD '+b.price+' via EcoCash';
   renderBundles();
 }
 
+// Tabs
 document.getElementById('tabBar').addEventListener('click',function(e){
-  var tab=e.target.closest('.tab');if(!tab)return;
-  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on');});
-  tab.classList.add('on');curCat=tab.dataset.cat;curSub=tab.dataset.sub||null;
+  var t=e.target.closest('.tab');if(!t)return;
+  document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on');});
+  t.classList.add('on');curCat=t.dataset.cat;
   renderBundles();hap(8);
 });
 
-var overlay=document.getElementById('overlay'),sheet=document.getElementById('sheet');
-var ni=document.getElementById('ni'),nfield=document.getElementById('nfield'),nhint=document.getElementById('nhint');
-var subBtn=document.getElementById('subBtn'),subLbl=document.getElementById('subLbl');
-
-
+// Sheet
 var overlay=document.getElementById('overlay');
 var sheet=document.getElementById('sheet');
 var ni=document.getElementById('ni');
 var nfield=document.getElementById('nfield');
 var nhint=document.getElementById('nhint');
-var subBtn=document.getElementById('subBtn');
-var subLbl=document.getElementById('subLbl');
+var ctaBtn=document.getElementById('ctaBtn');
 
-function openSheet(){if(!selId)return;overlay.style.display='block';sheet.style.display='flex';requestAnimationFrame(function(){requestAnimationFrame(function(){overlay.style.opacity='1';sheet.classList.add('open');});});setTimeout(function(){ni.focus();},350);hap(8);}
-function closeSheet(){sheet.classList.remove('open');overlay.style.opacity='0';setTimeout(function(){overlay.style.display='none';sheet.style.display='none';},320);}
-document.getElementById('closeBtn').addEventListener('click',closeSheet);
+function openSheet(){
+  if(!sel)return;
+  overlay.style.display='block';sheet.style.display='flex';
+  requestAnimationFrame(function(){requestAnimationFrame(function(){
+    overlay.style.opacity='1';sheet.classList.add('open');
+  });});
+  setTimeout(function(){ni.focus();},400);
+  hap(8);
+}
+function closeSheet(){
+  sheet.classList.remove('open');overlay.style.opacity='0';
+  setTimeout(function(){overlay.style.display='none';sheet.style.display='none';},320);
+}
+document.getElementById('buyBtn').addEventListener('click',openSheet);
+document.getElementById('sheetClose').addEventListener('click',closeSheet);
 overlay.addEventListener('click',closeSheet);
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSheet();});
 
 ni.addEventListener('input',function(){
-  var v=this.value.replace(/[^0-9]/g,'').slice(0,9);this.value=v;
-  clearTimeout(verTO);numOK=false;subBtn.disabled=true;nhint.className='';
-  if(!v.length){nfield.className='nfield';nhint.textContent='077 · 078 · 073 · 071';subLbl.textContent='Enter your number';return;}
-  nfield.className='nfield foc';
-  if(v.length===9){nhint.textContent='Verifying…';verTO=setTimeout(function(){
-    numOK=true;nfield.className='nfield ok';nhint.className='ok';nhint.textContent='✓ Verified';
-    var b=BUNDLES.find(function(x){return x.id===selId;});
-    subBtn.disabled=false;subLbl.textContent='Pay USD '+(b?b.price:'0.00')+' via EcoCash';
-    hap([8,30,8]);
-    sessionStorage.setItem('ecoRecipient',JSON.stringify({raw:v,display:'+263 '+v.slice(0,2)+'•••••'+v.slice(-2)}));
-  },800);}else{nhint.textContent='Enter 9-digit Econet number';subLbl.textContent='Enter your number';}
+  var v=this.value.replace(/[^0-9]/g,'').slice(0,9);
+  this.value=v;
+  clearTimeout(verTO);numOK=false;ctaBtn.disabled=true;
+  nfield.classList.remove('focus','ok');nhint.className='nfield-hint';
+  if(!v){nhint.textContent='Econet: 077 \u00b7 078 \u00b7 073 \u00b7 071';document.getElementById('ctaLbl').textContent='Enter your number';return;}
+  nfield.classList.add('focus');
+  if(v.length===9){
+    nhint.textContent='Verifying\u2026';
+    verTO=setTimeout(function(){
+      numOK=true;nfield.classList.remove('focus');nfield.classList.add('ok');
+      nhint.className='nfield-hint ok';nhint.textContent='\u2713 Econet number verified';
+      var b=BUNDLES.find(function(x){return x.id===sel;});
+      ctaBtn.disabled=false;
+      document.getElementById('ctaLbl').textContent='Pay USD '+(b?b.price:'0.00')+' via EcoCash';
+      sessionStorage.setItem('ecoRecipient',JSON.stringify({raw:v,display:'+263 '+v.slice(0,2)+'\u2022\u2022\u2022\u2022\u2022'+v.slice(-2)}));
+      hap([8,30,8]);
+    },800);
+  } else {
+    nhint.textContent='Enter your 9-digit Econet number';
+  }
 });
-subBtn.addEventListener('click',function(e){if(!numOK||!selId)return;rip(this,e);hap(18);setTimeout(function(){window.location.href='bundles-login.html';},100);});
-document.querySelectorAll('.buy-btn,.sub-btn').forEach(function(b){b.addEventListener('pointerdown',function(e){rip(b,e);},{passive:true});});
+
+ctaBtn.addEventListener('click',function(e){
+  if(!numOK||!sel)return;
+  ripple(this,e);hap(18);
+  setTimeout(function(){window.location.href='bundles-login.html';},120);
+});
+
+document.querySelectorAll('.buy-btn,.cta').forEach(function(b){
+  b.addEventListener('pointerdown',function(e){ripple(b,e);},{passive:true});
+});
+
 renderBundles();
 </script>
 </body>
