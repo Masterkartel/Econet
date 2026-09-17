@@ -56,7 +56,7 @@ img{display:block}input{font-family:inherit;border:none;outline:none;background:
 .tab-fb.on{color:#1877F2;border-bottom-color:#1877F2}
 
 /* SCROLL */
-.scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:12px 12px 4px;display:flex;flex-direction:column;gap:8px}
+.scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:12px 12px 80px;display:flex;flex-direction:column;gap:8px}
 .scroll::-webkit-scrollbar{display:none}
 
 /* SECTION HEADER */
@@ -68,7 +68,7 @@ img{display:block}input{font-family:inherit;border:none;outline:none;background:
 .bundle-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 
 /* BUNDLE CARD */
-.bundle-card{background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:14px 13px;cursor:pointer;position:relative;box-shadow:0 2px 8px rgba(0,66,153,.06),0 1px 2px rgba(0,66,153,.04);transition:border-color .15s,box-shadow .15s,transform .1s;touch-action:manipulation;-webkit-tap-highlight-color:transparent;overflow:hidden}
+.bundle-card{background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:14px 13px 12px;cursor:pointer;position:relative;box-shadow:0 2px 8px rgba(0,66,153,.06),0 1px 2px rgba(0,66,153,.04);transition:border-color .15s,box-shadow .15s,transform .1s;touch-action:manipulation;-webkit-tap-highlight-color:transparent;overflow:hidden;min-width:0;display:flex;flex-direction:column}
 .bundle-card:active{transform:scale(.97)}
 .bundle-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--line);border-radius:14px 14px 0 0;transition:background .15s}
 .bundle-card.on{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-a),0 4px 16px rgba(0,102,204,.12)}
@@ -84,8 +84,8 @@ img{display:block}input{font-family:inherit;border:none;outline:none;background:
 .bc-dot{width:5px;height:5px;border-radius:50%;background:var(--blue);flex-shrink:0}
 .bc-dot.wa{background:#25D366}
 .bc-dot.fb{background:#1877F2}
-.bc-data{font-size:22px;font-weight:800;color:var(--ink1);letter-spacing:-.5px;line-height:1;margin-bottom:3px}
-.bc-validity{font-size:10px;color:var(--ink3);margin-bottom:7px}
+.bc-data{font-size:22px;font-weight:800;color:var(--ink1);letter-spacing:-.5px;line-height:1;margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+.bc-validity{font-size:10px;color:var(--ink3);margin-bottom:7px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .bc-price{font-size:18px;font-weight:800;color:var(--blue);margin-top:auto}
 .bc-price.wa{color:#25D366}
 .bc-price.fb{color:#1877F2}
@@ -102,7 +102,7 @@ img{display:block}input{font-family:inherit;border:none;outline:none;background:
 .combo-best::after{content:'BEST VALUE';position:absolute;top:11px;right:11px;font-size:8px;font-weight:800;color:var(--blue);background:#fff;padding:2px 7px;border-radius:999px;letter-spacing:.5px}
 .cc-lbl{font-size:9px;font-weight:700;color:rgba(255,255,255,.6);letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px}
 .cc-name{font-size:18px;font-weight:800;color:#fff;margin-bottom:6px}
-.cc-pills{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.cc-pills{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;overflow:hidden}
 .cc-pill{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:10px;font-weight:600;padding:2px 9px;border-radius:999px}
 .cc-price{font-size:30px;font-weight:800;color:#fff;letter-spacing:-.5px}
 .cc-price span{font-size:12px;font-weight:400;color:rgba(255,255,255,.6)}
@@ -136,8 +136,8 @@ img{display:block}input{font-family:inherit;border:none;outline:none;background:
 .sh-body{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:13px}
 
 .sh-sum{background:var(--card);border:2px solid var(--blue);border-radius:14px;box-shadow:0 0 0 3px var(--blue-a),0 4px 16px rgba(0,102,204,.10);overflow:hidden}
-.sh-sum-main{padding:12px 14px;display:flex;align-items:center;justify-content:space-between}
-.sh-sum-name{font-size:15px;font-weight:800;color:var(--ink1)}
+.sh-sum-main{padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.sh-sum-name{font-size:15px;font-weight:800;color:var(--ink1);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:180px}
 .sh-sum-detail{font-size:11px;color:var(--ink3);margin-top:2px}
 .sh-sum-price{font-size:24px;font-weight:800;color:var(--blue)}
 .sh-sum-bar{background:var(--blue2);padding:9px 16px;display:flex;align-items:center;gap:10px}
@@ -157,7 +157,7 @@ img{display:block}input{font-family:inherit;border:none;outline:none;background:
 .npre{display:flex;align-items:center;gap:7px;padding:0 12px 0 13px;border-right:1px solid var(--line);height:100%;flex-shrink:0;background:var(--card2)}
 .nflag img{height:15px;border-radius:2px}
 .ncode{font-size:14px;font-weight:700;color:var(--ink2);font-family:'DM Mono',monospace}
-#ni{flex:1;min-width:0;font-size:22px;font-weight:700;color:var(--ink1);padding:0 13px;height:100%;background:transparent;caret-color:var(--blue);letter-spacing:.05em;font-family:'DM Mono',monospace;-webkit-user-select:text!important;user-select:text!important}
+#ni{flex:1;min-width:0;font-size:20px;font-weight:700;color:var(--ink1);padding:0 12px;height:100%;background:transparent;caret-color:var(--blue);letter-spacing:.05em;font-family:'DM Mono',monospace;-webkit-user-select:text!important;user-select:text!important}
 #ni::placeholder{color:var(--ink3);font-size:14px;font-weight:400;letter-spacing:0;font-family:'DM Sans',sans-serif}
 #nhint{font-size:12px;color:var(--ink3);margin-top:7px;min-height:16px;transition:color .15s}
 #nhint.ok{color:#16a34a;font-weight:600}
@@ -175,7 +175,7 @@ img{display:block}input{font-family:inherit;border:none;outline:none;background:
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-brand">
-    <div class="nav-logos"><img src="assets/econet.png" alt="Econet" style="height:24px;width:auto;border-radius:4px"></div>
+    <div class="nav-logos"><img src="assets/econet.png" alt="Econet" style="height:32px;width:auto"></div>
     <span class="nav-title">USD Bundles</span>
   </div>
 </nav>
