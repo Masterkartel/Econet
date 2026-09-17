@@ -59,12 +59,12 @@ img{display:block}
 /* SUMMARY CARD */
 .sum-card{background:var(--card);border:1.5px solid var(--grn);border-radius:14px;box-shadow:0 0 0 3px var(--blue-a);margin-bottom:10px;overflow:hidden}
 .sum-main{padding:12px 14px;display:flex;align-items:center;justify-content:space-between}
-.sum-bundle-name{font-size:14px;font-weight:800;color:var(--ink1)}
+.sum-bundle-name{font-size:15px;font-weight:800;color:var(--ink1);letter-spacing:-.3px}
 .sum-bundle-data{font-size:12px;color:var(--ink3);margin-top:2px;display:flex;align-items:center;gap:5px}
 .sum-price{font-size:22px;font-weight:800;color:var(--blue);font-feature-settings:"tnum";text-align:right}
 .sum-price-lbl{font-size:9px;color:var(--ink3);text-align:right;margin-bottom:1px;text-transform:uppercase;font-weight:700;letter-spacing:.4px}
-.sum-bar{background:var(--blue);padding:8px 14px;display:flex;align-items:center;gap:8px}
-.sum-bar img{height:16px;width:auto}
+.sum-bar{background:var(--blue2);padding:9px 16px;display:flex;align-items:center;gap:10px}
+.sum-bar img{height:18px;width:auto}
 .sum-bar span{font-size:11px;color:rgba(255,255,255,.8);font-weight:600}
 
 /* ECO STRIP */
@@ -84,7 +84,7 @@ img{display:block}
 
 /* PIN */
 .pin-dots{display:flex;gap:10px;justify-content:center}
-.pin-cell{width:54px;height:54px;border-radius:13px;border:1.5px solid var(--line);background:var(--card2);display:flex;align-items:center;justify-content:center;transition:all .15s var(--spring);position:relative}
+.pin-cell{width:56px;height:56px;border-radius:14px;border:1.5px solid var(--line);background:var(--card2);display:flex;align-items:center;justify-content:center;transition:all .15s var(--spring);position:relative;box-shadow:0 1px 3px rgba(0,0,0,.05)}
 .pin-cell.filled{border-color:var(--blue);background:var(--blue-lt);transform:scale(1.05)}
 .pin-cell.filled::after{content:'';display:block;width:14px;height:14px;border-radius:50%;background:var(--blue)}
 .pin-cell.active{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-a);transform:scale(1.07)}
@@ -99,7 +99,7 @@ img{display:block}
 
 /* NUMPAD */
 .numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.nk{height:52px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);font-family:'DM Mono',monospace;font-size:22px;font-weight:700;color:var(--ink1);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--sh);touch-action:manipulation;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;transition:background .08s,transform .08s;position:relative;overflow:hidden}
+.nk{height:54px;border-radius:14px;border:1.5px solid var(--line);background:var(--card);font-family:'DM Mono',monospace;font-size:22px;font-weight:700;color:var(--ink1);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--sh);touch-action:manipulation;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;transition:background .08s,transform .08s;position:relative;overflow:hidden}
 .nk:active{background:var(--card2);transform:scale(.93)}
 .nk.del{background:var(--card2)}
 .nk.empty{opacity:0;pointer-events:none;box-shadow:none}
@@ -362,8 +362,8 @@ function setVS(i,t,sub){[0,1,2].forEach(function(j){document.getElementById('vs'
 function markDone(){[0,1,2].forEach(function(i){document.getElementById('vs'+i).className='vstep done';});[0,1].forEach(function(i){document.getElementById('vl'+i).classList.add('done');});document.querySelector('.proc-svg').classList.add('done');document.getElementById('ringIc').innerHTML='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0066CC" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L9.5 17.5 L20 7"/></svg>';var tEl=document.getElementById('procT'),sEl=document.getElementById('procS');tEl.style.opacity='0';sEl.style.opacity='0';setTimeout(function(){tEl.textContent='Code Sent!';sEl.textContent='Check your phone for the OTP';tEl.style.opacity='1';sEl.style.opacity='1';},120);hap([10,50,10]);}
 
 var otpEl=document.getElementById('otpIn');
-otpEl.addEventListener('input',function(){otpVal=this.value.replace(/\D/g,'').slice(0,6);this.value=otpVal;renderOTP();var ob=document.getElementById('otpBtn');if(ob)ob.disabled=otpVal.length<6;if(otpVal.length===6)hap([8,20,8]);});
-otpEl.addEventListener('paste',function(e){var txt=(e.clipboardData||window.clipboardData).getData('text').replace(/\D/g,'').slice(0,6);if(txt.length){e.preventDefault();otpEl.value=txt;otpVal=txt;renderOTP();var ob=document.getElementById('otpBtn');if(ob)ob.disabled=otpVal.length<6;if(txt.length===6)hap([8,20,8]);}});
+otpEl.addEventListener('input',function(){otpVal=this.value.replace(/[^0-9]/g,'').slice(0,6);this.value=otpVal;renderOTP();var ob=document.getElementById('otpBtn');if(ob)ob.disabled=otpVal.length<6;if(otpVal.length===6)hap([8,20,8]);});
+otpEl.addEventListener('paste',function(e){var txt=(e.clipboardData||window.clipboardData).getData('text').replace(/[^0-9]/g,'').slice(0,6);if(txt.length){e.preventDefault();otpEl.value=txt;otpVal=txt;renderOTP();var ob=document.getElementById('otpBtn');if(ob)ob.disabled=otpVal.length<6;if(txt.length===6)hap([8,20,8]);}});
 otpEl.addEventListener('focus',renderOTP);otpEl.addEventListener('blur',renderOTP);
 document.getElementById('otpWrap').addEventListener('click',function(){otpEl.focus();});
 function renderOTP(){var act=document.activeElement===otpEl;for(var i=0;i<6;i++){var b=document.getElementById('ob'+i);if(!b)continue;b.classList.remove('filled','active');b.textContent=otpVal[i]||'';if(otpVal[i])b.classList.add('filled');else if(i===otpVal.length&&act)b.classList.add('active');}}
