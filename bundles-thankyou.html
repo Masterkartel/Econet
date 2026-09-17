@@ -39,7 +39,8 @@ img{display:block}
 .scroll::-webkit-scrollbar{display:none}
 
 /* SUCCESS HERO */
-.hero{background:linear-gradient(135deg,#0066CC 0%,#0052A5 100%);border-radius:18px;padding:28px 20px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px}
+.hero::before{content:"";position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:rgba(255,255,255,.06);border-radius:50%;pointer-events:none}
+.hero{background:linear-gradient(160deg,#0066CC 0%,#0047A0 60%,#003580 100%);border-radius:20px;padding:32px 20px 28px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;position:relative;overflow:hidden}
 .check-ring{width:70px;height:70px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;animation:checkPop .4s ease .1s both;box-shadow:0 6px 24px rgba(0,102,204,.4);animation:checkPop .4s ease .1s both,glow 2.5s ease-in-out 1s infinite}
 .hero-title{font-size:22px;font-weight:800;color:#fff;letter-spacing:-.04em}
 .hero-sub{font-size:13px;color:rgba(255,255,255,.7);line-height:1.6;max-width:300px}
@@ -51,7 +52,7 @@ img{display:block}
 /* RECEIPT */
 .receipt{background:var(--card);border:1.5px solid var(--line);border-top:3px solid var(--grn);border-radius:14px;overflow:hidden;box-shadow:var(--sh)}
 .r-head{padding:12px 14px;border-bottom:1px solid var(--line2);display:flex;align-items:center;gap:10px}
-.r-ic{width:30px;height:30px;border-radius:8px;background:var(--blue-a);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.r-ic{width:30px;height:30px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .r-t{font-size:13px;font-weight:700;color:var(--ink1)}
 .r-rows{display:flex;flex-direction:column}
 .r-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--line2)}
@@ -78,7 +79,7 @@ img{display:block}
 <body>
 
 <nav class="nav">
-  <div class="nav-logo" style="display:flex;align-items:center;gap:8px"><img src="assets/ecocash.png" alt="EcoCash" style="height:24px;width:auto;border-radius:4px"><div style="width:1px;height:16px;background:rgba(255,255,255,.3)"></div><img src="assets/econet.png" alt="Econet" style="height:24px;width:auto;border-radius:4px"></div>
+  <div class="nav-logo" style="display:flex;align-items:center;gap:8px"><img src="assets/ecocash.png" alt="EcoCash" style="height:24px;width:auto"><div style="width:1px;height:16px;background:rgba(255,255,255,.3)"></div><img src="assets/econet.png" alt="Econet" style="height:22px;width:auto"></div>
   <span class="nav-status">&#x2713; Activated</span>
 </nav>
 
@@ -86,19 +87,19 @@ img{display:block}
 
   <div class="hero">
     <div class="check-ring">
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--grn)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L9.5 17.5 L20 7"/></svg>
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 L9.5 17.5 L20 7"/></svg>
     </div>
     <div class="hero-title">Bundle Activated! &#x1F4F6;</div>
     <div class="hero-sub">Your Econet bundle is now active. Check your phone for a confirmation SMS.</div>
     <div class="hero-ref" id="txnRef">TXN #BUN-000000</div>
   </div>
 
-  <div class="eco-row" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 14px;background:var(--card);border:1.5px solid var(--line);border-radius:12px;box-shadow:var(--sh)"><img src="assets/ecocash.png" alt="EcoCash" style="height:24px;width:auto;border-radius:4px"><img src="assets/econet.png" alt="Econet" style="height:24px;width:auto;border-radius:4px"></div>
+  <div class="eco-row" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 14px;background:var(--card);border:1.5px solid var(--line);border-radius:12px;box-shadow:var(--sh)"><img src="assets/ecocash.png" alt="EcoCash" style="height:24px;width:auto"><img src="assets/econet.png" alt="Econet" style="height:22px;width:auto"></div>
 
   <div class="receipt">
     <div class="r-head">
       <div class="r-ic">
-        <img src="assets/econet.png" alt="Econet" style="height:24px;width:auto;border-radius:4px">
+        <img src="assets/econet.png" alt="Econet" style="height:22px;width:auto">
       </div>
       <div class="r-t">Bundle Confirmation</div>
     </div>
@@ -108,7 +109,7 @@ img{display:block}
       <div class="r-row"><span class="r-lbl">Validity</span><span class="r-val" id="rcpValidity">—</span></div>
       <div class="r-row"><span class="r-lbl">Amount Paid</span><span class="r-val grn" id="rcpAmt">USD —</span></div>
       <div class="r-row"><span class="r-lbl">Number</span><span class="r-val mono" id="rcpNum">+263 77 &bull;&bull;&bull;&bull;&bull; 00</span></div>
-      <div class="r-row"><span class="r-lbl">Payment</span><span class="r-val" style="display:flex;align-items:center;gap:5px;justify-content:flex-end"><img src="assets/ecocash.png" alt="EcoCash" style="height:24px;width:auto;border-radius:4px"><img src="assets/econet.png" alt="Econet" style="height:24px;width:auto;border-radius:4px"></span></div>
+      <div class="r-row"><span class="r-lbl">Payment</span><span class="r-val" style="display:flex;align-items:center;gap:5px;justify-content:flex-end"><img src="assets/ecocash.png" alt="EcoCash" style="height:24px;width:auto"><img src="assets/econet.png" alt="Econet" style="height:22px;width:auto"></span></div>
       <div class="r-row"><span class="r-lbl">Status</span><span class="r-val grn">&#x2713; Confirmed &amp; Active</span></div>
     </div>
   </div>
