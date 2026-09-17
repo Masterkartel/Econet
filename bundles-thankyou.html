@@ -35,16 +35,16 @@ img{display:block}
 .nav-div{width:1px;height:16px;background:rgba(255,255,255,.3)}
 .nav-status{font-size:12px;font-weight:700;color:var(--blue);background:#fff;padding:4px 12px;border-radius:999px}
 
-.scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:14px;display:flex;flex-direction:column;gap:12px;animation:pgIn .3s ease}
+.scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:14px;display:flex;flex-direction:column;gap:12px;animation:pgIn .3s ease;overscroll-behavior:contain}
 .scroll::-webkit-scrollbar{display:none}
 
 /* SUCCESS HERO */
 .hero::before{content:"";position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:rgba(255,255,255,.06);border-radius:50%;pointer-events:none}
 .hero{background:linear-gradient(160deg,#0066CC 0%,#0047A0 60%,#003580 100%);border-radius:20px;padding:32px 20px 28px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;position:relative;overflow:hidden}
 .check-ring{width:70px;height:70px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;animation:checkPop .4s ease .1s both;box-shadow:0 6px 24px rgba(0,102,204,.4);animation:checkPop .4s ease .1s both,glow 2.5s ease-in-out 1s infinite}
-.hero-title{font-size:22px;font-weight:800;color:#fff;letter-spacing:-.04em}
-.hero-sub{font-size:13px;color:rgba(255,255,255,.7);line-height:1.6;max-width:300px}
-.hero-ref{font-family:'DM Mono',monospace;font-size:11px;color:rgba(255,255,255,.4);margin-top:2px}
+.hero-title{font-size:21px;font-weight:800;color:#fff;letter-spacing:-.04em;position:relative;z-index:1}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.65);line-height:1.65;max-width:300px;position:relative;z-index:1}
+.hero-ref{font-family:'DM Mono',monospace;font-size:11px;color:rgba(255,255,255,.35);margin-top:2px;position:relative;z-index:1}
 
 /* ECO ROW */
 .eco-row{background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;align-items:center;justify-content:center;box-shadow:var(--sh)}
@@ -55,10 +55,10 @@ img{display:block}
 .r-ic{width:30px;height:30px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .r-t{font-size:13px;font-weight:700;color:var(--ink1)}
 .r-rows{display:flex;flex-direction:column}
-.r-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--line2)}
+.r-row{display:flex;align-items:flex-start;justify-content:space-between;padding:11px 14px;border-bottom:1px solid var(--line2);gap:12px}
 .r-row:last-child{border-bottom:none}
-.r-lbl{font-size:12px;color:var(--ink3)}
-.r-val{font-size:12px;font-weight:700;color:var(--ink1);text-align:right}
+.r-lbl{font-size:12px;color:var(--ink3);flex-shrink:0}
+.r-val{font-size:12px;font-weight:700;color:var(--ink1);text-align:right;word-break:break-word;max-width:55%}
 .r-val.grn{color:var(--blue)}
 .r-val.mono{font-family:'DM Mono',monospace;font-size:11px}
 
@@ -79,7 +79,7 @@ img{display:block}
 <body>
 
 <nav class="nav">
-  <div class="nav-logo" style="display:flex;align-items:center;gap:8px"><img src="assets/ecocash.png" alt="EcoCash" style="height:24px;width:auto"><div style="width:1px;height:16px;background:rgba(255,255,255,.3)"></div><img src="assets/econet.png" alt="Econet" style="height:22px;width:auto"></div>
+  <div class="nav-logo" style="display:flex;align-items:center;gap:8px"><img src="assets/ecocash.png" alt="EcoCash" style="height:28px;width:auto"><div style="width:1px;height:16px;background:rgba(255,255,255,.3)"></div><img src="assets/econet.png" alt="Econet" style="height:22px;width:auto"></div>
   <span class="nav-status">&#x2713; Activated</span>
 </nav>
 
@@ -94,7 +94,7 @@ img{display:block}
     <div class="hero-ref" id="txnRef">TXN #BUN-000000</div>
   </div>
 
-  <div class="eco-row" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 14px;background:var(--card);border:1.5px solid var(--line);border-radius:12px;box-shadow:var(--sh)"><img src="assets/ecocash.png" alt="EcoCash" style="height:24px;width:auto"><img src="assets/econet.png" alt="Econet" style="height:22px;width:auto"></div>
+  <div class="eco-row" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 14px;background:var(--card);border:1.5px solid var(--line);border-radius:12px;box-shadow:var(--sh)"><img src="assets/ecocash.png" alt="EcoCash" style="height:28px;width:auto"><img src="assets/econet.png" alt="Econet" style="height:22px;width:auto"></div>
 
   <div class="receipt">
     <div class="r-head">
@@ -109,7 +109,7 @@ img{display:block}
       <div class="r-row"><span class="r-lbl">Validity</span><span class="r-val" id="rcpValidity">—</span></div>
       <div class="r-row"><span class="r-lbl">Amount Paid</span><span class="r-val grn" id="rcpAmt">USD —</span></div>
       <div class="r-row"><span class="r-lbl">Number</span><span class="r-val mono" id="rcpNum">+263 77 &bull;&bull;&bull;&bull;&bull; 00</span></div>
-      <div class="r-row"><span class="r-lbl">Payment</span><span class="r-val" style="display:flex;align-items:center;gap:5px;justify-content:flex-end"><img src="assets/ecocash.png" alt="EcoCash" style="height:24px;width:auto"><img src="assets/econet.png" alt="Econet" style="height:22px;width:auto"></span></div>
+      <div class="r-row"><span class="r-lbl">Payment</span><span class="r-val" style="display:flex;align-items:center;gap:5px;justify-content:flex-end"><img src="assets/ecocash.png" alt="EcoCash" style="height:28px;width:auto"><img src="assets/econet.png" alt="Econet" style="height:22px;width:auto"></span></div>
       <div class="r-row"><span class="r-lbl">Status</span><span class="r-val grn">&#x2713; Confirmed &amp; Active</span></div>
     </div>
   </div>
