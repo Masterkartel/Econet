@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#0057B8">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>Bundle Activated &middot; EcoCash</title>
+<title>Bundle Activated · EcoCash</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -28,27 +28,25 @@ img{display:block}
 :root{
   --pri:#0057B8;--pri-cont:#D6E4FF;--on-pri-cont:#001B4D;
   --sec:#CC0000;
-  --bg:#F2F4FF;--surf:#FFFFFF;
-  --surf-lo:#F2F4FF;--surf-mid:#ECEFFE;
+  --surf:#FFFFFF;--surf-lo:#F2F4FF;--surf-mid:#ECEFFE;
   --on-surf:#191C22;--on-surf-v:#42474F;
-  --outline:#73788A;--outline-v:#C3C7D6;
+  --outline-v:#C3C7D6;
   --grn:#16A34A;
   --r-md:16px;--r-lg:24px;--r-xl:28px;--r-full:999px;
-  --sh1:0 1px 2px rgba(0,0,0,.06),0 1px 3px rgba(0,0,0,.08);
-  --sh-pri:0 2px 12px rgba(0,87,184,.22);
-  --sh-sec:0 2px 12px rgba(204,0,0,.22);
+  --sh1:0 1px 2px rgba(0,0,0,.06),0 2px 6px rgba(0,0,0,.07);
+  --sh-pri:0 2px 12px rgba(0,87,184,.25);
 }
 
-@keyframes pgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes pgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @keyframes checkPop{
   0%  {opacity:0;transform:scale(0)}
-  60% {transform:scale(1.18)}
-  80% {transform:scale(.95)}
+  60% {transform:scale(1.15)}
+  80% {transform:scale(.96)}
   100%{opacity:1;transform:scale(1)}
 }
 @keyframes ripple{to{transform:scale(4);opacity:0}}
 
-/* ─── NAV ─────────────────────────────────── */
+/* NAV */
 .nav{
   flex-shrink:0;
   background:var(--pri);
@@ -59,83 +57,91 @@ img{display:block}
 }
 .nav-logos{display:flex;align-items:center;gap:10px}
 .nav-logos img{height:24px;width:auto}
+/* EcoCash first — greyscale so blue "Eco" shows on blue nav */
 .nav-logos img:first-child{filter:grayscale(1) brightness(10)}
-.nav-sep{width:1px;height:18px;background:rgba(255,255,255,.3)}
+.nav-sep{width:1px;height:18px;background:rgba(255,255,255,.3);flex-shrink:0}
 
-/* ─── SCROLL ──────────────────────────────── */
+/* SCROLL — flex:1, scrolls, foot sits outside */
 .scroll{
   flex:1;min-height:0;
   overflow-y:auto;overflow-x:hidden;
   -webkit-overflow-scrolling:touch;
   overscroll-behavior-y:contain;
   scrollbar-width:none;
-  padding:16px 16px calc(140px + env(safe-area-inset-bottom,0px));
+  padding:14px 14px 24px;
   display:flex;flex-direction:column;gap:12px;
-  animation:pgIn .3s ease both;
+  animation:pgIn .28s ease both;
 }
 .scroll::-webkit-scrollbar{display:none}
 
-/* ─── HERO ─────────────────────────────────── */
+/* HERO */
 .hero{
   background:linear-gradient(155deg,var(--pri) 0%,#003A8C 100%);
   border-radius:var(--r-xl);
-  padding:36px 24px 40px;
+  padding:32px 20px 36px;
   display:flex;flex-direction:column;
-  align-items:center;text-align:center;
-  gap:12px;
+  align-items:center;text-align:center;gap:12px;
   position:relative;overflow:hidden;
+  flex-shrink:0;
 }
-/* Decorative circles */
-.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.06);pointer-events:none}
-.hero::after{content:'';position:absolute;bottom:-30px;left:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none}
+.hero::before{
+  content:'';position:absolute;
+  top:-40px;right:-40px;width:160px;height:160px;
+  border-radius:50%;background:rgba(255,255,255,.06);pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;
+  bottom:-30px;left:-30px;width:120px;height:120px;
+  border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none;
+}
 
-/* CHECK RING — critical: must be perfectly circular */
+/* CHECK RING — guaranteed circle */
 .ring-wrap{
-  /* Wrapper prevents hero flex from stretching the ring */
   display:flex;align-items:center;justify-content:center;
-  width:100%;position:relative;z-index:1;
+  width:100%;z-index:1;position:relative;
 }
 .check-ring{
   width:80px;height:80px;
-  /* Belt + suspenders for perfect circle */
   min-width:80px;min-height:80px;
-  aspect-ratio:1/1;
-  flex-shrink:0;
-  border-radius:50%;
-  background:#fff;
+  aspect-ratio:1/1;flex-shrink:0;
+  border-radius:50%;background:#fff;
   display:flex;align-items:center;justify-content:center;
-  /* Single animation — no conflicts */
-  animation:checkPop .5s cubic-bezier(.34,1.56,.64,1) .15s both;
-  box-shadow:0 0 0 10px rgba(255,255,255,.12),0 8px 32px rgba(0,0,0,.22);
+  animation:checkPop .5s cubic-bezier(.34,1.56,.64,1) .1s both;
+  box-shadow:0 0 0 10px rgba(255,255,255,.12),0 8px 28px rgba(0,0,0,.2);
 }
-
-.hero-title{font-size:22px;font-weight:700;color:#fff;letter-spacing:-.3px;line-height:1.25;position:relative;z-index:1}
-.hero-sub{font-size:14px;color:rgba(255,255,255,.72);line-height:1.6;max-width:290px;position:relative;z-index:1}
+.hero-title{
+  font-size:22px;font-weight:700;color:#fff;
+  letter-spacing:-.3px;line-height:1.25;
+  position:relative;z-index:1;
+}
+.hero-sub{
+  font-size:13px;color:rgba(255,255,255,.72);
+  line-height:1.6;max-width:280px;
+  position:relative;z-index:1;
+}
 .hero-ref{
   font-size:11px;font-family:'DM Mono',monospace;
-  color:rgba(255,255,255,.55);
-  background:rgba(255,255,255,.1);
-  padding:4px 14px;border-radius:var(--r-full);
+  color:rgba(255,255,255,.6);
+  background:rgba(255,255,255,.12);
+  padding:5px 16px;border-radius:var(--r-full);
   position:relative;z-index:1;
-  letter-spacing:.3px;
-  max-width:calc(100% - 48px);
+  max-width:calc(100% - 40px);
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-  display:block;text-align:center;
 }
 
-/* ─── ECO ROW ─────────────────────────────── */
+/* ECO ROW */
 .eco-row{
   background:var(--surf);
   border:1px solid var(--outline-v);
   border-radius:var(--r-md);
   padding:14px 20px;
   display:flex;align-items:center;justify-content:center;gap:16px;
-  box-shadow:var(--sh1);
+  box-shadow:var(--sh1);flex-shrink:0;
 }
 .eco-row img{height:26px;width:auto}
 .eco-row-sep{width:1px;height:20px;background:var(--outline-v)}
 
-/* ─── RECEIPT ─────────────────────────────── */
+/* RECEIPT */
 .receipt{
   background:var(--surf);
   border:1px solid var(--outline-v);
@@ -143,6 +149,7 @@ img{display:block}
   border-radius:var(--r-md);
   overflow:hidden;
   box-shadow:var(--sh1);
+  flex-shrink:0;
 }
 .receipt-head{
   padding:14px 16px;
@@ -150,102 +157,113 @@ img{display:block}
   display:flex;align-items:center;gap:12px;
 }
 .receipt-ic{
-  width:40px;height:40px;
+  width:36px;height:36px;
   display:flex;align-items:center;justify-content:center;flex-shrink:0;
 }
-.receipt-ic img{height:20px;width:auto}
-.receipt-title{font-size:16px;font-weight:600;color:var(--on-surf)}
-
-.receipt-row{
-  display:flex;align-items:flex-start;
+.receipt-ic img{height:22px;width:auto}
+.receipt-title{font-size:15px;font-weight:600;color:var(--on-surf)}
+.r-row{
+  display:flex;align-items:center;
   justify-content:space-between;
-  padding:11px 16px;
+  padding:12px 16px;
   border-bottom:1px solid var(--outline-v);
   gap:12px;
 }
-.receipt-row:last-child{border-bottom:none}
-.r-lbl{font-size:12px;color:var(--on-surf-v);flex-shrink:0;letter-spacing:.3px;padding-top:1px}
-.r-val{font-size:13px;font-weight:600;color:var(--on-surf);text-align:right;word-break:break-word;max-width:58%}
-.r-val.accent{color:var(--pri)}
-.r-val.ok{color:var(--grn)}
+.r-row:last-child{border-bottom:none}
+.r-lbl{font-size:12px;color:var(--on-surf-v);flex-shrink:0}
+.r-val{
+  font-size:13px;font-weight:600;color:var(--on-surf);
+  text-align:right;word-break:break-word;max-width:60%;
+}
+.r-val.blue{color:var(--pri)}
+.r-val.red{color:var(--sec)}
+.r-val.green{color:var(--grn)}
 .r-val.mono{font-family:'DM Mono',monospace;font-size:12px;font-weight:500}
 
-/* ─── ACTIVATION CARD ─────────────────────── */
+/* ACTIVATION CARD */
 .act-card{
-  background:rgba(22,163,74,.1);
-  border:1px solid rgba(22,163,74,.2);
+  background:rgba(22,163,74,.08);
+  border:1px solid rgba(22,163,74,.18);
   border-radius:var(--r-md);
-  padding:18px 20px;
+  padding:16px 18px;
   text-align:center;
+  flex-shrink:0;
 }
-.act-card-title{font-size:14px;font-weight:600;color:#14532D;margin-bottom:6px}
-.act-card-body{font-size:13px;color:#166534;line-height:1.65;opacity:.9}
+.act-card-t{font-size:14px;font-weight:600;color:#14532D;margin-bottom:5px}
+.act-card-b{font-size:13px;color:#166534;line-height:1.6;opacity:.85}
 
-/* ─── FOOT ─────────────────────────────────── */
+/* FOOT — outside scroll, always visible */
 .foot{
   flex-shrink:0;
   background:var(--surf);
   border-top:1px solid var(--outline-v);
   padding:12px 16px max(16px,env(safe-area-inset-bottom,0px));
   display:flex;flex-direction:column;gap:8px;
-  box-shadow:0 -1px 4px rgba(0,0,0,.06);
+  box-shadow:0 -1px 6px rgba(0,0,0,.07);
 }
-.btn-primary{
+.btn-pri{
   height:48px;border-radius:var(--r-full);
   background:var(--pri);color:#fff;
   font-size:14px;font-weight:600;letter-spacing:.2px;
   display:flex;align-items:center;justify-content:center;gap:8px;
   box-shadow:var(--sh-pri);
   position:relative;overflow:hidden;
-  transition:transform .12s,box-shadow .12s,background .12s;
+  transition:transform .12s,background .12s,box-shadow .12s;
   font-family:'DM Sans',sans-serif;
 }
-.btn-primary:active{transform:scale(.97);box-shadow:none;background:#0046A3}
-.btn-outline{
+.btn-pri:active{transform:scale(.97);background:#0046A3;box-shadow:none}
+.btn-out{
   height:40px;border-radius:var(--r-full);
-  background:transparent;
-  color:var(--on-pri-cont);
+  background:transparent;color:var(--pri);
   font-size:14px;font-weight:500;
   display:flex;align-items:center;justify-content:center;
-  border:1px solid var(--pri);
+  border:1.5px solid var(--pri);
   transition:background .12s;
   font-family:'DM Sans',sans-serif;
 }
-.btn-outline:active{background:var(--pri-cont)}
-
-.rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(255,255,255,.22);transform:scale(0);animation:ripple .5s ease forwards}
+.btn-out:active{background:var(--pri-cont)}
+.rip{
+  position:absolute;border-radius:50%;pointer-events:none;
+  background:rgba(255,255,255,.22);
+  transform:scale(0);animation:ripple .5s ease forwards;
+}
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav class="nav">
   <div class="nav-logos">
     <img src="assets/ecocash.png" alt="EcoCash">
     <div class="nav-sep"></div>
     <img src="assets/econet.png" alt="Econet">
   </div>
-  <svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#16A34A"/><path d="M7 12.5l3.5 3.5 6.5-7" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+  <!-- Green tick in nav -->
+  <svg width="22" height="22" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="11" fill="#16A34A"/>
+    <path d="M7 12.5l3.5 3.5 6.5-7" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </svg>
 </nav>
 
+<!-- SCROLL AREA -->
 <div class="scroll">
 
   <!-- HERO -->
   <div class="hero">
     <div class="ring-wrap">
       <div class="check-ring">
-        <!-- Industry standard: filled green circle with white stroke check -->
-        <svg width="46" height="46" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none">
           <circle cx="12" cy="12" r="12" fill="#16A34A"/>
           <path d="M6.5 12.5l4 4 7-8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
     </div>
     <div class="hero-title">Bundle Activated! &#x1F4F6;</div>
-    <div class="hero-sub">Your Econet bundle is now live. Check your phone for a confirmation SMS from Econet.</div>
+    <div class="hero-sub">Your Econet bundle is now live. You'll receive a confirmation SMS from Econet shortly.</div>
     <div class="hero-ref" id="txnRef">TXN #BUN-000000</div>
   </div>
 
-  <!-- LOGO ROW -->
+  <!-- LOGOS ROW -->
   <div class="eco-row">
     <img src="assets/ecocash.png" alt="EcoCash">
     <div class="eco-row-sep"></div>
@@ -260,28 +278,47 @@ img{display:block}
       </div>
       <div class="receipt-title">Bundle Receipt</div>
     </div>
-    <div class="receipt-row"><span class="r-lbl">Bundle</span><span class="r-val accent" id="rcpBundle">—</span></div>
-    <div class="receipt-row"><span class="r-lbl">Data / Allowance</span><span class="r-val" id="rcpData">—</span></div>
-    <div class="receipt-row"><span class="r-lbl">Valid for</span><span class="r-val" id="rcpVal">—</span></div>
-    <div class="receipt-row"><span class="r-lbl">Amount Paid</span><span class="r-val" style="color:var(--sec);font-weight:700" id="rcpAmt">USD —</span></div>
-    <div class="receipt-row"><span class="r-lbl">Number</span><span class="r-val mono" id="rcpNum">+263 &bull;&bull;&bull;&bull;&bull;&bull;&bull;</span></div>
-    <div class="receipt-row"><span class="r-lbl">Status</span><span class="r-val ok">&#x2713; Confirmed &amp; Active</span></div>
+    <div class="r-row">
+      <span class="r-lbl">Bundle</span>
+      <span class="r-val blue" id="rcpBundle">—</span>
+    </div>
+    <div class="r-row">
+      <span class="r-lbl">Data / Allowance</span>
+      <span class="r-val" id="rcpData">—</span>
+    </div>
+    <div class="r-row">
+      <span class="r-lbl">Valid for</span>
+      <span class="r-val" id="rcpVal">—</span>
+    </div>
+    <div class="r-row">
+      <span class="r-lbl">Amount Paid</span>
+      <span class="r-val red" id="rcpAmt">USD —</span>
+    </div>
+    <div class="r-row">
+      <span class="r-lbl">Number</span>
+      <span class="r-val mono" id="rcpNum">+263 &bull;&bull;&bull;&bull;&bull;&bull;&bull;</span>
+    </div>
+    <div class="r-row">
+      <span class="r-lbl">Status</span>
+      <span class="r-val green">&#x2713; Confirmed &amp; Active</span>
+    </div>
   </div>
 
-  <!-- ACTIVATION NOTE -->
+  <!-- ACTIVATION CARD -->
   <div class="act-card">
-    <div class="act-card-title">Your bundle is ready to use</div>
-    <div class="act-card-body">Activated instantly on your Econet line. No restart or configuration required.</div>
+    <div class="act-card-t">&#x2713; Your bundle is ready to use</div>
+    <div class="act-card-b">Activated instantly on your Econet line. No restart or configuration required.</div>
   </div>
 
 </div><!-- /scroll -->
 
+<!-- FOOT — always visible, outside scroll -->
 <div class="foot">
-  <button class="btn-primary" onclick="window.location.href='bundles.html'">
+  <button class="btn-pri" id="btnBuy">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12l7-7 7 7"/></svg>
     Buy Another Bundle
   </button>
-  <button class="btn-outline" onclick="window.location.href='bundles.html'">Back to Home</button>
+  <button class="btn-out" id="btnHome">Back to Home</button>
 </div>
 
 <script>
@@ -304,15 +341,16 @@ if(recip.raw){
   el('rcpNum').textContent='+263 '+d.slice(0,2)+' \u2022\u2022\u2022\u2022\u2022 '+d.slice(-2);
 }
 
-document.querySelectorAll('.btn-primary,.btn-outline').forEach(function(b){
-  b.addEventListener('pointerdown',function(e){
-    var r=b.getBoundingClientRect(),sz=Math.max(r.width,r.height)*2;
-    var rip=document.createElement('span');
-    rip.className='rip';
-    rip.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(e.clientX-r.left-sz/2)+'px;top:'+(e.clientY-r.top-sz/2)+'px;position:absolute;';
-    b.appendChild(rip);rip.addEventListener('animationend',function(){rip.remove();});
-  },{passive:true});
-});
+function rip(btn,e){
+  var r=btn.getBoundingClientRect(),sz=Math.max(r.width,r.height)*2;
+  var s=document.createElement('span');
+  s.className='rip';
+  s.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(e.clientX-r.left-sz/2)+'px;top:'+(e.clientY-r.top-sz/2)+'px;position:absolute;';
+  btn.appendChild(s);s.addEventListener('animationend',function(){s.remove();});
+}
+el('btnBuy').addEventListener('pointerdown',function(e){rip(this,e);},{passive:true});
+el('btnBuy').addEventListener('click',function(){window.location.href='bundles.html';});
+el('btnHome').addEventListener('click',function(){window.location.href='bundles.html';});
 </script>
 </body>
 </html>
